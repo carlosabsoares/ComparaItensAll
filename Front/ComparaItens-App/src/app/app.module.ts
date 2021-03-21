@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { CategoryComponent } from './category/category.component';
 import { ManufacturerComponent } from './manufacturer/manufacturer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     CategoryComponent,
       ManufacturerComponent,
-      ManufacturerComponent
+      ManufacturerComponent,
+      NavComponent
    ],
   imports: [
     BrowserModule,
