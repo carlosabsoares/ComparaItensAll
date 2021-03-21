@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  # Database layer
+  mysql:
+    container_name: comparaitem_mysql_db
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_ROOT_PASSWORD
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: "A123456@"
+    ports:
+      - "3306:3306"
+    networks:
+      - conquista_network
+
+  conquista_tmp_dump:
+    build: ./Deploy/Database
+    command: sh -c "/usr/bin/mysql -h mysql -uroot -pA123456@ < /usr/work/database/schema.sql"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - conquista_network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - conquista_network
+
+#Docker Networks
+networks:
+  conquista_network:
+    driver: bridge
