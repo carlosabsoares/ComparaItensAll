@@ -32,7 +32,8 @@ namespace ComparaItens.Api
             services.HandlerMap();
 
             //Injeção de dependencia do banco de dados
-            services.AddDbContext<DataContext>(opt => opt.UseMySql(Configuration.GetConnectionString("Mysql")));
+            //services.AddDbContext<DataContext>(opt => opt.UseMySql(Configuration.GetConnectionString("Mysql")));
+            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCors();
             services.AddControllers();
@@ -89,39 +90,6 @@ namespace ComparaItens.Api
                 }
                 });
                 //=========================================================================
-
-                //c.SwaggerDoc("v1", new OpenApiInfo { Title = "Compara Itens", Version = "v1" });
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
-
-                //c.CustomSchemaIds(x => x.FullName);
-                //c.AddSecurityDefinition("Bearer",
-                //new OpenApiSecurityScheme
-                //{
-                //    Description = "Por favor inserir no campo o valor \"Bearer\", em seguida o JWT",
-                //    Name = "Authorization",
-                //    In = ParameterLocation.Header,
-                //    Type = SecuritySchemeType.ApiKey,
-                //    Scheme = "Bearer"
-                //});
-                //c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                //{
-                //    {
-                //    new OpenApiSecurityScheme
-                //    {
-                //        Reference = new OpenApiReference
-                //        {
-                //            Type = ReferenceType.SecurityScheme,
-                //            Id = "Bearer"
-                //        },
-                //        Scheme = "oauth2",
-                //        Name = "Bearer",
-                //        In = ParameterLocation.Header,
-                //        },
-                //        new List<string>()
-                //    }
-                //});
             });
         }
 
