@@ -1,7 +1,47 @@
-<h1>Lista de Categorias</h1>
+<h2>Categorias</h2>
+<hr>
 
-<div *ngFor="let category of categorys">
-  <p><b>Id: </b>{{category.id}}</p>
-  <p><b> Descrição</b>: {{category.description}}</p>
-  <hr>
+<div class="form-inline">
+  <div class="form-group mb-2">
+    <label class="mr-2">Filtro:</label>
+    <input type="text"
+           class="from-control mr-2"
+           placeholder="buscar"
+           [(ngModel)]="filterListCategory"
+           >
+  </div>
 </div>
+
+<!-- <div class="form-inline">
+  <div class="form-group mb-2">
+    <input type="text" class="from-control mr-2" placeholder="buscar" >
+    <button class="btn btn-outline-success">Buscar</button>
+  </div>
+</div> -->
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+        <th>#</th>
+        <th>Descrição</th>
+        <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="categorys && categorys.length" >
+      <tr *ngFor="let category of categorysFiltred">
+        <td>{{category.id}}</td>
+        <td>{{category.description}}</td>
+        <td>
+          <button type="button" class="btn btn-primary btn-sm mr-2">Editar</button>
+          <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+        </td>
+      </tr>
+  </tbody>
+  <tfoot *ngIf="!categorys.length">
+    <tr>
+      <td colspan="3" class="text-center">
+        <h4>Nenhuma categoria cadastrada!</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
