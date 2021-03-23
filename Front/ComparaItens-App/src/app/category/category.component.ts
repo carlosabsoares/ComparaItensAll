@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Category } from '../models/Category';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'app-category',
@@ -8,39 +9,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryComponent implements OnInit {
 
-  public categorys: any = [];
-  public categorysFiltred: any = [];
+  public categorys: Category[] = [];
+  public categorysFiltred: Category[] = [];
 
-  private _filterListCategory: string = '';
+  private filterListedCategory = '';
 
   public get filterListCategory(): string {
-      return this._filterListCategory;
+      return this.filterListedCategory;
   }
 
   public set filterListCategory(value: string){
-    this._filterListCategory = value;
+    this.filterListedCategory = value;
     this.categorysFiltred = this.filterListCategory ? this.filterCategorys(this.filterListCategory): this.categorys;
   }
 
-  filterCategorys(filterBy: string): any{
+  public filterCategorys(filterBy: string): Category[]{
     filterBy = filterBy.toLocaleLowerCase();
     return this.categorys.filter(
       (category: { description: string; }) => category.description.toLocaleLowerCase().indexOf(filterBy) !== -1
-    )
+    );
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private categoryService: CategoryService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getCategorys();
   }
 
   public getCategorys(): void{
 
     // tslint:disable-next-line: deprecation
-    this.http.get('https://localhost:44324/v1/comparaItens/category/findAll').subscribe(
-      response => {
-        this.categorys = response;
+    this.categoryService.getCategorys().subscribe(
+      (categoryList: Category[]) => {
+        this.categorys = categoryList;
         this.categorysFiltred = this.categorys;
       },
       error => console.log(error)

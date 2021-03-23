@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse'
+import { CategoryService } from './services/category.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse'
     CollapseModule.forRoot(),
     FormsModule
   ],
-  providers: [],
+  providers: [CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
