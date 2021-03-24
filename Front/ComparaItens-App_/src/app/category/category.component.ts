@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Category } from '../models/Category';
 import { CategoryService } from '../services/category.service';
 
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-
+  //modalRef: BsModalRef;
   public categorys: Category[] = [];
   public categorysFiltred: Category[] = [];
 
@@ -30,7 +31,7 @@ export class CategoryComponent implements OnInit {
     );
   }
 
-  constructor(private categoryService: CategoryService) { }
+  constructor( private categoryService: CategoryService) { }
 
   public ngOnInit(): void {
     this.getCategorys();
@@ -47,4 +48,16 @@ export class CategoryComponent implements OnInit {
       error => console.log(error)
     );
   }
-}
+
+//   openModal(template: TemplateRef<any>): void {
+//     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+//   }
+
+//   confirm(): void {
+//     this.modalRef.hide();
+//   }
+
+//   decline(): void {
+//     this.modalRef.hide();
+//   }
+ }

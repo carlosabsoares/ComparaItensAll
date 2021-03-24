@@ -84,7 +84,7 @@ namespace ComparaItens.Domain.Handlers
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
             User _entity = new User();
-            _entity.Id = Guid.Parse(command.Id);
+            _entity.Id = command.Id;
             _entity.Login = _verify.Login;
             _entity.Password = command.Password;
             _entity.Name = command.Name;

@@ -1,0 +1,9 @@
+.login-page {
+  width: 340px;
+  margin: 50px auto;
+  font-size: 15px;
+}
+
+.form > .form-group {
+  margin: 8px 0;
+}
