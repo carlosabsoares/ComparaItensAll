@@ -1,59 +1,53 @@
 import React, {useEffect, useContext, useState} from 'react'
 import { Link } from "react-router-dom";
 import {AuthContext} from '../../../services/auth/auth-context'
-import {findAll} from '../../../services/user/user-service'
+import {findAll} from '../../../services/manufacturer/manufacturer-service'
 
-export default function AdminUserList() {
+export default function ManufacturerListPage(props) {
     const {state, dispatch} = useContext(AuthContext)
-    const [users, setUsers] = useState([])
-    
+    const [manufacturers, setManufacturers] = useState([])
+    const {valores} = props
 
     useEffect(() => {
-        async function fetchUsers() {
+        async function fetchManufacturers() {
             console.log("token",state.token)
             try {
                 const response = await findAll(state.token)
-                setUsers(response)
+                setManufacturers(response)
                 console.log('response',response)
             } catch (error) {
                 console.error(error)
             }
         }
-
-        fetchUsers()
+        fetchManufacturers()
     }, [])
-
-    
 
     return (
         <div className="user-list-container">
-            
-            <Link to="/admin/user/add" >
-                <button> add user</button>
-            </Link>
 
             <table class="table">
                 <thead>
                     <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Perfil</th>
-                    <th scope="col">Opções</th>
+                    <th scope="col">teste</th>
+                    <th scope="col">description</th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map(user => {
+                    {manufacturers.map(manufacturer => {
                         return (
                             <tr>
-                                <th scope="row">{user.name}</th>
-                                <td>{user.email}</td>
-                                <td>{user.role}</td>
+                                <th scope="row">{manufacturer.id}</th>
+                                <td>{manufacturer.description}</td>
                                 <td></td>
                             </tr>
                         )
                     })}
                 </tbody>
             </table>
+
+            <button onClick={valores} >close manufacturer</button>
+            
         </div>
     )
 }

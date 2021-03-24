@@ -25,13 +25,17 @@ function App() {
             <LoginPage />
           </Route>
 
-          <Route path="/admin/users">
-            <AdminUsersListPage />
+          <Route path="/admin/users" component={AdminUsersListPage}/>
+
+          <Route path="/admin/manufacturers">
+            <ManufacturerListPage />
           </Route>
 
           <Route path="/admin/manufacturers">
             <ManufacturerListPage />
           </Route>
+
+
         </Switch>
       </Router>
     </AuthProvider>

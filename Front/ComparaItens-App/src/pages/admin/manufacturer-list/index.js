@@ -1,11 +1,13 @@
 import React, {useEffect, useContext, useState} from 'react'
 import { Link } from "react-router-dom";
 import {AuthContext} from '../../../services/auth/auth-context'
-import {findAll} from '../../../services/manufacturer-service'
+import {findAll} from '../../../services/manufacturer/manufacturer-service'
+import AddManufactorer from './add'
 
 export default function ManufacturerListPage() {
     const {state, dispatch} = useContext(AuthContext)
     const [manufacturers, setManufacturers] = useState([])
+    const [showModal, setShowModal] = useState(false)
     
     useEffect(() => {
         async function fetchManufacturers() {
@@ -21,12 +23,15 @@ export default function ManufacturerListPage() {
         fetchManufacturers()
     }, [])
 
+    function handleModal()
+    {
+        setShowModal(!showModal);
+    }
+
     return (
         <div className="user-list-container">
             
-            <Link to="/admin/user/add" >
-                <button> add manufacturer</button>
-            </Link>
+            <button onClick={handleModal} >add manufacturer</button>
 
             <table class="table">
                 <thead>
@@ -48,6 +53,10 @@ export default function ManufacturerListPage() {
                     })}
                 </tbody>
             </table>
+
+            {showModal && <AddManufactorer valores = {handleModal}/>}
+
         </div>
     )
 }
+
