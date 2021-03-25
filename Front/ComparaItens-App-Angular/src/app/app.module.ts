@@ -19,7 +19,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 import { ManufacturerComponent } from './components/manufacturer/manufacturer.component';
 
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './shared/nav/nav.component';
 
 import { CategoryService } from './services/category.service';
 
