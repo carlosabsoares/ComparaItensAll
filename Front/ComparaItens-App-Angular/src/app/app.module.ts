@@ -23,15 +23,19 @@ import { NavComponent } from './nav/nav.component';
 import { CategoryService } from './services/category.service';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+import { UserComponent } from './user/user.component';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
-  declarations: [
+  declarations: [		
     AppComponent,
     CategoryComponent,
       ManufacturerComponent,
       ManufacturerComponent,
       NavComponent,
-      DateTimeFormatPipe
+      DateTimeFormatPipe,
+      UserComponent,
+      ProductComponent
    ],
   imports: [
     BrowserModule,
