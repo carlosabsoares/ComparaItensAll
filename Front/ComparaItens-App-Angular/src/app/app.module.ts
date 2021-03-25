@@ -16,10 +16,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CategoryComponent } from './components/category/category.component';
-
+import { TituloComponent } from './shared/titulo/titulo.component';
 import { ManufacturerComponent } from './components/manufacturer/manufacturer.component';
-import { NavComponent } from './nav/nav.component';
 
+import { NavComponent } from './nav/nav.component';
 
 import { CategoryService } from './services/category.service';
 
@@ -27,6 +27,8 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { UserComponent } from './components/user/user.component';
 import { ProductComponent } from './components/product/product.component';
 import { from } from 'rxjs';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { from } from 'rxjs';
     NavComponent,
     DateTimeFormatPipe,
     UserComponent,
-    ProductComponent
+    TituloComponent,
+    ProductComponent,
+    DashboardComponent
    ],
   imports: [
     BrowserModule,
