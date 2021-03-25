@@ -16,6 +16,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CategoryComponent } from './category/category.component';
+
 import { ManufacturerComponent } from './manufacturer/manufacturer.component';
 import { NavComponent } from './nav/nav.component';
 
@@ -25,17 +26,18 @@ import { CategoryService } from './services/category.service';
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { UserComponent } from './user/user.component';
 import { ProductComponent } from './product/product.component';
+import { from } from 'rxjs';
+
 
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
     CategoryComponent,
-      ManufacturerComponent,
-      ManufacturerComponent,
-      NavComponent,
-      DateTimeFormatPipe,
-      UserComponent,
-      ProductComponent
+    ManufacturerComponent,
+    NavComponent,
+    DateTimeFormatPipe,
+    UserComponent,
+    ProductComponent
    ],
   imports: [
     BrowserModule,
