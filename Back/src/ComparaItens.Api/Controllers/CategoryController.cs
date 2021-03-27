@@ -64,5 +64,20 @@ namespace ComparaItens.Api.Controllers
 
             return result;
         }
+
+        /// <summary>Retorna categorias de produtos</summary>
+        /// <returns>Retorna categorias de produtos</returns>
+        [HttpGet("category/findAllById")]
+        //[Authorize(Roles = "Administrator")]
+        [ProducesResponseType(typeof(IList<Category>), 200)]
+        public async Task<Category> FindByIdCategory(
+            [FromQuery] int id,
+            [FromServices] ICategoryRepository repository)
+        {
+
+            var result = await repository.FindById(id);
+
+            return result;
+        }
     }
 }

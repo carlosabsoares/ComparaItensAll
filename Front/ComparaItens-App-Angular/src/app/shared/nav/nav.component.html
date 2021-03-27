@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="dashboard">ComparaItens</a>
     <button class="navbar-toggler" (click) = "isCollapsed = !isCollapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,13 +7,13 @@
     <div class="collapse navbar-collapse" [collapse]="isCollapsed" id="navbarNav">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="categorias">Categorias</a>
+          <a class="nav-link" routerLink="categorias/lista">Categorias</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="fabricantes">Fabricantes</a>
+          <a class="nav-link" routerLink="fabricantes/listas">Fabricantes</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="produtos">Produtos</a>
+          <a class="nav-link" routerLink="produtos/lista">Produtos</a>
         </li>
       </ul>
 

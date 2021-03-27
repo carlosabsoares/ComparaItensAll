@@ -23,11 +23,14 @@ import { NavComponent } from './shared/nav/nav.component';
 
 import { CategoryService } from './services/category.service';
 
+import { from } from 'rxjs';
+
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { UserComponent } from './components/user/user.component';
 import { ProductComponent } from './components/product/product.component';
-import { from } from 'rxjs';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CategoryDetailComponent } from './components/category/category-detail/category-detail.component';
+import { CategoryListComponent } from './components/category/category-list/category-list.component';
 
 
 
@@ -41,7 +44,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     UserComponent,
     TituloComponent,
     ProductComponent,
-    DashboardComponent
+    DashboardComponent,
+    CategoryDetailComponent,
+    CategoryListComponent
    ],
   imports: [
     BrowserModule,
