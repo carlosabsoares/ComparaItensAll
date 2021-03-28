@@ -10,36 +10,78 @@
 	<div class="col-md-6">
 
     <!--FORM VAI AQUI-->
-    <form class="p-1">
+    <form [formGroup]="form" class="p-1">
         <div class="pb-2 d-block d-md-none">
           <h3 class="border-bottom">Cadastro de Usuário</h3>
         </div>
         <div class="form-row">
           <div class="form-group col-sm-6">
             <label>Primeiro Nome</label>
-            <input type="text" class="form-control" placeholder="Insira o Primeiro nome" />
+            <input type="text" class="form-control"
+            formControlName="primeiroNome"
+            [ngClass]="{'is-invalid': f.primeiroNome.errors && f.primeiroNome.touched }"
+            placeholder="Insira o Primeiro nome" />
+            <div *ngIf="form.get('primeiroNome')?.hasError('required')"  class="invalid-feedback">
+              Primeiro nome é obrigatório
+            </div>
           </div>
           <div class="form-group col-sm-6">
             <label>Último nome</label>
-            <input type="text" class="form-control" placeholder="Insira o Último nome" />
+            <input type="text" class="form-control"
+            formControlName="ultimoNome"
+            [ngClass]="{'is-invalid': f.ultimoNome.errors && f.ultimoNome.touched }"
+            placeholder="Insira o Último nome" />
+            <div *ngIf="form.get('ultimoNome')?.hasError('required')"  class="invalid-feedback">
+              Último nome é obrigatório
+            </div>
           </div>
         </div>
         <div class="form-group">
-          <label for="">Email:</label>
-          <input class="form-control" type="text" placeholder="Insira o Nome Completo" />
+          <label for="">E-mail:</label>
+          <input class="form-control" type="text"
+          formControlName="email"
+          [ngClass]="{'is-invalid': f.email.errors && f.email.touched }"
+          placeholder="Insira o E-mail" />
+          <div *ngIf="form.get('email')?.hasError('required')"  class="invalid-feedback">
+            E-mail é obrigatório
+          </div>
+          <div *ngIf="form.get('email')?.hasError('email')"  class="invalid-feedback">
+            E-mail deve ser válido
+          </div>
         </div>
         <div class="form-group">
           <label for="">Usuario:</label>
-          <input class="form-control" type="text" placeholder="Insira o nome de Usuário" />
+          <input class="form-control" type="text"
+          formControlName="userName"
+          [ngClass]="{'is-invalid': f.userName.errors && f.userName.touched }"
+          placeholder="Insira o nome de Usuário" />
+          <div *ngIf="form.get('userName')?.hasError('required')"  class="invalid-feedback">
+            Usuário é obrigatório
+          </div>
         </div>
         <div class="form-row">
           <div class="form-group col-sm-6">
             <label for="">Senha:</label>
-            <input class="form-control" type="password" placeholder="Digite uma Senha" />
+            <input class="form-control" type="password"
+            formControlName="senha"
+            [ngClass]="{'is-invalid': f.senha.errors && f.senha.touched }"
+            placeholder="Digite uma Senha" />
+            <div *ngIf="form.get('senha')?.hasError('required')"  class="invalid-feedback">
+              Senha é obrigatório
+            </div>
+            <div *ngIf="form.get('senha')?.hasError('minLength')"  class="invalid-feedback">
+              Senha deve ter no mínimo 6 digitos
+            </div>
           </div>
           <div class="form-group col-sm-6">
             <label for="">Confirmar Senha:</label>
-            <input class="form-control" type="password" placeholder="Confirme a Senha" />
+            <input class="form-control" type="password"
+            formControlName="confirmeSenha"
+            [ngClass]="{'is-invalid': f.confirmeSenha.errors && f.confirmeSenha.touched }"
+            placeholder="Confirme a Senha" />
+            <div *ngIf="form.get('confirmeSenha')?.hasError('required')"  class="invalid-feedback">
+              Confirmação de senha é obrigatório
+            </div>
           </div>
         </div>
         <div class="form-row p-1 mb-3">

@@ -1,10 +1,21 @@
-<div class="card rounded shadow-sm p-3">
-<form>
+<div class="card rounded shadow-sm">
+<form [formGroup]="form">
   <div class="p-3">
     <div class="form-row">
       <div class="form-group col-md-12">
         <label>Descrição</label>
-        <input type="text" class="form-control" placeholder="Insira o Tema">
+        <input type="text" class="form-control"
+               [ngClass]="{'is-invalid': f.description.errors && f.description.touched }"
+               formControlName="description" placeholder="Insira a descrição">
+        <div *ngIf="form.get('description')?.hasError('required')"  class="invalid-feedback">
+          Descrição é obrigatória
+        </div>
+        <div *ngIf="form.get('description')?.hasError('minlength')" class="invalid-feedback">
+          Descrição deve ter no mínimo 3 dígitos
+        </div>
+        <div *ngIf="form.get('description')?.hasError('maxlength')" class="invalid-feedback">
+          Descrição deve ter no máximo 50 dígitos
+        </div>
       </div>
     </div>
   </div>

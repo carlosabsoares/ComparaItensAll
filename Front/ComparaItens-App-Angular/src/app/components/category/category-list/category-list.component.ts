@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Category } from 'src/app/models/Category';
-import { CategoryService } from 'src/app/services/category.service';
+import { Category } from '@app/models/Category';
+import { CategoryService } from '@app/services/category.service';
 
 @Component({
   selector: 'app-category-list',
