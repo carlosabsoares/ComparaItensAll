@@ -1,13 +1,11 @@
 import React from 'react'
-import {
-    BrowserRouter as Router,
-    Route
-  } from "react-router-dom";
+import { Route } from 'react-router-dom'
+import LoginPage from 'pages/login'
+import { useAuthDataContext } from 'services/auth/auth-provider'
 
-function PrivateRoute() {
-    return (
-        // <Route exact path="/">
-        //     {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />}
-        // </Route>
-    )
+export const PrivateRoute = ({ component, ...options }) => {
+  const { user } = useAuthDataContext()
+  const finalComponent = user ? component : LoginPage
+
+  return <Route {...options} component={finalComponent} />
 }

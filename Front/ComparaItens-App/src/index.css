@@ -5,9 +5,27 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f4f3ef;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.action-btn-edit,
+.action-btn-remove {
+  border: none;
+  background: none;
+  transition: 200ms ease-out;
+}
+.action-btn-edit:hover,
+.action-btn-remove:hover {
+  transform: scale(1.1);
+}
+
+.action-btn-edit {
+}
+
+.action-btn-remove {
 }

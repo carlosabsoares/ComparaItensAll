@@ -1,6 +1,6 @@
 import React, {useEffect, useContext, useState} from 'react'
 import { Link } from "react-router-dom";
-import {AuthContext} from '../../../services/auth/auth-context'
+import {AuthContext} from '../../../services/auth/auth-provider'
 import {findAll} from '../../../services/user/user-service'
 
 export default function AdminUserAddPage() {
