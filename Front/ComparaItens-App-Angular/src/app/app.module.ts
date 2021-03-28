@@ -31,22 +31,29 @@ import { ProductComponent } from './components/product/product.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CategoryDetailComponent } from './components/category/category-detail/category-detail.component';
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CategoryComponent,
-    ManufacturerComponent,
-    NavComponent,
     DateTimeFormatPipe,
+    NavComponent,
+    ManufacturerComponent,
     UserComponent,
     TituloComponent,
     ProductComponent,
     DashboardComponent,
+    CategoryComponent,
     CategoryDetailComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent,
+    ProfileComponent
    ],
   imports: [
     BrowserModule,
