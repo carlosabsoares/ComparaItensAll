@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -43,7 +44,8 @@ export class CategoryListComponent implements OnInit {
               private categoryService: CategoryService,
               private modalService: BsModalService,
               private toastr: ToastrService,
-              private spinner: NgxSpinnerService
+              private spinner: NgxSpinnerService,
+              private router: Router
               ) { }
 
   public ngOnInit(): void {
@@ -78,6 +80,10 @@ export class CategoryListComponent implements OnInit {
 
   decline(): void {
     this.modalRef.hide();
+  }
+
+  detailCategory(id: number): void{
+    this.router.navigate([`/categorias/detalhe/${id}`]);
   }
 
 }
