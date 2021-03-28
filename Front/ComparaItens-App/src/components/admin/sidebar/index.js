@@ -32,6 +32,11 @@ export function SideBar() {
       >
         <Nav>
           <li>
+            <NavLink to="/login" className="nav-link" activeClassName="active">
+              <p>Login</p>
+            </NavLink>
+          </li>
+          <li>
             <NavLink
               to="/admin/manufacturers"
               className="nav-link"
@@ -40,9 +45,14 @@ export function SideBar() {
               <p>Fabricantes</p>
             </NavLink>
           </li>
+
           <li>
-            <NavLink to="/login" className="nav-link" activeClassName="active">
-              <p>Login</p>
+            <NavLink
+              to="/admin/products"
+              className="nav-link"
+              activeClassName="active"
+            >
+              <p>Produtos</p>
             </NavLink>
           </li>
 

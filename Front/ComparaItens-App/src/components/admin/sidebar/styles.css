@@ -9,3 +9,22 @@
   border-right: 1px solid #ddd;
   background: #212120;
 }
+
+.sidebar ul.nav {
+  margin-top: 20px;
+  display: block;
+}
+
+.sidebar ul.nav li > a {
+  margin: 10px 15px 0;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  position: relative;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 10px 8px;
+  line-height: 30px;
+  opacity: 0.7;
+}

@@ -1,0 +1,35 @@
+.multi-filter-box {
+  display: flex;
+  flex-wrap: wrap;
+  background: #f3f3f3;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 32px;
+}
+
+.multi-filter-box > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 4px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(13, 110, 253, 0.3);
+}
+
+.multi-filter-box > div > p {
+  margin-bottom: 0;
+  margin-right: 8px;
+}
+
+.multi-filter-box > div > i {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 8px 10px;
+  border-radius: 50%;
+  color: #444;
+}
+
+.plus-button {
+  display: inline-block;
+  margin-left: 16px;
+}
