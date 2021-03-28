@@ -56,6 +56,16 @@ export function SideBar() {
             </NavLink>
           </li>
 
+          <li>
+            <NavLink
+              to="/admin/categories"
+              className="nav-link"
+              activeClassName="active"
+            >
+              <p>Categorias</p>
+            </NavLink>
+          </li>
+
           {/* {this.props.routes.map((prop, key) => {
             return (
               <li
