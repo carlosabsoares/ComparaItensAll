@@ -10,7 +10,7 @@ import { CategoryDetailComponent } from './components/category/category-detail/c
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 
 const routes: Routes = [
-
+  {path: 'categorias', redirectTo:'categorias/lista'},
   { path: 'categorias', component: CategoryComponent,
     children: [
         {path: 'detalhe/:id', component: CategoryDetailComponent},
