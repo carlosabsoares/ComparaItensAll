@@ -1,4 +1,4 @@
-import { Header } from 'components/admin/header'
+import { Header } from 'components/admin/header/header'
 import { SideBar } from 'components/admin/sidebar'
 
 import './styles.css'

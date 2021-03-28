@@ -73,15 +73,15 @@ export function Header() {
             </InputGroup>
           </form> */}
           <Nav navbar>
-            <NavItem>
+            {/* <NavItem>
               <Link to="#pablo" className="nav-link btn-magnify">
                 <i className="nc-icon nc-layout-11" />
                 <p>
                   <span className="d-lg-none d-md-block">Stats</span>
                 </p>
               </Link>
-            </NavItem>
-            <Dropdown
+            </NavItem> */}
+            {/* <Dropdown
               nav
               //isOpen={this.state.dropdownOpen}
               //toggle={(e) => this.dropdownToggle(e)}
@@ -97,10 +97,10 @@ export function Header() {
                 <DropdownItem tag="a">Another Action</DropdownItem>
                 <DropdownItem tag="a">Something else here</DropdownItem>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
             <NavItem>
-              <Link to="#pablo" className="nav-link btn-rotate">
-                <i className="nc-icon nc-settings-gear-65" />
+              <Link to="/login" className="nav-link btn-rotate">
+                <i class="fas fa-user"></i>
                 <p>
                   <span className="d-lg-none d-md-block">Account</span>
                 </p>
