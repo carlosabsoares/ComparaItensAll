@@ -11,7 +11,7 @@ import {
 } from 'reactstrap'
 
 import { useAuthDataContext } from 'services/auth/auth-provider'
-import { findAll } from 'services/manufacturer/manufacturer-service'
+import * as manufacturerService from 'services/manufacturer/manufacturer-service'
 import { PageWrapper } from 'components/page-wrapper'
 import AddManufacturerPage from './add'
 
@@ -23,7 +23,7 @@ export default function ManufacturerListPage() {
   async function fetchManufacturers() {
     console.log('token', token)
     try {
-      const response = await findAll(token)
+      const response = await manufacturerService.findAll(token)
       setManufacturers(response)
       console.log('response', response)
     } catch (error) {
@@ -41,7 +41,14 @@ export default function ManufacturerListPage() {
 
   function onPressEdit(manufacturer) {}
 
-  function onPressRemove(manufacturer) {}
+  async function onPressRemove(manufacturer) {
+    try {
+      await manufacturerService.remove(manufacturer.id)
+      setManufacturers(manufacturers.filter((m) => m.id === manufacturer.id))
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
 
   return (
     <>
@@ -96,37 +103,6 @@ export default function ManufacturerListPage() {
                             </td>
                           </tr>
                         ))}
-
-                        <tr>
-                          <td>Dakota Rice</td>
-                          <td>Niger</td>
-                          <td className="text-right">
-                            <button
-                              className="action-btn-edit"
-                              onClick={onPressEdit({})}
-                            >
-                              <i class="far fa-edit"></i>
-                            </button>
-                            <button
-                              className="action-btn-remove text-danger"
-                              onClick={onPressRemove({})}
-                            >
-                              <i class="far fa-trash-alt"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Minerva Hooper</td>
-                          <td>Curaçao</td>
-                          <td className="text-right">
-                            <button className="action-btn-edit">
-                              <i class="far fa-edit"></i>
-                            </button>
-                            <button className="action-btn-remove text-danger">
-                              <i class="far fa-trash-alt"></i>
-                            </button>
-                          </td>
-                        </tr>
                       </tbody>
                     </Table>
                   </CardBody>
