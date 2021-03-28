@@ -17,6 +17,7 @@ import {
   InputGroupAddon,
   Input,
 } from 'reactstrap'
+import './styles.css'
 
 export function Header() {
   return (
@@ -33,6 +34,7 @@ export function Header() {
       //   //       : 'navbar-absolute fixed-top ' +
       //   //         (this.state.color === 'transparent' ? 'navbar-transparent ' : '')
       // }
+      className="navbar-absolute navbar-transparent bg-transparent"
     >
       <Container fluid>
         <div className="navbar-wrapper">
@@ -100,7 +102,7 @@ export function Header() {
             </Dropdown> */}
             <NavItem>
               <Link to="/login" className="nav-link btn-rotate">
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user" style={{ color: '#717171' }}></i>
                 <p>
                   <span className="d-lg-none d-md-block">Account</span>
                 </p>

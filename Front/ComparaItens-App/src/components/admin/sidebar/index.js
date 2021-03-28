@@ -31,6 +31,21 @@ export function SideBar() {
         //ref={this.sidebar}
       >
         <Nav>
+          <li>
+            <NavLink
+              to="/admin/manufacturers"
+              className="nav-link"
+              activeClassName="active"
+            >
+              <p>Fabricantes</p>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/login" className="nav-link" activeClassName="active">
+              <p>Login</p>
+            </NavLink>
+          </li>
+
           {/* {this.props.routes.map((prop, key) => {
             return (
               <li

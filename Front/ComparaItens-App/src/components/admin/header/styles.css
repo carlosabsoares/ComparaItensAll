@@ -1,0 +1,11 @@
+.navbar {
+  border-bottom: 1px solid #ddd;
+  padding: .5rem 1rem;
+}
+
+.navbar .navbar-absolute {
+  position: absolute;
+  width: 100%;
+  padding-top: 10px;
+  z-index: 1029;
+}

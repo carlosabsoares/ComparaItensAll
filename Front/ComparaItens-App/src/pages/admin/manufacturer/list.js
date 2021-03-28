@@ -47,13 +47,15 @@ export default function ManufacturerListPage() {
     <>
       <PageWrapper>
         <div className="user-list-container">
-          <Button
-            className="btn-round"
-            color="primary"
-            onClick={toggleAddModal}
-          >
-            Adicionar Fabricante
-          </Button>
+          <div>
+            <Button
+              className="btn-round"
+              color="primary"
+              onClick={toggleAddModal}
+            >
+              Adicionar Fabricante
+            </Button>
+          </div>
 
           <br />
 
