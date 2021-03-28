@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import LoginPage from 'pages/login'
 import AdminUsersListPage from 'pages/admin/users-list-page'
 import ManufacturerListPage from 'pages/admin/manufacturer/list'
+import { AdminProductListPage } from 'pages/admin/product/list'
 import AuthDataProvider from 'services/auth/auth-provider'
-import './App.css'
-import { Header } from 'components/admin/header/header'
-import { SideBar } from 'components/admin/sidebar'
 import { RootPageWrapper } from 'components/root-page-wrapper'
+
+import './App.css'
 
 function App() {
   return (
@@ -30,6 +30,10 @@ function App() {
 
             <Route path="/admin/manufacturers">
               <ManufacturerListPage />
+            </Route>
+
+            <Route path="/admin/products">
+              <AdminProductListPage />
             </Route>
           </Switch>
         </RootPageWrapper>
