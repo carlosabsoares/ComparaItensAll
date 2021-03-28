@@ -11,20 +11,19 @@ import {
 } from 'reactstrap'
 
 import { useAuthDataContext } from 'services/auth/auth-provider'
-import * as manufacturerService from 'services/manufacturer/manufacturer-service'
+import * as categoryService from 'services/category-service'
 import { PageWrapper } from 'components/page-wrapper'
-import AddManufacturerPage from './add'
 
-export default function ManufacturerListPage() {
+export default function CategoryListPage() {
   const { token } = useAuthDataContext()
-  const [manufacturers, setManufacturers] = useState([])
+  const [categories, setCategories] = useState([])
   const [showAddModal, setShowAddModal] = useState(false)
 
-  async function fetchManufacturers() {
+  async function fetchCategories() {
     console.log('token', token)
     try {
-      const response = await manufacturerService.findAll(token)
-      setManufacturers(response)
+      const response = await categoryService.findAll(token)
+      setCategories(response)
       console.log('response', response)
     } catch (error) {
       console.error(error)
@@ -32,19 +31,19 @@ export default function ManufacturerListPage() {
   }
 
   useEffect(() => {
-    fetchManufacturers()
+    fetchCategories()
   }, [])
 
   function toggleAddModal() {
     setShowAddModal(!showAddModal)
   }
 
-  function onPressEdit(manufacturer) {}
+  function onPressEdit(category) {}
 
-  async function onPressRemove(manufacturer) {
+  async function onPressRemove(category) {
     try {
-      await manufacturerService.remove(manufacturer.id)
-      setManufacturers(manufacturers.filter((m) => m.id === manufacturer.id))
+      await categoryService.remove(category.id)
+      setCategories(categories.filter((c) => c.id === category.id))
     } catch (error) {
       console.log('error', error)
     }
@@ -60,7 +59,7 @@ export default function ManufacturerListPage() {
               color="primary"
               onClick={toggleAddModal}
             >
-              Adicionar Fabricante
+              Adicionar Categoria
             </Button>
           </div>
 
@@ -71,7 +70,7 @@ export default function ManufacturerListPage() {
               <Col md="12">
                 <Card>
                   <CardHeader>
-                    <CardTitle tag="h4">Fabricantes</CardTitle>
+                    <CardTitle tag="h4">Categorias</CardTitle>
                   </CardHeader>
                   <CardBody>
                     <Table responsive>
@@ -83,20 +82,20 @@ export default function ManufacturerListPage() {
                         </tr>
                       </thead>
                       <tbody>
-                        {manufacturers.map((manufacturer) => (
+                        {categories.map((category) => (
                           <tr>
-                            <td>{manufacturer.id}</td>
-                            <td>{manufacturer.description}</td>
+                            <td>{category.id}</td>
+                            <td>{category.description}</td>
                             <td className="text-right">
                               <button
                                 className="action-btn-edit"
-                                onClick={onPressEdit(manufacturer)}
+                                onClick={onPressEdit(category)}
                               >
                                 <i class="far fa-edit"></i>
                               </button>
                               <button
                                 className="action-btn-remove text-danger"
-                                onClick={onPressRemove(manufacturer)}
+                                onClick={onPressRemove(category)}
                               >
                                 <i class="far fa-trash-alt"></i>
                               </button>
@@ -112,11 +111,6 @@ export default function ManufacturerListPage() {
           </div>
         </div>
       </PageWrapper>
-      <AddManufacturerPage
-        isModalOpen={showAddModal}
-        toggleModal={toggleAddModal}
-        onAddNewManufacturer={fetchManufacturers}
-      />
     </>
   )
 }

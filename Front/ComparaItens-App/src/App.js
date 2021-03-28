@@ -1,9 +1,12 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
 import LoginPage from 'pages/login'
 import AdminUsersListPage from 'pages/admin/users-list-page'
 import ManufacturerListPage from 'pages/admin/manufacturer/list'
 import { AdminProductListPage } from 'pages/admin/product/list'
+import CategoryListPage from 'pages/admin/category/list'
+
 import AuthDataProvider from 'services/auth/auth-provider'
 import { RootPageWrapper } from 'components/root-page-wrapper'
 
@@ -24,8 +27,8 @@ function App() {
 
             <Route path="/admin/users" component={AdminUsersListPage} />
 
-            <Route path="/admin/manufacturers">
-              <ManufacturerListPage />
+            <Route path="/admin/categories">
+              <CategoryListPage />
             </Route>
 
             <Route path="/admin/manufacturers">

@@ -15,50 +15,89 @@ import {
 } from 'reactstrap'
 
 import { useAuthDataContext } from 'services/auth/auth-provider'
-import { findAll } from 'services/manufacturer/manufacturer-service'
+import * as manufacturerService from 'services/manufacturer/manufacturer-service'
+import * as categoryService from 'services/category-service'
+import * as productService from 'services/product-service'
 import { PageWrapper } from 'components/page-wrapper'
 import './styles.css'
 
 export function AdminProductListPage() {
   const { token } = useAuthDataContext()
+
+  const [pageLoaded, setPageLoaded] = useState(false)
   const [products, setProducts] = useState([])
-  const [category, setCategory] = useState(null)
-  const [manufacturer, setManufacturer] = useState(null)
-  const [specifications, setSpecifications] = useState([null])
+  const [categories, setCategories] = useState([])
+  const [manufacturers, setManufacturers] = useState([])
+
+  const [selectedManufacturer, setSelectedManufacturer] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedSpecifications, setSelectedSpecifications] = useState([])
+  const [specificationInput, setSpecificationInput] = useState(null)
 
   const [showAddModal, setShowAddModal] = useState(false)
 
-  const [specificationInput, setSpecificationInput] = useState(null)
-
-  async function fetchManufacturers() {
-    console.log('token', token)
-    try {
-      const response = await findAll(token)
-      setProducts(response)
-      console.log('response', response)
-    } catch (error) {
-      console.error(error)
+  useEffect(() => {
+    async function fetchFilterData() {
+      try {
+        const [_products, _manufacturers, _categories] = await Promise.all([
+          productService.findAll(),
+          manufacturerService.findAll(),
+          categoryService.findAll(),
+        ])
+        setProducts(_products)
+        setCategories(_categories)
+        setManufacturers(_manufacturers)
+        setPageLoaded(true)
+      } catch (error) {
+        console.log('error', error)
+      }
     }
-  }
+
+    fetchFilterData()
+  }, [])
 
   useEffect(() => {
-    fetchManufacturers()
-  }, [])
+    async function fetchProducts() {
+      if (!pageLoaded) return
+
+      try {
+        const products = await productService.findAll()
+        setProducts(products)
+      } catch (error) {
+        console.log('error', error)
+      }
+    }
+    fetchProducts()
+  }, [pageLoaded, categories, manufacturers])
 
   function toggleAddModal() {
     setShowAddModal(!showAddModal)
   }
 
-  function onPressEdit(manufacturer) {}
+  function onPressEditProduct(product) {}
 
-  function onPressRemove(manufacturer) {}
+  async function onPressRemoveProduct(product) {
+    try {
+      await productService.remove(product.id)
+      setProducts(products.filter((p) => p.id === product.id))
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
 
   function onSubmitSpecification(event) {
     event.preventDefault()
 
     console.log('specificationInput', specificationInput)
-    setSpecifications([...specifications, specificationInput])
+    setSelectedSpecifications([...selectedSpecifications, specificationInput])
     setSpecificationInput(null)
+  }
+
+  function onPressRemoveSpecification(specification) {
+    const newSpecifications = selectedSpecifications.filter(
+      (item) => item === specification
+    )
+    setSelectedSpecifications(newSpecifications)
   }
 
   return (
@@ -104,10 +143,12 @@ export function AdminProductListPage() {
                           style={{ width: 200 }}
                           type="select"
                           id="focusAfterClose"
-                          //onChange={handleSelectChange}
                         >
-                          <option value="true">Yes</option>
-                          <option value="false">No</option>
+                          {manufacturers.map((manufacturer) => (
+                            <option value={manufacturer.id}>
+                              {manufacturer.description}
+                            </option>
+                          ))}
                         </Input>
 
                         <span style={{ marginLeft: '42px !important' }} />
@@ -126,10 +167,12 @@ export function AdminProductListPage() {
                           }}
                           type="select"
                           id="focusAfterClose"
-                          //onChange={handleSelectChange}
                         >
-                          <option value="true">Yes</option>
-                          <option value="false">No</option>
+                          {categories.map((category) => (
+                            <option value={category.id}>
+                              {category.description}
+                            </option>
+                          ))}
                         </Input>
                       </FormGroup>
                       <br />
@@ -143,6 +186,7 @@ export function AdminProductListPage() {
                         </Label>
                         <br />
                         <Input
+                          value={specificationInput}
                           onChange={(event) =>
                             setSpecificationInput(event.target.value)
                           }
@@ -161,14 +205,21 @@ export function AdminProductListPage() {
 
                     <br />
 
-                    <div className="multi-filter-box">
-                      {specifications.map((specification) => (
-                        <div>
-                          <p>{specification} </p>
-                          <i class="fas fa-times"></i>
-                        </div>
-                      ))}
-                    </div>
+                    {selectedSpecifications.length ? (
+                      <div className="multi-filter-box">
+                        {selectedSpecifications.map((specification) => (
+                          <div>
+                            <p>{specification} </p>
+                            <i
+                              class="fas fa-times"
+                              onClick={() =>
+                                onPressRemoveSpecification(specification)
+                              }
+                            ></i>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
 
                     <Table responsive>
                       <thead className="text-primary">
@@ -181,61 +232,28 @@ export function AdminProductListPage() {
                         </tr>
                       </thead>
                       <tbody>
-                        {products.map((manufacturer) => (
+                        {products.map((product) => (
                           <tr>
-                            <td>{manufacturer.id}</td>
-                            <td>{manufacturer.description}</td>
+                            <td>{product.id}</td>
+                            <td>{product.category}</td>
+                            <td>{product.description}</td>
+                            <td>{product.manufacturer}</td>
                             <td className="text-right">
                               <button
                                 className="action-btn-edit"
-                                onClick={onPressEdit(manufacturer)}
+                                onClick={onPressEditProduct(product)}
                               >
                                 <i class="far fa-edit"></i>
                               </button>
                               <button
                                 className="action-btn-remove text-danger"
-                                onClick={onPressRemove(manufacturer)}
+                                onClick={onPressRemoveProduct(product)}
                               >
                                 <i class="far fa-trash-alt"></i>
                               </button>
                             </td>
                           </tr>
                         ))}
-
-                        <tr>
-                          <td>Dakota Rice</td>
-                          <td>Niger</td>
-                          <td>Dakota Rice</td>
-                          <td>Niger</td>
-                          <td className="text-right">
-                            <button
-                              className="action-btn-edit"
-                              onClick={onPressEdit({})}
-                            >
-                              <i class="far fa-edit"></i>
-                            </button>
-                            <button
-                              className="action-btn-remove text-danger"
-                              onClick={onPressRemove({})}
-                            >
-                              <i class="far fa-trash-alt"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Minerva Hooper</td>
-                          <td>Curaçao</td>
-                          <td>Dakota Rice</td>
-                          <td>Niger</td>
-                          <td className="text-right">
-                            <button className="action-btn-edit">
-                              <i class="far fa-edit"></i>
-                            </button>
-                            <button className="action-btn-remove text-danger">
-                              <i class="far fa-trash-alt"></i>
-                            </button>
-                          </td>
-                        </tr>
                       </tbody>
                     </Table>
                   </CardBody>
