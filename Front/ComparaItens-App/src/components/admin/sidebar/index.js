@@ -23,7 +23,8 @@ export function SideBar() {
           href="https://www.creative-tim.com"
           className="simple-text logo-normal"
         >
-          Compara App
+          <i class="fab fa-searchengin"></i>
+          Busca Especificações
         </a>
       </div>
       <div

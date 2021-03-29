@@ -3,11 +3,11 @@
   top: 0;
   height: 100%;
   bottom: 0;
-  width: 260px;
+  width: 220px;
   left: 0;
   z-index: 1030;
   border-right: 1px solid #ddd;
-  background: #212120;
+  background: rgb(76, 164, 236);
 }
 
 .sidebar ul.nav {
@@ -26,5 +26,19 @@
   font-size: 12px;
   padding: 10px 8px;
   line-height: 30px;
-  opacity: 0.7;
+  opacity: 0.7; 
+}
+
+i{
+  margin: 10px 15px 0;
+}
+
+.simple-text, .simple-text:hover{
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-link p:hover{
+  color: #fff !important;
+  font-size: 1.1em;
 }
