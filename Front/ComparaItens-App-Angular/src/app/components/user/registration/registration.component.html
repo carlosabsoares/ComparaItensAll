@@ -82,6 +82,12 @@
             <div *ngIf="form.get('confirmeSenha')?.hasError('required')"  class="invalid-feedback">
               Confirmação de senha é obrigatório
             </div>
+            <div *ngIf="form.get('confirmeSenha')?.hasError('minLength')"  class="invalid-feedback">
+              Senha deve ter no mínimo 6 digitos
+            </div>
+            <div *ngIf="f.confirmeSenha.errors?.mustMatch" class="invalid-feedback">
+              Senha não identica a digitada.
+            </div>
           </div>
         </div>
         <div class="form-row p-1 mb-3">
