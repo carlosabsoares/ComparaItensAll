@@ -13,6 +13,7 @@ import {
 import { useAuthDataContext } from 'services/auth/auth-provider'
 import * as categoryService from 'services/category-service'
 import { PageWrapper } from 'components/page-wrapper'
+import AddCategoryPage from './add'
 
 export default function CategoryListPage() {
   const { token } = useAuthDataContext()
@@ -111,6 +112,11 @@ export default function CategoryListPage() {
           </div>
         </div>
       </PageWrapper>
+      <AddCategoryPage
+        isModalOpen={showAddModal}
+        toggleModal={toggleAddModal}
+        onAddNewManufacturer={fetchCategories}
+      />
     </>
   )
 }
