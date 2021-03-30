@@ -10,6 +10,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from 'reactstrap'
+import categoryService from 'services/category-service'
 import { useAuthDataContext } from 'services/auth/auth-provider'
 
 export default function AddManufacturerPage({
@@ -19,12 +20,13 @@ export default function AddManufacturerPage({
 }) {
   const { token } = useAuthDataContext()
   const [description, setDescription] = useState('')
-  function onFormSubmit(event) {
+
+  async function onFormSubmit(event) {
     event.preventDefault()
 
     console.log('onFormSubmit', description)
-    //save new manuf...
-    //onAddNewManufacturer()
+    await categoryService.add({ description }, token)
+    onAddNewManufacturer()
   }
 
   return (
