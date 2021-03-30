@@ -57,7 +57,6 @@ namespace ComparaItens.Infra.Repositories
                                                                                                              Email = x.Email, 
                                                                                                              Login = x.Login, 
                                                                                                              Name = x.Name, 
-                                                                                                             Password = MaskedEmail(x.Password), 
                                                                                                              Role = x.Role
                                                                                                             }).FirstOrDefaultAsync();
         }
