@@ -90,13 +90,13 @@ export default function CategoryListPage() {
                             <td className="text-right">
                               <button
                                 className="action-btn-edit"
-                                onClick={onPressEdit(category)}
+                                onClick={() => onPressEdit(category)}
                               >
                                 <i class="far fa-edit"></i>
                               </button>
                               <button
                                 className="action-btn-remove text-danger"
-                                onClick={onPressRemove(category)}
+                                onClick={() => onPressRemove(category)}
                               >
                                 <i class="far fa-trash-alt"></i>
                               </button>
