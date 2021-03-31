@@ -23,7 +23,7 @@ export async function findAll(token) {
 
 export async function remove(token, id) {
   const response = await fetch(
-    `https://localhost:44324/v1/comparaItens/category/${id}`,
+    `https://localhost:44324/v1/comparaItens/category/delete/${id}`,
     {
       method: 'DELETE',
       headers: {
