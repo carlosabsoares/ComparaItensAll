@@ -16,8 +16,8 @@ import {
 
 import { useAuthDataContext } from 'services/auth/auth-provider'
 import * as manufacturerService from 'services/manufacturer/manufacturer-service'
-import * as categoryService from 'services/category-service'
-import * as productService from 'services/product-service'
+import * as categoryService from 'services/category/category-service'
+import * as productService from 'services/product/product-service'
 import { PageWrapper } from 'components/page-wrapper'
 import './styles.css'
 

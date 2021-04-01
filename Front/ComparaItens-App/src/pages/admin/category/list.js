@@ -11,7 +11,7 @@ import {
 } from 'reactstrap'
 
 import { useAuthDataContext } from 'services/auth/auth-provider'
-import * as categoryService from 'services/category-service'
+import * as categoryService from 'services/category/category-service'
 import { PageWrapper } from 'components/page-wrapper'
 import AddCategoryPage from './add'
 
@@ -29,6 +29,11 @@ export default function CategoryListPage() {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  function onAddCategory(){
+    fetchCategories()
+    setShowAddModal(false)
   }
 
   useEffect(() => {
@@ -115,7 +120,7 @@ export default function CategoryListPage() {
       <AddCategoryPage
         isModalOpen={showAddModal}
         toggleModal={toggleAddModal}
-        onAddNewManufacturer={fetchCategories}
+        onAddNewManufacturer={onAddCategory}
       />
     </>
   )

@@ -31,6 +31,11 @@ export default function ManufacturerListPage() {
     }
   }
 
+  function onAddManufacture(){
+    fetchManufacturers()
+    setShowAddModal(false)
+  }
+
   useEffect(() => {
     fetchManufacturers()
   }, [])
@@ -115,7 +120,7 @@ export default function ManufacturerListPage() {
       <AddManufacturerPage
         isModalOpen={showAddModal}
         toggleModal={toggleAddModal}
-        onAddNewManufacturer={fetchManufacturers}
+        onAddNewManufacturer={onAddManufacture}
       />
     </>
   )

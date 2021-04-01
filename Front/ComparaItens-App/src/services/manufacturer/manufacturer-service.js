@@ -10,13 +10,31 @@ export async function findAll(token) {
   })
   return await response.json()
 
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-  // return [
-  //   { id: '123123', description: 'asdasdasdasdsa' },
-  //   { id: '123123', description: 'asdasdasdasdsa' },
-  //   { id: '123123', description: 'asdasdasdasdsa' },
-  // ]
+  // await new Promise((resolve) => setTimeout(resolve, 1000))
+  // // return [
+  // //   { id: '123123', description: 'asdasdasdasdsa' },
+  // //   { id: '123123', description: 'asdasdasdasdsa' },
+  // //   { id: '123123', description: 'asdasdasdasdsa' },
+  // // ]
 }
+
+export async function add(manufacturer, token) {
+  const response = await fetch(
+    'https://localhost:44324/v1/comparaItens/manufacturer/create',
+    {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(manufacturer),
+    }
+  )
+
+  return await response.json()
+}
+
 
 export async function remove(token, id) {
   const response = await fetch(
@@ -32,3 +50,6 @@ export async function remove(token, id) {
   )
   return await response.json()
 }
+
+
+

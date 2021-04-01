@@ -10,6 +10,8 @@ import {
   ModalFooter,
   ModalHeader,
 } from 'reactstrap'
+
+import * as manufacturerService from 'services/manufacturer/manufacturer-service'
 import { useAuthDataContext } from 'services/auth/auth-provider'
 
 export default function AddManufacturerPage({
@@ -19,12 +21,13 @@ export default function AddManufacturerPage({
 }) {
   const { token } = useAuthDataContext()
   const [description, setDescription] = useState('')
-  function onFormSubmit(event) {
+
+  async function onFormSubmit(event) {
     event.preventDefault()
 
     console.log('onFormSubmit', description)
-    //save new manuf...
-    //onAddNewManufacturer()
+    await manufacturerService.add({ description }, token)
+    onAddNewManufacturer()
   }
 
   return (

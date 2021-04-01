@@ -10,7 +10,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from 'reactstrap'
-import * as categoryService from 'services/category-service'
+import * as categoryService from 'services/category/category-service'
 import { useAuthDataContext } from 'services/auth/auth-provider'
 
 export default function AddManufacturerPage({

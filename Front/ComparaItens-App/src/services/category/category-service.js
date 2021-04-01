@@ -21,21 +21,6 @@ export async function findAll(token) {
   // ]
 }
 
-export async function remove(token, id) {
-  const response = await fetch(
-    `https://localhost:44324/v1/comparaItens/category/delete/${id}`,
-    {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-  return await response.json()
-}
-
 export async function add(category, token) {
   const response = await fetch(
     'https://localhost:44324/v1/comparaItens/category/create',
@@ -52,3 +37,20 @@ export async function add(category, token) {
 
   return await response.json()
 }
+
+export async function remove(token, id) {
+  const response = await fetch(
+    `https://localhost:44324/v1/comparaItens/category/delete/${id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+  return await response.json()
+}
+
+
