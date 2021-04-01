@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Card,
   CardHeader,
@@ -51,7 +51,7 @@ export default function CategoryListPage() {
   function onPressRemove(category) {
     async function deleteCategory() {
       try {
-        await categoryService.remove(category.id)
+        await categoryService.remove(token, category.id)
         setCategories(categories.filter((c) => c.id === category.id))
       } catch (error) {
         console.log('error', error)
