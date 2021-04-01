@@ -55,7 +55,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna fabricantes de produtos</summary>
         /// <returns>Retorna fabricantes de produtos</returns>
         [HttpGet("manufacturer/findAll")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<Manufacturer>), 200)]
         public async Task<IList<Manufacturer>> FindAllManufacturer(
             [FromServices] IManufacturerRepository repository)
