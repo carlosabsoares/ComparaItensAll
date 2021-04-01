@@ -52,7 +52,7 @@ export default function CategoryListPage() {
     async function deleteCategory() {
       try {
         await categoryService.remove(token, category.id)
-        setCategories(categories.filter((c) => c.id === category.id))
+        setCategories(categories.filter((c) => c.id !== category.id))
       } catch (error) {
         console.log('error', error)
       }
