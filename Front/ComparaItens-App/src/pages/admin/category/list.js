@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 import {
   Card,
   CardHeader,
@@ -14,11 +14,13 @@ import { useAuthDataContext } from 'services/auth/auth-provider'
 import * as categoryService from 'services/category/category-service'
 import { PageWrapper } from 'components/page-wrapper'
 import AddCategoryPage from './add'
+import { ConfirmModal } from 'components/confirm-modal'
 
 export default function CategoryListPage() {
   const { token } = useAuthDataContext()
   const [categories, setCategories] = useState([])
   const [showAddModal, setShowAddModal] = useState(false)
+  const confirmModalRef = useRef(null)
 
   async function fetchCategories() {
     console.log('token', token)
@@ -31,7 +33,7 @@ export default function CategoryListPage() {
     }
   }
 
-  function onAddCategory(){
+  function onAddCategory() {
     fetchCategories()
     setShowAddModal(false)
   }
@@ -46,13 +48,16 @@ export default function CategoryListPage() {
 
   function onPressEdit(category) {}
 
-  async function onPressRemove(category) {
-    try {
-      await categoryService.remove(category.id)
-      setCategories(categories.filter((c) => c.id === category.id))
-    } catch (error) {
-      console.log('error', error)
+  function onPressRemove(category) {
+    async function deleteCategory() {
+      try {
+        await categoryService.remove(category.id)
+        setCategories(categories.filter((c) => c.id === category.id))
+      } catch (error) {
+        console.log('error', error)
+      }
     }
+    confirmModalRef.current.show({ onSuccess: deleteCategory })
   }
 
   return (
@@ -122,6 +127,7 @@ export default function CategoryListPage() {
         toggleModal={toggleAddModal}
         onAddNewManufacturer={onAddCategory}
       />
+      <ConfirmModal ref={confirmModalRef} />
     </>
   )
 }
