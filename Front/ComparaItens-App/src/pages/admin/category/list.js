@@ -14,6 +14,7 @@ import { useAuthDataContext } from 'services/auth/auth-provider'
 import * as categoryService from 'services/category/category-service'
 import { PageWrapper } from 'components/page-wrapper'
 import AddCategoryPage from './add'
+import { EditCategoryPage } from './edit'
 import { ConfirmModal } from 'components/confirm-modal'
 
 export default function CategoryListPage() {
@@ -21,6 +22,7 @@ export default function CategoryListPage() {
   const [categories, setCategories] = useState([])
   const [showAddModal, setShowAddModal] = useState(false)
   const confirmModalRef = useRef(null)
+  const editModalRef = useRef(null)
 
   async function fetchCategories() {
     console.log('token', token)
@@ -46,13 +48,15 @@ export default function CategoryListPage() {
     setShowAddModal(!showAddModal)
   }
 
-  function onPressEdit(category) {}
+  function onPressEdit(category) {
+    editModalRef.current.show(category, fetchCategories)
+  }
 
   function onPressRemove(category) {
     async function deleteCategory() {
       try {
         await categoryService.remove(token, category.id)
-        setCategories(categories.filter((c) => c.id === category.id))
+        setCategories(categories.filter((c) => c.id !== category.id))
       } catch (error) {
         console.log('error', error)
       }
@@ -125,8 +129,10 @@ export default function CategoryListPage() {
       <AddCategoryPage
         isModalOpen={showAddModal}
         toggleModal={toggleAddModal}
-        onAddNewManufacturer={onAddCategory}
+        onSuccess={onAddCategory}
       />
+
+      <EditCategoryPage ref={editModalRef} />
       <ConfirmModal ref={confirmModalRef} />
     </>
   )

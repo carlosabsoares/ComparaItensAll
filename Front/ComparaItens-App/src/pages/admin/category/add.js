@@ -16,7 +16,7 @@ import { useAuthDataContext } from 'services/auth/auth-provider'
 export default function AddManufacturerPage({
   isModalOpen,
   toggleModal,
-  onAddNewManufacturer,
+  onSuccess,
 }) {
   const { token } = useAuthDataContext()
   const [description, setDescription] = useState('')
@@ -26,7 +26,7 @@ export default function AddManufacturerPage({
 
     console.log('onFormSubmit', description)
     await categoryService.add({ description }, token)
-    onAddNewManufacturer()
+    onSuccess()
   }
 
   return (

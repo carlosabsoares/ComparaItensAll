@@ -11,48 +11,81 @@ import {
   ModalHeader,
 } from 'reactstrap'
 import * as categoryService from 'services/category/category-service'
-import { useAuthDataContext } from 'services/auth/auth-provider'
+import {
+  useAuthDataContext,
+  AuthDataContext,
+} from 'services/auth/auth-provider'
 
-export default function AddManufacturerPage({
-  isModalOpen,
-  toggleModal,
-  onAddNewManufacturer,
-  category,
-}) {
-  const { token } = useAuthDataContext()
-  const [description, setDescription] = useState(category.description)
+export class EditCategoryPage extends React.Component {
+  static contextType = AuthDataContext
 
-  async function onFormSubmit(event) {
-    event.preventDefault()
-
-    console.log('onFormSubmit', description)
-    await categoryService.add({ ...category, description }, token)
-    onAddNewManufacturer()
+  state = {
+    description: '',
+    isVisible: false,
   }
 
-  return (
-    <Modal isOpen={isModalOpen} toggle={toggleModal} className={'className'}>
-      <Form inline onSubmit={onFormSubmit}>
-        <ModalHeader toggle={toggleModal}>Editar Categoria</ModalHeader>
-        <ModalBody>
-          <FormGroup>
-            <Label for="focusAfterClose">Descrição</Label>
-            <Input
-              required
-              type="text"
-              onChange={(event) => setDescription(event.target.value)}
-            />
-          </FormGroup>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" type="submit">
-            Salvar
-          </Button>{' '}
-          <Button color="secondary" onClick={toggleModal}>
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Form>
-    </Modal>
-  )
+  _onSuccessCallback = () => {}
+
+  show = (category, onSuccess) => {
+    this.setState({ isVisible: true, description: category.description })
+    this._onSuccessCallback = onSuccess
+  }
+
+  hide = () => {
+    this.setState({ isVisible: false })
+  }
+
+  _onClose = () => {
+    this.setState({ isVisible: false })
+  }
+
+  _onFormSubmit = async (event) => {
+    event.preventDefault()
+    const { description, category } = this.state
+
+    console.log('onFormSubmit', description)
+    await categoryService.edit({ ...category, description }, this.context.token)
+    this._onSuccessCallback()
+  }
+
+  _toggleVisibility = () => {
+    this.setState((prevState) => ({ isVisible: !prevState.isVisible }))
+  }
+
+  render() {
+    const { isVisible, description } = this.state
+
+    return (
+      <Modal
+        isOpen={isVisible}
+        toggle={this._toggleVisibility}
+        className={'className'}
+      >
+        <Form inline onSubmit={this._onFormSubmit}>
+          <ModalHeader>Editar Categoria</ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <Label for="focusAfterClose">Descrição</Label>
+              <Input
+                required
+                type="text"
+                value={description}
+                onChange={(event) =>
+                  this.setState({ description: event.target.value })
+                }
+              />
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" type="submit">
+              Salvar
+            </Button>{' '}
+            <Button color="secondary" onClick={this._onClose}>
+              Cancelar
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+    )
+  }
 }
