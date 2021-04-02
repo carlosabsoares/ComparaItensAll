@@ -18,7 +18,7 @@ const AuthDataProvider = (props) => {
   useEffect(() => {
     async function getAuthDataFromStorage() {
       const data = await localStorage.getItem('authData')
-      if (data) setAuthData(data)
+      if (data) setAuthData(JSON.parse(data))
     }
 
     getAuthDataFromStorage()
@@ -31,9 +31,11 @@ const AuthDataProvider = (props) => {
     localStorage.setItem('authData', JSON.stringify(newAuthData))
   }
 
-  const authDataValue = useMemo(() => ({ ...authData, onLogin, onLogout }), [
+  /* const authDataValue = useMemo(() => ({ ...authData, onLogin, onLogout }), [
     authData,
-  ])
+  ]) */
+  
+  const authDataValue = { ...authData, onLogin, onLogout}
   console.log('authDataValue', authDataValue)
   return <AuthDataContext.Provider value={authDataValue} {...props} />
 }

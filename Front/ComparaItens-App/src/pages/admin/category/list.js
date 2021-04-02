@@ -42,8 +42,8 @@ export default function CategoryListPage() {
   }
 
   useEffect(() => {
-    fetchCategories()
-  }, [])
+    if(token) fetchCategories()
+  }, [token])
 
   function toggleAddModal() {
     setShowAddModal(!showAddModal)
