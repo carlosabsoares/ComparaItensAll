@@ -26,7 +26,10 @@ const AuthDataProvider = (props) => {
 
   const onLogout = () => setAuthData(initialAuthData)
 
-  const onLogin = (newAuthData) => setAuthData(newAuthData)
+  const onLogin = (newAuthData) => {
+    setAuthData(newAuthData)
+    localStorage.setItem('authData', newAuthData)
+  }
 
   const authDataValue = useMemo(() => ({ ...authData, onLogin, onLogout }), [
     authData,

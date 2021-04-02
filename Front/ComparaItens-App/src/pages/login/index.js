@@ -17,7 +17,6 @@ export default function LoginPage() {
       const response = await fetchAuthToken(username, password)
       const { data } = await response.json()
       onLogin(data)
-      localStorage.setItem('token', data.token)
       history.replace('/admin/users')
     } catch (error) {
       console.error(error)
