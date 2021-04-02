@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {
   Button,
+  Dropdown,
   Form,
   FormGroup,
   Input,
@@ -36,6 +37,16 @@ export default function AddManufacturerPage({
         <ModalHeader toggle={toggleModal}>Adicionar Produto</ModalHeader>
         <ModalBody>
           <FormGroup>
+            <div>
+              <div>
+                <label>Categoria</label>
+                <Dropdown></Dropdown>
+              </div>
+              <div>
+                <label>Produto</label>
+              </div>
+            </div>
+
             {/* <Label for="focusAfterClose">Descrição</Label>
             <Input
               required
