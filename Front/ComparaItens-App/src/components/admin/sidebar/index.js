@@ -16,7 +16,7 @@ export function SideBar() {
             {/* <img src={logo} alt="react-logo" /> */}
           </div>
         </a>
-        <a href="https://www.creative-tim.com" className="simple-text logo-normal">
+        <a href="#" className="simple-text logo-normal">
           <i class="fab fa-searchengin"></i>
           Busca Especificações
         </a>
