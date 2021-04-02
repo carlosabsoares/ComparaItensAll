@@ -20,7 +20,7 @@ export function RootPageWrapper({ children }) {
         </div>
       )}
 
-      <div className={`main-panel ${token ? 'has-sidebar' : ''}`}>
+      <div className="main-panel">
         <Header />
         {children}
       </div>
