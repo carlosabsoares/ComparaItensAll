@@ -24,7 +24,9 @@ const AuthDataProvider = (props) => {
     getAuthDataFromStorage()
   }, [])
 
-  const onLogout = () => setAuthData(initialAuthData)
+  const onLogout = () => {
+    localStorage.removeItem('authData')
+    setAuthData(initialAuthData)}
 
   const onLogin = (newAuthData) => {
     setAuthData(newAuthData)

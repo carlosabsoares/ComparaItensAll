@@ -6,8 +6,10 @@ import { Nav } from 'reactstrap'
 
 import logo from 'logo.svg'
 import './styles.css'
+import { useAuthDataContext } from 'services/auth/auth-provider'
 
 export function SideBar() {
+  const {onLogout} = useAuthDataContext()
   return (
     <div className="sidebar" data-color={'red'} data-active-color={'blue'}>
       <div className="logo">
@@ -27,8 +29,12 @@ export function SideBar() {
       >
         <Nav>
           <li>
-            <NavLink to="/login" className="nav-link" activeClassName="active">
-              <p>Login</p>
+            <NavLink
+              to="/admin/categories"
+              className="nav-link"
+              activeClassName="active"
+            >
+              <p>Categorias</p>
             </NavLink>
           </li>
           <li>
@@ -52,12 +58,8 @@ export function SideBar() {
           </li>
 
           <li>
-            <NavLink
-              to="/admin/categories"
-              className="nav-link"
-              activeClassName="active"
-            >
-              <p>Categorias</p>
+            <NavLink to="/login" className="nav-link" activeClassName="active" onClick={onLogout}>
+              <p>Logoff</p>
             </NavLink>
           </li>
         </Nav>

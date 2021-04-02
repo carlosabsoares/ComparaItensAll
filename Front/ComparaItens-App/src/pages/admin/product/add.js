@@ -15,6 +15,12 @@ import {
 import * as productService from 'services/product/product-service'
 import { useAuthDataContext } from 'services/auth/auth-provider'
 
+// import { useAuthDataContext } from 'services/auth/auth-provider'
+// import * as manufacturerService from 'services/manufacturer/manufacturer-service'
+// import * as categoryService from 'services/category/category-service'
+// import * as productService from 'services/product/product-service'
+// import { PageWrapper } from 'components/page-wrapper'
+
 export default function AddManufacturerPage({
   isModalOpen,
   toggleModal,
@@ -40,10 +46,26 @@ export default function AddManufacturerPage({
             <div>
               <div>
                 <label>Categoria</label>
-                <Dropdown></Dropdown>
+
               </div>
               <div>
-                <label>Produto</label>
+                {/* <Label
+                for="focusAfterClose"
+                style={{ display: 'inline-block' }}
+              >
+                Selecione o Fabricante
+              </Label>
+              <Input
+                style={{ width: 200 }}
+                type="select"
+                id="focusAfterClose"
+              >
+                {manufacturers.map((manufacturer) => (
+                  <option value={manufacturer.id}>
+                    {manufacturer.description}
+                  </option>
+                ))}
+              </Input> */}
               </div>
             </div>
 

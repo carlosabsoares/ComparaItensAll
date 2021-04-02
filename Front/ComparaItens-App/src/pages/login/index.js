@@ -17,7 +17,7 @@ export default function LoginPage() {
       const response = await fetchAuthToken(username, password)
       const { data } = await response.json()
       onLogin(data)
-      history.replace('/admin/users')
+      history.replace('/admin')
     } catch (error) {
       console.error(error)
     }
