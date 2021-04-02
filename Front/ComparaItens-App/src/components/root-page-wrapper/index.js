@@ -9,7 +9,16 @@ export function RootPageWrapper({ children }) {
 
   return (
     <div className="main-panel">
-      {token ? <SideBar /> : null}
+      {token ? (
+        <SideBar />
+      ) : (
+        <div className="logo-bar">
+          <p>
+            <i class="fab fa-searchengin"></i>
+            Busca Especificações
+          </p>
+        </div>
+      )}
 
       <div className={`main-panel ${token ? 'has-sidebar' : ''}`}>
         <Header />

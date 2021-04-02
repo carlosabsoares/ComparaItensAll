@@ -7,13 +7,31 @@
 .main-panel {
   position: relative;
   float: right;
-  width: 100%;
+  width: calc(100% - 260px);
   background-color: #f4f3ef;
   transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
 }
 
-.main-panel.has-sidebar {
+/* .main-panel.has-sidebar {
   width: calc(100% - 260px);
+} */
+
+.logo-bar {
+  height: 60px;
+  position: fixed;
+  top: 0;
+  width: 220px;
+  left: 0;
+  z-index: 1030;
+  border-right: 1px solid #ddd;
+  background: rgb(76, 164, 236);
+  display: flex;
+  align-items: center;
+}
+
+.logo-bar p {
+  margin: 0 !important;
+  color: #fff;
 }
 
 .content .card-title {
