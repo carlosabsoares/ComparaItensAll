@@ -25,10 +25,12 @@ export class EditCategoryPage extends React.Component {
   }
 
   _onSuccessCallback = () => {}
+  _category = {}
 
   show = (category, onSuccess) => {
     this.setState({ isVisible: true, description: category.description })
     this._onSuccessCallback = onSuccess
+    this._category = category
   }
 
   hide = () => {
@@ -41,10 +43,13 @@ export class EditCategoryPage extends React.Component {
 
   _onFormSubmit = async (event) => {
     event.preventDefault()
-    const { description, category } = this.state
+    const { description } = this.state
 
-    console.log('onFormSubmit', description)
-    await categoryService.edit({ ...category, description }, this.context.token)
+    await categoryService.edit(
+      { ...this._category, description },
+      this.context.token
+    )
+    this._onClose()
     this._onSuccessCallback()
   }
 
