@@ -20,6 +20,8 @@ import * as categoryService from 'services/category/category-service'
 import * as productService from 'services/product/product-service'
 import { PageWrapper } from 'components/page-wrapper'
 import './styles.css'
+import AddProductPage from './add'
+import { EditManufacturerPage } from './edit'
 
 export function AdminProductListPage() {
   const { token } = useAuthDataContext()
@@ -85,31 +87,32 @@ export function AdminProductListPage() {
     }
   }
 
-  function onSubmitSpecification(event) {
-    event.preventDefault()
-
-    console.log('specificationInput', specificationInput)
-    setSelectedSpecifications([...selectedSpecifications, specificationInput])
-    setSpecificationInput(null)
+  function onAddManufacture(){
+    //fetchManufacturers()
+    setShowAddModal(false)
   }
 
-  function onPressRemoveSpecification(specification) {
-    const newSpecifications = selectedSpecifications.filter(
-      (item) => item === specification
-    )
-    setSelectedSpecifications(newSpecifications)
-  }
+  // function onSubmitSpecification(event) {
+  //   event.preventDefault()
+
+  //   console.log('specificationInput', specificationInput)
+  //   setSelectedSpecifications([...selectedSpecifications, specificationInput])
+  //   setSpecificationInput(null)
+  // }
+
+  // function onPressRemoveSpecification(specification) {
+  //   const newSpecifications = selectedSpecifications.filter(
+  //     (item) => item === specification
+  //   )
+  //   setSelectedSpecifications(newSpecifications)
+  // }
 
   return (
     <>
       <PageWrapper>
         <div className="user-list-container">
           <div>
-            <Button
-              className="btn-round"
-              color="primary"
-              onClick={toggleAddModal}
-            >
+            <Button className="btn-round" color="primary" onClick={toggleAddModal}>
               Adicionar Produto
             </Button>
           </div>
@@ -125,7 +128,7 @@ export function AdminProductListPage() {
                   </CardHeader>
 
                   <CardBody>
-                    <Form inline onSubmit={(e) => e.preventDefault()}>
+                    {/* <Form inline onSubmit={(e) => e.preventDefault()}>
                       <FormGroup
                         style={{
                           display: 'inline-block',
@@ -176,10 +179,10 @@ export function AdminProductListPage() {
                         </Input>
                       </FormGroup>
                       <br />
-                    </Form>
-                    <br />
+                    </Form> */}
+                    {/* <br /> */}
 
-                    <Form onSubmit={onSubmitSpecification}>
+                    {/* <Form onSubmit={onSubmitSpecification}>
                       <FormGroup>
                         <Label for="focusAfterClose">
                           Especificacoes do produto
@@ -219,16 +222,16 @@ export function AdminProductListPage() {
                           </div>
                         ))}
                       </div>
-                    ) : null}
+                    ) : null} */}
 
                     <Table responsive>
                       <thead className="text-primary">
                         <tr>
                           <th>ID</th>
-                          <th>Descrição</th>
                           <th>Categoria</th>
                           <th>Fabricante</th>
-                          <th className="text-right"></th>
+                          <th>Descrição</th>
+                          <th className="text-center">Opções</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -236,9 +239,9 @@ export function AdminProductListPage() {
                           <tr>
                             <td>{product.id}</td>
                             <td>{product.category}</td>
-                            <td>{product.description}</td>
                             <td>{product.manufacturer}</td>
-                            <td className="text-right">
+                            <td>{product.description}</td>
+                            <td className="text-center">
                               <button
                                 className="action-btn-edit"
                                 onClick={onPressEditProduct(product)}
@@ -263,11 +266,11 @@ export function AdminProductListPage() {
           </div>
         </div>
       </PageWrapper>
-      {/* <AddManufacturerPage
+      <AddProductPage
         isModalOpen={showAddModal}
         toggleModal={toggleAddModal}
-        onAddNewManufacturer={fetchManufacturers}
-      /> */}
+        onAddNewManufacturer={onAddManufacture}
+      />
     </>
   )
 }

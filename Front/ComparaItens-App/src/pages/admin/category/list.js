@@ -7,6 +7,7 @@ import {
   Table,
   Row,
   Col,
+  Tooltip,
   Button,
 } from 'reactstrap'
 
@@ -89,7 +90,7 @@ export default function CategoryListPage() {
                         <tr>
                           <th>ID</th>
                           <th>Descrição</th>
-                          <th className="text-right">Opções</th>
+                          <th className="text-center">Opções</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -97,11 +98,8 @@ export default function CategoryListPage() {
                           <tr>
                             <td>{category.id}</td>
                             <td>{category.description}</td>
-                            <td className="text-right">
-                              <button
-                                className="action-btn-edit"
-                                onClick={() => onPressEdit(category)}
-                              >
+                            <td className="text-center">
+                              <button Tooltip = "teste" className="action-btn-edit" onClick={() => onPressEdit(category)}>
                                 <i class="far fa-edit"></i>
                               </button>
                               <button

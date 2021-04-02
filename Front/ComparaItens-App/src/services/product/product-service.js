@@ -35,6 +35,23 @@ export async function findAll(token) {
   // ]
 }
 
+export async function add(product, token) {
+  const response = await fetch(
+    'https://localhost:44324/v1/comparaItens/product/create',
+    {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(product),
+    }
+  )
+
+  return await response.json()
+}
+
 export async function remove(token, id) {
   const response = await fetch(
     `https://localhost:44324/v1/comparaItens/manufacturer/${id}`,
