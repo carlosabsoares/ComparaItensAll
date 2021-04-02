@@ -7,9 +7,13 @@
 .main-panel {
   position: relative;
   float: right;
-  width: calc(100% - 260px);
+  width: 100%;
   background-color: #f4f3ef;
   transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
+}
+
+.main-panel.has-sidebar {
+  width: calc(100% - 260px);
 }
 
 .content .card-title {
