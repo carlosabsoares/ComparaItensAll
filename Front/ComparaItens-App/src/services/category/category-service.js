@@ -11,14 +11,6 @@ export async function findAll(token) {
     }
   )
   return await response.json()
-
-  // await new Promise((resolve) => setTimeout(resolve, 1000))
-  // return [
-  //   { id: '23232323', description: 'desc123123123123' },
-  //   { id: '23232323', description: 'desc123123123123' },
-  //   { id: '23232323', description: 'desc123123123123' },
-  //   { id: '23232323', description: 'desc123123123123' },
-  // ]
 }
 
 export async function add(category, token) {

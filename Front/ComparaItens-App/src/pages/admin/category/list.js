@@ -69,11 +69,7 @@ export default function CategoryListPage() {
       <PageWrapper>
         <div className="user-list-container">
           <div>
-            <Button
-              className="btn-round"
-              color="primary"
-              onClick={toggleAddModal}
-            >
+            <Button className="btn-round" color="primary" onClick={toggleAddModal}>
               Adicionar Categoria
             </Button>
           </div>
@@ -93,7 +89,7 @@ export default function CategoryListPage() {
                         <tr>
                           <th>ID</th>
                           <th>Descrição</th>
-                          <th className="text-right"></th>
+                          <th className="text-right">Opções</th>
                         </tr>
                       </thead>
                       <tbody>

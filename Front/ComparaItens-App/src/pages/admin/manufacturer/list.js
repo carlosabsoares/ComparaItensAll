@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef,  useState } from 'react'
 import {
   Card,
   CardHeader,
@@ -14,11 +14,16 @@ import { useAuthDataContext } from 'services/auth/auth-provider'
 import * as manufacturerService from 'services/manufacturer/manufacturer-service'
 import { PageWrapper } from 'components/page-wrapper'
 import AddManufacturerPage from './add'
+import { EditManufacturerPage } from './edit'
+import { ConfirmModal } from 'components/confirm-modal'
 
 export default function ManufacturerListPage() {
   const { token } = useAuthDataContext()
   const [manufacturers, setManufacturers] = useState([])
   const [showAddModal, setShowAddModal] = useState(false)
+  const confirmModalRef = useRef(null)
+  const editModalRef = useRef(null)
+
 
   async function fetchManufacturers() {
     console.log('token', token)
@@ -44,15 +49,20 @@ export default function ManufacturerListPage() {
     setShowAddModal(!showAddModal)
   }
 
-  function onPressEdit(manufacturer) {}
+  function onPressEdit(manufacturer) {
+    editModalRef.current.show(manufacturer, fetchManufacturers)
+  }
 
   async function onPressRemove(manufacturer) {
-    try {
-      await manufacturerService.remove(manufacturer.id)
-      setManufacturers(manufacturers.filter((m) => m.id === manufacturer.id))
-    } catch (error) {
-      console.log('error', error)
+    async function deleteManufacturer(){
+      try{
+        await manufacturerService.remove(token, manufacturer.id)
+        setManufacturers(manufacturers.filter((m) => m.id !== manufacturer.id))
+      } catch(error){
+        console.log('error', error)
+      }
     }
+    confirmModalRef.current.show({ onSuccess: deleteManufacturer })
   }
 
   return (
@@ -60,11 +70,7 @@ export default function ManufacturerListPage() {
       <PageWrapper>
         <div className="user-list-container">
           <div>
-            <Button
-              className="btn-round"
-              color="primary"
-              onClick={toggleAddModal}
-            >
+            <Button className="btn-round" color="primary" onClick={toggleAddModal}>
               Adicionar Fabricante
             </Button>
           </div>
@@ -84,7 +90,7 @@ export default function ManufacturerListPage() {
                         <tr>
                           <th>ID</th>
                           <th>Descrição</th>
-                          <th className="text-right"></th>
+                          <th className="text-right">Opções</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -93,15 +99,12 @@ export default function ManufacturerListPage() {
                             <td>{manufacturer.id}</td>
                             <td>{manufacturer.description}</td>
                             <td className="text-right">
-                              <button
-                                className="action-btn-edit"
-                                onClick={onPressEdit(manufacturer)}
-                              >
+                              <button className="action-btn-edit" onClick={() => onPressEdit(manufacturer)}>
                                 <i class="far fa-edit"></i>
                               </button>
                               <button
                                 className="action-btn-remove text-danger"
-                                onClick={onPressRemove(manufacturer)}
+                                onClick={()=> onPressRemove(manufacturer)}
                               >
                                 <i class="far fa-trash-alt"></i>
                               </button>
@@ -120,8 +123,11 @@ export default function ManufacturerListPage() {
       <AddManufacturerPage
         isModalOpen={showAddModal}
         toggleModal={toggleAddModal}
-        onAddNewManufacturer={onAddManufacture}
+        onSuccess={onAddManufacture}
       />
+
+      <EditManufacturerPage ref={editModalRef} />
+      <ConfirmModal ref={confirmModalRef} />
     </>
   )
 }
