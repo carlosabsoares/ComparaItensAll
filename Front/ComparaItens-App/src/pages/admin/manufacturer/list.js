@@ -42,8 +42,8 @@ export default function ManufacturerListPage() {
   }
 
   useEffect(() => {
-    fetchManufacturers()
-  }, [])
+    if (token) fetchManufacturers()
+  }, [token])
 
   function toggleAddModal() {
     setShowAddModal(!showAddModal)
