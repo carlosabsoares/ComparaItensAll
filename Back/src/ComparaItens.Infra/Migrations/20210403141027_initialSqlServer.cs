@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ComparaItens.Infra.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initialSqlServer : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +11,7 @@ namespace ComparaItens.Infra.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     description = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
@@ -25,7 +24,7 @@ namespace ComparaItens.Infra.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     description = table.Column<string>(type: "varchar(150)", nullable: false)
                 },
                 constraints: table =>
@@ -40,6 +39,8 @@ namespace ComparaItens.Infra.Migrations
                     idUser = table.Column<string>(type: "varchar(50)", nullable: false),
                     login = table.Column<string>(type: "varchar(50)", nullable: false),
                     password = table.Column<string>(type: "varchar(50)", nullable: false),
+                    name = table.Column<string>(type: "varchar(100)", nullable: false),
+                    email = table.Column<string>(type: "varchar(100)", nullable: false),
                     role = table.Column<string>(type: "varchar(50)", nullable: false)
                 },
                 constraints: table =>
@@ -52,7 +53,7 @@ namespace ComparaItens.Infra.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     description = table.Column<string>(type: "varchar(150)", nullable: false),
                     manufecturerId = table.Column<int>(type: "int(11)", nullable: false),
                     model = table.Column<string>(type: "varchar(150)", nullable: true),
@@ -83,7 +84,7 @@ namespace ComparaItens.Infra.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int(11)", nullable: false),
                     description = table.Column<string>(type: "varchar(150)", nullable: false)
                 },
@@ -124,9 +125,9 @@ namespace ComparaItens.Infra.Migrations
                 column: "manufecturerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tabSpecificationItems_id",
+                name: "IX_tabSpecificationItems_description",
                 table: "tabSpecificationItems",
-                column: "id");
+                column: "description");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tabSpecificationItems_ProductId",

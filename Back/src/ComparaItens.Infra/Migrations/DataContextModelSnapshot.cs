@@ -2,6 +2,7 @@
 using ComparaItens.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ComparaItens.Infra.Migrations
@@ -14,14 +15,16 @@ namespace ComparaItens.Infra.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.12")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ComparaItens.Domain.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
-                        .HasColumnType("int(11)");
+                        .HasColumnType("int(11)")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -40,7 +43,8 @@ namespace ComparaItens.Infra.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
-                        .HasColumnType("int(11)");
+                        .HasColumnType("int(11)")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -59,7 +63,8 @@ namespace ComparaItens.Infra.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
-                        .HasColumnType("int(11)");
+                        .HasColumnType("int(11)")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CategoryId")
                         .HasColumnName("categoryId")
@@ -106,7 +111,8 @@ namespace ComparaItens.Infra.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
-                        .HasColumnType("int(11)");
+                        .HasColumnType("int(11)")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -119,7 +125,7 @@ namespace ComparaItens.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("Description");
 
                     b.HasIndex("ProductId");
 
@@ -129,7 +135,6 @@ namespace ComparaItens.Infra.Migrations
             modelBuilder.Entity("ComparaItens.Domain.Entities.User", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("idUser")
                         .HasColumnType("varchar(50)");
 
@@ -182,8 +187,8 @@ namespace ComparaItens.Infra.Migrations
 
             modelBuilder.Entity("ComparaItens.Domain.Entities.SpecificationItem", b =>
                 {
-                    b.HasOne("ComparaItens.Domain.Entities.Product", "Product")
-                        .WithMany()
+                    b.HasOne("ComparaItens.Domain.Entities.Product", null)
+                        .WithMany("SpecificationItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
