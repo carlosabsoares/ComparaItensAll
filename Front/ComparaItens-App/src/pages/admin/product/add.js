@@ -7,6 +7,7 @@ import {
   Input,
   Label,
   Modal,
+  Table,
   ModalBody,
   ModalFooter,
   ModalHeader,
@@ -44,37 +45,68 @@ export default function AddManufacturerPage({
         <ModalBody>
           <FormGroup>
             <div>
-              <div>
-                <label>Categoria</label>
-
-              </div>
-              <div>
-                {/* <Label
-                for="focusAfterClose"
-                style={{ display: 'inline-block' }}
-              >
-                Selecione o Fabricante
-              </Label>
-              <Input
-                style={{ width: 200 }}
-                type="select"
-                id="focusAfterClose"
-              >
-                {manufacturers.map((manufacturer) => (
-                  <option value={manufacturer.id}>
-                    {manufacturer.description}
-                  </option>
-                ))}
-              </Input> */}
-              </div>
+              <FormGroup style={{ display: 'inline-block', width: 200, marginRight: 32, }}>
+                <Label for="focusAfterClose" style={{ display: 'inline-block'}}>
+                  Selecione a Categoria
+                </Label>
+                <Input style={{ width: 200 }} type="select" id="focusAfterClose">
+                </Input>
+                <span style={{ marginLeft: '42px !important' }} />
+              </FormGroup>
             </div>
 
-            {/* <Label for="focusAfterClose">Descrição</Label>
-            <Input
-              required
-              type="text"
-              onChange={(event) => setDescription(event.target.value)}
-            /> */}
+            <div>
+            <FormGroup style={{ display: 'inline-block', width: 200, marginRight: 32, }}>
+                <Label for="focusAfterClose" style={{ display: 'inline-block'}}>
+                  Selecione o Fabricante
+                </Label>
+                <Input style={{ width: 200 }} type="select" id="focusAfterClose">
+                </Input>
+                <span style={{ marginLeft: '42px !important' }} />
+              </FormGroup>
+            </div>
+
+            <div>
+            <FormGroup>
+                  <Label for="focusAfterClose">
+                    Especificacoes do produto
+                  </Label>
+                  <br />
+                  <Input style={{ width: 300, display: 'inline-block',}} type="text" required/>
+                  <Button type="submit" className="plus-button">
+                    <i class="fas fa-plus"></i>
+                  </Button>
+                </FormGroup>
+            </div>
+
+            <div>
+              <Table responsive>
+                <thead className="text-primary">
+                  <tr>
+                    <th>Especificações</th>
+                    <th className="text-center">Opções</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                    <tr>
+                      <td></td>
+                      <td className="text-center">
+                        <button Tooltip = "teste" className="action-btn-edit">
+                          <i class="far fa-edit"></i>
+                        </button>
+                        <button
+                          className="action-btn-remove text-danger"
+                        >
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </td>
+                    </tr>
+                </tbody>
+              </Table>
+
+            </div>
+
           </FormGroup>
         </ModalBody>
         <ModalFooter>

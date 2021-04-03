@@ -129,24 +129,11 @@ export function AdminProductListPage() {
 
                   <CardBody>
                     {/* <Form inline onSubmit={(e) => e.preventDefault()}>
-                      <FormGroup
-                        style={{
-                          display: 'inline-block',
-                          width: 200,
-                          marginRight: 32,
-                        }}
-                      >
-                        <Label
-                          for="focusAfterClose"
-                          style={{ display: 'inline-block' }}
-                        >
+                      <FormGroup style={{ display: 'inline-block', width: 200, marginRight: 32, }}>
+                        <Label for="focusAfterClose" style={{ display: 'inline-block'}}>
                           Selecione o Fabricante
                         </Label>
-                        <Input
-                          style={{ width: 200 }}
-                          type="select"
-                          id="focusAfterClose"
-                        >
+                        <Input style={{ width: 200 }} type="select" id="focusAfterClose">
                           {manufacturers.map((manufacturer) => (
                             <option value={manufacturer.id}>
                               {manufacturer.description}
