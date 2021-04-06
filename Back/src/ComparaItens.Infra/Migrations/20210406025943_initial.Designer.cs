@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComparaItens.Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210403153242_initial")]
+    [Migration("20210406025943_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,20 @@ namespace ComparaItens.Infra.Migrations
                     b.HasIndex("Id");
 
                     b.ToTable("tabCategory");
+                });
+
+            modelBuilder.Entity("ComparaItens.Domain.Entities.Characteristic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Characteristics");
                 });
 
             modelBuilder.Entity("ComparaItens.Domain.Entities.Manufacturer", b =>

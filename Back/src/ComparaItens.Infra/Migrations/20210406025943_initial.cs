@@ -8,6 +8,19 @@ namespace ComparaItens.Infra.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Characteristics",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Characteristics", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tabCategory",
                 columns: table => new
                 {
@@ -143,6 +156,9 @@ namespace ComparaItens.Infra.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Characteristics");
+
             migrationBuilder.DropTable(
                 name: "tabSpecificationItems");
 

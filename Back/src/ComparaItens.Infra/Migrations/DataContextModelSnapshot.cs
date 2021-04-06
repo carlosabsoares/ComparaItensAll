@@ -35,6 +35,20 @@ namespace ComparaItens.Infra.Migrations
                     b.ToTable("tabCategory");
                 });
 
+            modelBuilder.Entity("ComparaItens.Domain.Entities.Characteristic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Characteristics");
+                });
+
             modelBuilder.Entity("ComparaItens.Domain.Entities.Manufacturer", b =>
                 {
                     b.Property<int>("Id")

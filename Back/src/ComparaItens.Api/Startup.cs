@@ -33,8 +33,8 @@ namespace ComparaItens.Api
 
             //Injeção de dependencia do banco de dados
             //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Sql")));
-            //services.AddDbContext<DataContext>(opt => opt.UseMySql(Configuration.GetConnectionString("Mysql")));
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(opt => opt.UseMySql(Configuration.GetConnectionString("Mysql")));
+            //services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCors();
             services.AddControllers();

@@ -15,6 +15,8 @@ namespace ComparaItens.Infra
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<SpecificationItem> SpecificationItems { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Characteristic> Characteristics { get; set; }
+        public DbSet<CharacteristicKey> CharacteristicKeys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +25,8 @@ namespace ComparaItens.Infra
             this.MapManufacturer(modelBuilder);
             this.MapSpecificationItem(modelBuilder);
             this.MapUser(modelBuilder);
+            this.MapCharacteristic(modelBuilder);
+            this.MapCharacteristicKey(modelBuilder);
         }
     }
 }
