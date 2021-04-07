@@ -34,7 +34,6 @@ namespace ComparaItens.Infra.Repositories
             {
                 SpecificationItem specificationItem = new SpecificationItem();
                 specificationItem.ProductId = product.Id;
-                specificationItem.Description = item.Description;
                 _context.Add(specificationItem);
             }
 
@@ -76,8 +75,10 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<Product>> FindBySpecificationItem(int categoryId, string description)
         {
-            return await _context.Products.AsNoTracking().Where(x => x.CategoryId == categoryId
-                                                              && x.SpecificationItems.Any(s => s.Description.Contains(description))).ToListAsync();
+            //return await _context.Products.AsNoTracking().Where(x => x.CategoryId == categoryId
+            //                                                  && x.SpecificationItems.Any(s => s.Description.Contains(description))).ToListAsync();
+
+            return null;
         }
     }
 }

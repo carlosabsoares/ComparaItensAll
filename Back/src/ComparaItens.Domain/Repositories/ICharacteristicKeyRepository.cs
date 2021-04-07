@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ComparaItens.Domain.Repositories
 {
-    public interface ICharacteristicKey
+    public interface ICharacteristicKeyRepository
     {
         Task<CharacteristicKey> FindById(int id);
 

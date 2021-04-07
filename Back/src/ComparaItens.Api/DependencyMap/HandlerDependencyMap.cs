@@ -30,6 +30,23 @@ namespace ComparaItens.Api.DependencyMap
             services.AddScoped<IHandler<UserUpdateCommand>, UserHandler>();
             services.AddScoped<IHandler<UserDeleteCommand>, UserHandler>();
             services.AddScoped<IHandler<UserValidateAccessCommand>, UserHandler>();
+
+            //Characteiristc
+            services.AddScoped<IHandler<CharacteristicInsertCommand>, CharacteristicHandler>();
+            services.AddScoped<IHandler< CharacteristicDeleteCommand>, CharacteristicHandler>();
+            services.AddScoped<IHandler<CharacteristicUpdateCommand>, CharacteristicHandler>();
+
+            //CharacteiristcKey
+            services.AddScoped<IHandler<CharacteristicKeyInsertCommand>, CharacteristicKeyHandler>();
+            services.AddScoped<IHandler<CharacteristicKeyDeleteCommand>, CharacteristicKeyHandler>();
+            services.AddScoped<IHandler<CharacteristicKeyUpdateCommand>, CharacteristicKeyHandler>();
+
+            //CharacteiristcDescription
+            services.AddScoped<IHandler<CharacteristicDescriptionInsertCommand>, CharacteristicDescriptionHandler>();
+            services.AddScoped<IHandler<CharacteristicDescriptionDeleteCommand>, CharacteristicDescriptionHandler>();
+            services.AddScoped<IHandler<CharacteristicDescriptionUpdateCommand>, CharacteristicDescriptionHandler>();
+
+
         }
     }
 }

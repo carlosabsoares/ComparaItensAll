@@ -39,14 +39,64 @@ namespace ComparaItens.Infra.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnName("id")
+                        .HasColumnType("int(11)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasColumnName("description")
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Characteristics");
+                    b.HasIndex("Id");
+
+                    b.ToTable("tabCharacteristic");
+                });
+
+            modelBuilder.Entity("ComparaItens.Domain.Entities.CharacteristicDescription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CharacteristicId")
+                        .HasColumnType("int(11)");
+
+                    b.Property<int>("CharacteristicKeyId")
+                        .HasColumnType("int(11)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CharacteristicId");
+
+                    b.HasIndex("CharacteristicKeyId");
+
+                    b.ToTable("tabCharacteristicDescription");
+                });
+
+            modelBuilder.Entity("ComparaItens.Domain.Entities.CharacteristicKey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("int(11)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnName("description")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnName("key")
+                        .HasColumnType("varchar(60)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("tabCharacteristicKey");
                 });
 
             modelBuilder.Entity("ComparaItens.Domain.Entities.Manufacturer", b =>
@@ -176,6 +226,21 @@ namespace ComparaItens.Infra.Migrations
                     b.HasIndex("Id");
 
                     b.ToTable("tabUser");
+                });
+
+            modelBuilder.Entity("ComparaItens.Domain.Entities.CharacteristicDescription", b =>
+                {
+                    b.HasOne("ComparaItens.Domain.Entities.Characteristic", "Characteristics")
+                        .WithMany()
+                        .HasForeignKey("CharacteristicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ComparaItens.Domain.Entities.CharacteristicKey", "CharacteristicKeys")
+                        .WithMany()
+                        .HasForeignKey("CharacteristicKeyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ComparaItens.Domain.Entities.Product", b =>

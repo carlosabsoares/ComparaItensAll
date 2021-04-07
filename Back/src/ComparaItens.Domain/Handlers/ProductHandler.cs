@@ -74,7 +74,7 @@ namespace ComparaItens.Domain.Handlers
                 SpecificationItem specificationItem = new SpecificationItem();
                 specificationItem.Id = item.Id;
                 specificationItem.ProductId = item.ProductId;
-                specificationItem.Description = item.Description;
+                //specificationItem.Description = item.Description;
 
                 _result = await _cudRepository.Delete(specificationItem);
             }
@@ -135,7 +135,7 @@ namespace ComparaItens.Domain.Handlers
                     SpecificationItem specificationItem = new SpecificationItem();
                     specificationItem.Id = item.Id;
                     specificationItem.ProductId = item.ProductId;
-                    specificationItem.Description = item.Description;
+                    //specificationItem.Description = item.Description;
 
                     await _cudRepository.Delete(specificationItem);
                 }
@@ -145,7 +145,7 @@ namespace ComparaItens.Domain.Handlers
             {
                 SpecificationItem specificationItem = new SpecificationItem();
                 specificationItem.ProductId = item.ProductId;
-                specificationItem.Description = item.Description;
+                //specificationItem.Description = item.Description;
 
                 await _cudRepository.Add(specificationItem);
             }

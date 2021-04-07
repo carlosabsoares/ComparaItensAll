@@ -11,54 +11,54 @@ using System.Threading.Tasks;
 
 namespace ComparaItens.Api.Controllers
 {
-    public class CharacteristicController : ControllerBase
+    public class CharacteristicDescriptionController : ControllerBase
     {
         /// <summary>Adiciona categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
-        [HttpPost("characteristic/create")]
+        [HttpPost("characteristicDescription/create")]
         [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
-        public async Task<GenericCommandResult> PostCharacteristic(
-            [FromBody] CharacteristicInsertCommand command,
-            [FromServices] IHandler<CharacteristicInsertCommand> handler)
+        public async Task<GenericCommandResult> PostCharacteristicDescription(
+            [FromBody] CharacteristicDescriptionInsertCommand command,
+            [FromServices] IHandler<CharacteristicDescriptionInsertCommand> handler)
         {
             return (GenericCommandResult)await handler.Handle(command);
         }
 
         /// <summary>Deleta categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
-        [HttpDelete("characteristic/delete")]
+        [HttpDelete("characteristicDescription/delete")]
         [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
-        public async Task<GenericCommandResult> DeleteCharacteristic(
+        public async Task<GenericCommandResult> DeleteCharacteristicDescription(
             //[FromBody] CategoryDeleteCommand command,
             [FromQuery] int id,
-            [FromServices] IHandler<CharacteristicDeleteCommand> handler)
+            [FromServices] IHandler<CharacteristicDescriptionDeleteCommand> handler)
         {
-            CharacteristicDeleteCommand command = new CharacteristicDeleteCommand(id);
+            CharacteristicDescriptionDeleteCommand command = new CharacteristicDescriptionDeleteCommand(id);
 
             return (GenericCommandResult)await handler.Handle(command);
         }
 
         /// <summary>Altera categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
-        [HttpPut("characteristic/update")]
+        [HttpPut("characteristicDescription/update")]
         [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
-        public async Task<GenericCommandResult> UpdateCharacteristic(
-            [FromBody] CharacteristicUpdateCommand command,
-            [FromServices] IHandler<CharacteristicUpdateCommand> handler)
+        public async Task<GenericCommandResult> UpdateCharacteristicDescription(
+            [FromBody] CharacteristicDescriptionUpdateCommand command,
+            [FromServices] IHandler<CharacteristicDescriptionUpdateCommand> handler)
         {
             return (GenericCommandResult)await handler.Handle(command);
         }
 
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
-        [HttpGet("characteristic/findAll")]
+        [HttpGet("characteristicDescription/findAll")]
         //[Authorize(Roles = "Administrator")]
-        [ProducesResponseType(typeof(IList<Characteristic>), 200)]
-        public async Task<IList<Characteristic>> FindAllCharacteristic(
-            [FromServices] ICharacteristicRepository repository)
+        [ProducesResponseType(typeof(IList<CharacteristicDescription>), 200)]
+        public async Task<IList<CharacteristicDescription>> FindAllCharacteristicDescription(
+            [FromServices] ICharacteristicDescriptionRepository repository)
         {
             var result = await repository.FindAll();
 
@@ -67,17 +67,18 @@ namespace ComparaItens.Api.Controllers
 
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
-        [HttpGet("characteristic/findAllById")]
+        [HttpGet("characteristicDescription/findAllById")]
         //[Authorize(Roles = "Administrator")]
-        [ProducesResponseType(typeof(IList<Characteristic>), 200)]
-        public async Task<Characteristic> FindByIdCharacteristic(
+        [ProducesResponseType(typeof(IList<CharacteristicDescription>), 200)]
+        public async Task<CharacteristicDescription> FindByIdCharacteristicDescription(
             [FromQuery] int id,
-            [FromServices] ICharacteristicRepository repository)
+            [FromServices] ICharacteristicDescriptionRepository repository)
         {
 
             var result = await repository.FindById(id);
 
             return result;
         }
+
     }
 }

@@ -8,19 +8,6 @@ namespace ComparaItens.Infra.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Characteristics",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Characteristics", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "tabCategory",
                 columns: table => new
                 {
@@ -31,6 +18,33 @@ namespace ComparaItens.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tabCategory", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tabCharacteristic",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int(11)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    description = table.Column<string>(type: "varchar(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tabCharacteristic", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tabCharacteristicKey",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int(11)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    key = table.Column<string>(type: "varchar(60)", nullable: false),
+                    description = table.Column<string>(type: "varchar(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tabCharacteristicKey", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,6 +74,32 @@ namespace ComparaItens.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tabUser", x => x.idUser);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TabCharacteristicDescription",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CharacteristicId = table.Column<int>(nullable: false),
+                    CharacteristicKeyId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CharacteristicDescriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CharacteristicDescriptions_tabCharacteristic_CharacteristicId",
+                        column: x => x.CharacteristicId,
+                        principalTable: "tabCharacteristic",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CharacteristicDescriptions_tabCharacteristicKey_Characterist~",
+                        column: x => x.CharacteristicKeyId,
+                        principalTable: "tabCharacteristicKey",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,8 +154,28 @@ namespace ComparaItens.Infra.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CharacteristicDescriptions_CharacteristicId",
+                table: "TabCharacteristicDescription",
+                column: "CharacteristicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacteristicDescriptions_CharacteristicKeyId",
+                table: "TabCharacteristicDescription",
+                column: "CharacteristicKeyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tabCategory_id",
                 table: "tabCategory",
+                column: "id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tabCharacteristic_id",
+                table: "tabCharacteristic",
+                column: "id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tabCharacteristicKey_id",
+                table: "tabCharacteristicKey",
                 column: "id");
 
             migrationBuilder.CreateIndex(
@@ -157,13 +217,19 @@ namespace ComparaItens.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Characteristics");
+                name: "CharacteristicDescriptions");
 
             migrationBuilder.DropTable(
                 name: "tabSpecificationItems");
 
             migrationBuilder.DropTable(
                 name: "tabUser");
+
+            migrationBuilder.DropTable(
+                name: "tabCharacteristic");
+
+            migrationBuilder.DropTable(
+                name: "tabCharacteristicKey");
 
             migrationBuilder.DropTable(
                 name: "tabProdut");

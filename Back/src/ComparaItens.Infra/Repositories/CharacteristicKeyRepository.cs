@@ -1,4 +1,5 @@
-﻿using ComparaItens.Domain.Repositories;
+﻿using ComparaItens.Domain.Entities;
+using ComparaItens.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace ComparaItens.Infra.Repositories
 {
-    public class CharacteristicKey : ICharacteristicKey
+    public class CharacteristicKeyRepository: ICharacteristicKeyRepository
     {
         private readonly DataContext _context;
 
-        public CharacteristicKey(DataContext context)
+        public CharacteristicKeyRepository(DataContext context)
         {
             _context = context;
         }
@@ -21,17 +22,21 @@ namespace ComparaItens.Infra.Repositories
         {
             var query = _context.CharacteristicKeys.AsNoTracking();
 
-            return (IList<CharacteristicKey>)await query.ToListAsync();
+            return await query.ToListAsync();
         }
 
         public async Task<CharacteristicKey> FindByDescription(string description)
         {
-            throw new NotImplementedException();
+            var query = _context.CharacteristicKeys.AsNoTracking();
+
+            return await query.Where(x => x.Description == description).FirstOrDefaultAsync();
         }
 
         public async Task<CharacteristicKey> FindById(int id)
         {
-            throw new NotImplementedException();
+            var query = _context.CharacteristicKeys.AsNoTracking();
+
+            return await query.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }
