@@ -23,7 +23,7 @@ namespace ComparaItens.Infra.Mapping
             //modelBuilder.Entity<SpecificationItem>().HasIndex(x => x.Description);
 
             // Relationships
-            //modelBuilder.Entity<SpecificationItem>().HasOne(p => p.Product).WithMany().HasForeignKey(f => f.ProductId);
+            //modelBuilder.Entity<SpecificationItem>().HasOne(p => p.).WithMany().HasForeignKey(f => f.);
         }
     }
 }

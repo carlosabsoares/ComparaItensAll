@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComparaItens.Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210407183734_initial")]
+    [Migration("20210408223942_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,12 +60,19 @@ namespace ComparaItens.Infra.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnName("id")
+                        .HasColumnType("int(11)");
 
                     b.Property<int>("CharacteristicId")
+                        .HasColumnName("characteristicId")
                         .HasColumnType("int(11)");
 
                     b.Property<int>("CharacteristicKeyId")
+                        .HasColumnName("characteristicKeyId")
+                        .HasColumnType("int(11)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnName("productId")
                         .HasColumnType("int(11)");
 
                     b.HasKey("Id");
@@ -74,7 +81,11 @@ namespace ComparaItens.Infra.Migrations
 
                     b.HasIndex("CharacteristicKeyId");
 
-                    b.ToTable("CharacteristicDescriptions");
+                    b.HasIndex("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("tabCharacteristicDescription");
                 });
 
             modelBuilder.Entity("ComparaItens.Domain.Entities.CharacteristicKey", b =>
@@ -174,18 +185,11 @@ namespace ComparaItens.Infra.Migrations
                         .HasColumnName("id")
                         .HasColumnType("int(11)");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnName("description")
-                        .HasColumnType("varchar(150)");
-
                     b.Property<int>("ProductId")
                         .HasColumnName("ProductId")
                         .HasColumnType("int(11)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Description");
 
                     b.HasIndex("ProductId");
 

@@ -11,7 +11,10 @@ namespace ComparaItens.Domain.Entities
     {
         public int Id { get; set; }
 
+        public int ProductId { get; set; }
+
         public int CharacteristicId { get; set; }
+
         [NotMapped]
         public Characteristic Characteristics { get; set; }
         

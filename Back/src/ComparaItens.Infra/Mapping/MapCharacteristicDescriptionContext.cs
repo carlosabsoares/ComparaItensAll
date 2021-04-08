@@ -24,6 +24,10 @@ namespace ComparaItens.Infra
             modelBuilder.Entity<CharacteristicDescription>().Property(x => x.CharacteristicId).HasColumnName("characteristicId");
             modelBuilder.Entity<CharacteristicDescription>().HasIndex(x => x.CharacteristicId);
 
+            modelBuilder.Entity<CharacteristicDescription>().Property(x => x.ProductId).HasColumnType("int(11)");
+            modelBuilder.Entity<CharacteristicDescription>().Property(x => x.ProductId).HasColumnName("productId");
+            modelBuilder.Entity<CharacteristicDescription>().HasIndex(x => x.ProductId);
+
             modelBuilder.Entity<CharacteristicDescription>().Property(x => x.CharacteristicKeyId).HasColumnType("int(11)");
             modelBuilder.Entity<CharacteristicDescription>().Property(x => x.CharacteristicKeyId).HasColumnName("characteristicKeyId");
             modelBuilder.Entity<CharacteristicDescription>().HasIndex(x => x.CharacteristicKeyId);

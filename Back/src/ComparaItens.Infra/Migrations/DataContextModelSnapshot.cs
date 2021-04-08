@@ -58,12 +58,19 @@ namespace ComparaItens.Infra.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnName("id")
+                        .HasColumnType("int(11)");
 
                     b.Property<int>("CharacteristicId")
+                        .HasColumnName("characteristicId")
                         .HasColumnType("int(11)");
 
                     b.Property<int>("CharacteristicKeyId")
+                        .HasColumnName("characteristicKeyId")
+                        .HasColumnType("int(11)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnName("productId")
                         .HasColumnType("int(11)");
 
                     b.HasKey("Id");
@@ -71,6 +78,10 @@ namespace ComparaItens.Infra.Migrations
                     b.HasIndex("CharacteristicId");
 
                     b.HasIndex("CharacteristicKeyId");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("tabCharacteristicDescription");
                 });
@@ -172,18 +183,11 @@ namespace ComparaItens.Infra.Migrations
                         .HasColumnName("id")
                         .HasColumnType("int(11)");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnName("description")
-                        .HasColumnType("varchar(150)");
-
                     b.Property<int>("ProductId")
                         .HasColumnName("ProductId")
                         .HasColumnType("int(11)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Description");
 
                     b.HasIndex("ProductId");
 
