@@ -16,7 +16,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Adiciona usuario de administração</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("user/create")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostUser(
             [FromBody] UserInsertCommand command,

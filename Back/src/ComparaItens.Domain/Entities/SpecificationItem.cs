@@ -9,6 +9,6 @@ namespace ComparaItens.Domain.Entities
 
         public int ProductId { get; set; }
 
-        //public List<CharacteristicDescription> CharacteristicDescriptions { get; set; }
+        public List<CharacteristicDescription> CharacteristicDescriptions { get; set; }
     }
 }
