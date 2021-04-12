@@ -30,41 +30,45 @@ namespace ComparaItens.Infra.Repositories
             _context.Add(product);
             _context.SaveChanges();
 
-            foreach (var item in entity.SpecificationItems)
-            {
-                SpecificationItem specificationItem = new SpecificationItem();
-                specificationItem.ProductId = product.Id;
-                _context.Add(specificationItem);
-            }
+            //foreach (var item in entity.SpecificationItems)
+            //{
+            //    SpecificationItem specificationItem = new SpecificationItem();
+            //    specificationItem.ProductId = product.Id;
+            //    _context.Add(specificationItem);
+            //}
 
             return (await _context.SaveChangesAsync()) > 0;
         }
 
         public async Task<IList<Product>> FindAll()
         {
-            return await _context.Products.AsNoTracking()
-                                         .Include(x => x.Manufecturer)
-                                         .Include(x => x.SpecificationItems)
-                                         .Include(x => x.Category)
-                                         .Where(x=> x.SpecificationItems.Any(s => s.ProductId == x.Id)).ToListAsync();
+            return null;
+            //return await _context.Products.AsNoTracking()
+            //                             .Include(x => x.Manufecturer)
+            //                             .Include(x => x.SpecificationItems)
+            //                             .Include(x => x.Category)
+            //                             .Where(x=> x.SpecificationItems.Any(s => s.ProductId == x.Id)).ToListAsync();
         }
 
         public async Task<IList<Product>> FindByCategory(int category)
         {
-            return await _context.Products.AsNoTracking()
-                                              .Include(x => x.Manufecturer)
-                                              .Include(x => x.Category)
-                                              .Include(x => x.SpecificationItems)
-                                              .Where(x => x.CategoryId == category && x.SpecificationItems.Any(s => s.ProductId == x.Id)).ToListAsync();
+            return null;
+            //return await _context.Products.AsNoTracking()
+            //                                  .Include(x => x.Manufecturer)
+            //                                  .Include(x => x.Category)
+            //                                  .Include(x => x.SpecificationItems)
+            //                                  .Where(x => x.CategoryId == category && x.SpecificationItems.Any(s => s.ProductId == x.Id)).ToListAsync();
         }
 
         public async Task<Product> FindById(int id)
         {
-            return await _context.Products.AsNoTracking()
-                                              .Include(x => x.Manufecturer)
-                                              .Include(x => x.Category)
-                                              .Include( x=> x.SpecificationItems)
-                                              .Where(x => x.Id == id && x.SpecificationItems.Any(s=>s.ProductId == x.Id )).FirstOrDefaultAsync();
+            return null;
+
+            //return await _context.Products.AsNoTracking()
+            //                                  .Include(x => x.Manufecturer)
+            //                                  .Include(x => x.Category)
+            //                                  .Include( x=> x.SpecificationItems)
+            //                                  .Where(x => x.Id == id && x.SpecificationItems.Any(s=>s.ProductId == x.Id )).FirstOrDefaultAsync();
         }
 
         public async Task<IList<SpecificationItem>> FindBySpecificationItem(int productId)

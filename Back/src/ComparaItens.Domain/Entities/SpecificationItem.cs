@@ -9,6 +9,7 @@ namespace ComparaItens.Domain.Entities
 
         public int ProductId { get; set; }
 
+        [NotMapped]
         public List<CharacteristicDescription> CharacteristicDescriptions { get; set; }
     }
 }
