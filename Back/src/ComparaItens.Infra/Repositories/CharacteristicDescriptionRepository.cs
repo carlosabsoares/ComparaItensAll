@@ -21,8 +21,8 @@ namespace ComparaItens.Infra.Repositories
         public async Task<IList<CharacteristicDescription>> FindAll()
         {
             var query = _context.CharacteristicDescriptions.AsNoTracking()
-                                .Include(x => x.CharacteristicKeys)
-                                .Include(x => x.Characteristics);
+                .Include(x => x.CharacteristicKeys)
+                .Include(x => x.Characteristics);
 
             return await query.ToListAsync();
         }

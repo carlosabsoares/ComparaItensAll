@@ -26,7 +26,7 @@ namespace ComparaItens.Domain.Entities
         public string Image { get; set; }
         public string Folder { get; set; }
 
-        public IList<SpecificationItem> SpecificationItems { get; set; }
+        //public IList<SpecificationItem> SpecificationItems { get; set; }
 
         public Product()
         {

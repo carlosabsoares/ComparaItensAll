@@ -39,7 +39,7 @@ namespace ComparaItens.Domain.Handlers
             _entity.YearOfManufacture = command.YearOfManufacture;
             _entity.Image = command.Image;
             _entity.Folder = command.Folder;
-            _entity.SpecificationItems = command.SpecificationItems;
+            //_entity.SpecificationItems = command.SpecificationItems;
 
             var _result = await _productRepository.Add(_entity);
 
