@@ -18,6 +18,7 @@ namespace ComparaItens.Infra
         public DbSet<Characteristic> Characteristics { get; set; }
         public DbSet<CharacteristicKey> CharacteristicKeys { get; set; }
         public DbSet<CharacteristicDescription> CharacteristicDescriptions { get; set; }
+        public DbSet<SpecificationCharacteristcRel> SpecificationCharacteristcRels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +30,7 @@ namespace ComparaItens.Infra
             this.MapCharacteristic(modelBuilder);
             this.MapCharacteristicKey(modelBuilder);
             this.MapCharacteristicDescription(modelBuilder);
+            this.MapSpecificationCharacteristcRel(modelBuilder);
         }
     }
 }
