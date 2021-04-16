@@ -8,7 +8,6 @@ namespace ComparaItens.Domain.Commands
         public int CharacteristicId { get; set; }
         public int CharacteristicKeyId { get; set; }
 
-
         public void Validate()
         {
             AddNotifications(

@@ -15,7 +15,7 @@ namespace ComparaItens.Domain.Repositories
         Task<IList<Product>> FindBySpecificationItem(int categoryId, string description);
 
         Task<IList<SpecificationItem>> FindBySpecificationItem(int productId);
+
         Task<IList<Product>> FindByCategory(int category);
-       
     }
 }

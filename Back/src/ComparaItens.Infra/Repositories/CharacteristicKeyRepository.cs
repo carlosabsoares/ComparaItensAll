@@ -1,15 +1,13 @@
 ﻿using ComparaItens.Domain.Entities;
 using ComparaItens.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ComparaItens.Infra.Repositories
 {
-    public class CharacteristicKeyRepository: ICharacteristicKeyRepository
+    public class CharacteristicKeyRepository : ICharacteristicKeyRepository
     {
         private readonly DataContext _context;
 

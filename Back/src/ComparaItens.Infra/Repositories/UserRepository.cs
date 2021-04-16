@@ -21,7 +21,6 @@ namespace ComparaItens.Infra.Repositories
             var query = _context.Users.AsNoTracking();
 
             return await query.Select(x => new User { Id = x.Id, Email = x.Email, Login = x.Login, Name = x.Name, Password = MaskedEmail(x.Password), Role = x.Role }).ToListAsync();
-
         }
 
         public async Task<User> FindById(string id)
@@ -53,12 +52,14 @@ namespace ComparaItens.Infra.Repositories
         {
             var query = _context.Users.AsNoTracking();
 
-            return await query.Where(x => x.Login == login && x.Password == password).Select( x=> new User { Id = x.Id, 
-                                                                                                             Email = x.Email, 
-                                                                                                             Login = x.Login, 
-                                                                                                             Name = x.Name, 
-                                                                                                             Role = x.Role
-                                                                                                            }).FirstOrDefaultAsync();
+            return await query.Where(x => x.Login == login && x.Password == password).Select(x => new User
+            {
+                Id = x.Id,
+                Email = x.Email,
+                Login = x.Login,
+                Name = x.Name,
+                Role = x.Role
+            }).FirstOrDefaultAsync();
         }
     }
 }

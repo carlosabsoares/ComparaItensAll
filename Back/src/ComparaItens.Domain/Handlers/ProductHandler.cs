@@ -28,7 +28,7 @@ namespace ComparaItens.Domain.Handlers
             //FFV
             command.Validate();
             if (command.Invalid)
-                return new GenericCommandResult(false,HttpStatusCode.BadRequest,command.Notifications);
+                return new GenericCommandResult(false, HttpStatusCode.BadRequest, command.Notifications);
 
             Product _entity = new Product();
 

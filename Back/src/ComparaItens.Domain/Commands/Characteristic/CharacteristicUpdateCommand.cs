@@ -5,13 +5,11 @@ namespace ComparaItens.Domain.Commands
 {
     public class CharacteristicUpdateCommand : Notifiable, ICommand
     {
-
         public int Id { get; set; }
         public string Description { get; set; }
 
         public CharacteristicUpdateCommand()
         {
-
         }
 
         public CharacteristicUpdateCommand(int id, string description)

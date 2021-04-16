@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComparaItens.Domain.Entities
@@ -26,7 +25,11 @@ namespace ComparaItens.Domain.Entities
         public string Image { get; set; }
         public string Folder { get; set; }
 
-        //public IList<SpecificationItem> SpecificationItems { get; set; }
+        [NotMapped]
+        public int SpecificationItemId { get; set; }
+
+        [NotMapped]
+        public IList<SpecificationItem> SpecificationItems { get; set; }
 
         public Product()
         {

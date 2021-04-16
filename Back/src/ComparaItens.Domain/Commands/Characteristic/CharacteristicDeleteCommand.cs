@@ -5,7 +5,6 @@ namespace ComparaItens.Domain.Commands
 {
     public class CharacteristicDeleteCommand : Notifiable, ICommand
     {
-
         public int Id { get; set; }
         public string Description { get; set; }
 
@@ -13,7 +12,6 @@ namespace ComparaItens.Domain.Commands
         {
             Id = id;
         }
-
 
         public void Validate()
         {

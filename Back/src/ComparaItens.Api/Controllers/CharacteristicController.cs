@@ -4,9 +4,7 @@ using ComparaItens.Domain.Handlers.Contracts;
 using ComparaItens.Domain.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ComparaItens.Api.Controllers
@@ -74,7 +72,6 @@ namespace ComparaItens.Api.Controllers
             [FromQuery] int id,
             [FromServices] ICharacteristicRepository repository)
         {
-
             var result = await repository.FindById(id);
 
             return result;

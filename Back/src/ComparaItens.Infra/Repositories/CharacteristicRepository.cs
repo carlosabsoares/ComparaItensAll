@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ComparaItens.Infra.Repositories
 {
-    public class CharacteristicRepository: ICharacteristicRepository
+    public class CharacteristicRepository : ICharacteristicRepository
     {
         private readonly DataContext _context;
 
@@ -36,6 +36,5 @@ namespace ComparaItens.Infra.Repositories
 
             return await query.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
-
     }
 }

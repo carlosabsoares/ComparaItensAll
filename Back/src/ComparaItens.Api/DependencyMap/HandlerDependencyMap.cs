@@ -33,7 +33,7 @@ namespace ComparaItens.Api.DependencyMap
 
             //Characteiristc
             services.AddScoped<IHandler<CharacteristicInsertCommand>, CharacteristicHandler>();
-            services.AddScoped<IHandler< CharacteristicDeleteCommand>, CharacteristicHandler>();
+            services.AddScoped<IHandler<CharacteristicDeleteCommand>, CharacteristicHandler>();
             services.AddScoped<IHandler<CharacteristicUpdateCommand>, CharacteristicHandler>();
 
             //CharacteiristcKey
@@ -45,8 +45,6 @@ namespace ComparaItens.Api.DependencyMap
             services.AddScoped<IHandler<CharacteristicDescriptionInsertCommand>, CharacteristicDescriptionHandler>();
             services.AddScoped<IHandler<CharacteristicDescriptionDeleteCommand>, CharacteristicDescriptionHandler>();
             services.AddScoped<IHandler<CharacteristicDescriptionUpdateCommand>, CharacteristicDescriptionHandler>();
-
-
         }
     }
 }

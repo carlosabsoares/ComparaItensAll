@@ -3,11 +3,7 @@ using ComparaItens.Domain.Entities;
 using ComparaItens.Domain.Handlers.Contracts;
 using ComparaItens.Domain.Repositories;
 using Flunt.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ComparaItens.Domain.Handlers

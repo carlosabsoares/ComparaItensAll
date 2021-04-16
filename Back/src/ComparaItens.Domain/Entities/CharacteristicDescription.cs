@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComparaItens.Domain.Entities
 {
@@ -11,16 +6,11 @@ namespace ComparaItens.Domain.Entities
     {
         public int Id { get; set; }
 
-        //public int ProductId { get; set; }
-
-        //[NotMapped] 
-        //public Product Product { get; set; }
-
         public int CharacteristicId { get; set; }
 
         [NotMapped]
         public Characteristic Characteristics { get; set; }
-        
+
         public int CharacteristicKeyId { get; set; }
 
         [NotMapped]

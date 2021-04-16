@@ -31,6 +31,7 @@ namespace ComparaItens.Infra
             this.MapCharacteristicKey(modelBuilder);
             this.MapCharacteristicDescription(modelBuilder);
             this.MapSpecificationCharacteristcRel(modelBuilder);
+            this.MapSpecificationItem(modelBuilder);
         }
     }
 }

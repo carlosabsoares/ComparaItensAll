@@ -20,6 +20,5 @@ namespace ComparaItens.Domain.Commands
                     .IsGreaterThan(Id, 0, "Id", "O id é obrigatório")
             );
         }
-
     }
 }

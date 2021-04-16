@@ -42,6 +42,7 @@ namespace ComparaItens.Infra.Mapping
             // Relationships
             modelBuilder.Entity<Product>().HasOne(p => p.Manufecturer).WithMany().HasForeignKey(f => f.ManufecturerId);
             modelBuilder.Entity<Product>().HasOne(p => p.Category).WithMany().HasForeignKey(f => f.CategoryId);
+            //modelBuilder.Entity<Product>().HasOne(p => p.SpecificationItems).WithMany().HasForeignKey(f => f.SpecificationItemId);
         }
     }
 }

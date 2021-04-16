@@ -9,7 +9,6 @@ namespace ComparaItens.Domain.Commands
         public string Key { get; set; }
         public string Description { get; set; }
 
-
         public void Validate()
         {
             AddNotifications(

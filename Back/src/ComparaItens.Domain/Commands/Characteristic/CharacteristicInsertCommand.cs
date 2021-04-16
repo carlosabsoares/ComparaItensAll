@@ -5,7 +5,6 @@ namespace ComparaItens.Domain.Commands
 {
     public class CharacteristicInsertCommand : Notifiable, ICommand
     {
-
         public string Description { get; set; }
 
         public CharacteristicInsertCommand(string description)

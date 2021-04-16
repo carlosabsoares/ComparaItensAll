@@ -3,7 +3,6 @@ using ComparaItens.Domain.Entities;
 using ComparaItens.Domain.Handlers.Contracts;
 using ComparaItens.Domain.Repositories;
 using Flunt.Notifications;
-using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -22,7 +21,6 @@ namespace ComparaItens.Domain.Handlers
             _cudRepository = cudRepository;
             _characteristicRepository = characteristicRepository;
         }
-
 
         public async Task<ICommandResult> Handle(CharacteristicInsertCommand command)
         {

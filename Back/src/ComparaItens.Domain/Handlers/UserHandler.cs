@@ -4,7 +4,6 @@ using ComparaItens.Domain.Handlers.Contracts;
 using ComparaItens.Domain.Repositories;
 using ComparaItens.Domain.Services;
 using Flunt.Notifications;
-using System;
 using System.Net;
 using System.Threading.Tasks;
 

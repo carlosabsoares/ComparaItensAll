@@ -3,11 +3,7 @@ using ComparaItens.Domain.Entities;
 using ComparaItens.Domain.Handlers.Contracts;
 using ComparaItens.Domain.Repositories;
 using Flunt.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ComparaItens.Domain.Handlers
@@ -17,7 +13,6 @@ namespace ComparaItens.Domain.Handlers
             IHandler<CharacteristicKeyDeleteCommand>,
             IHandler<CharacteristicKeyUpdateCommand>
     {
-
         private readonly ICudRepository _cudRepository;
         private readonly ICharacteristicKeyRepository _characteristicKeyRepository;
 
@@ -26,7 +21,6 @@ namespace ComparaItens.Domain.Handlers
             _cudRepository = cudRepository;
             _characteristicKeyRepository = characteristicKeyRepository;
         }
-
 
         public async Task<ICommandResult> Handle(CharacteristicKeyInsertCommand command)
         {
@@ -42,7 +36,6 @@ namespace ComparaItens.Domain.Handlers
 
             _entity.Key = command.Key;
             _entity.Description = command.Description;
-
 
             var _result = await _cudRepository.Add(_entity);
 

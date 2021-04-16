@@ -174,19 +174,18 @@ namespace ComparaItens.Infra.Migrations
                 {
                     b.Property<int>("CharacteristicDescriptionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
+                        .HasColumnName("characteristicDescriptionId")
                         .HasColumnType("int(11)");
 
                     b.Property<int>("SpecificationItemId")
-                        .HasColumnName("id")
+                        .HasColumnName("specificationItemId")
                         .HasColumnType("int(11)");
 
                     b.HasKey("CharacteristicDescriptionId");
 
                     b.HasIndex("CharacteristicDescriptionId");
 
-                    b.HasIndex("SpecificationItemId")
-                        .HasName("IX_tabSpecificationCharacteristcRel_id1");
+                    b.HasIndex("SpecificationItemId");
 
                     b.ToTable("tabSpecificationCharacteristcRel");
                 });

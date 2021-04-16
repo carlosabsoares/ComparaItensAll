@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComparaItens.Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210414000715_tabelaRelacionamento")]
-    partial class tabelaRelacionamento
+    [Migration("20210414215957_adicionaTabela")]
+    partial class adicionaTabela
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -176,19 +176,18 @@ namespace ComparaItens.Infra.Migrations
                 {
                     b.Property<int>("CharacteristicDescriptionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
+                        .HasColumnName("characteristicDescriptionId")
                         .HasColumnType("int(11)");
 
                     b.Property<int>("SpecificationItemId")
-                        .HasColumnName("id")
+                        .HasColumnName("specificationItemId")
                         .HasColumnType("int(11)");
 
                     b.HasKey("CharacteristicDescriptionId");
 
                     b.HasIndex("CharacteristicDescriptionId");
 
-                    b.HasIndex("SpecificationItemId")
-                        .HasName("IX_tabSpecificationCharacteristcRel_id1");
+                    b.HasIndex("SpecificationItemId");
 
                     b.ToTable("tabSpecificationCharacteristcRel");
                 });

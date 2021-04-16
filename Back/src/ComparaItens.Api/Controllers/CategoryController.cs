@@ -74,7 +74,6 @@ namespace ComparaItens.Api.Controllers
             [FromQuery] int id,
             [FromServices] ICategoryRepository repository)
         {
-
             var result = await repository.FindById(id);
 
             return result;

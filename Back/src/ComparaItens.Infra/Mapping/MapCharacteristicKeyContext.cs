@@ -1,10 +1,5 @@
 ﻿using ComparaItens.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ComparaItens.Infra.Mapping
 {
@@ -27,7 +22,6 @@ namespace ComparaItens.Infra.Mapping
             modelBuilder.Entity<CharacteristicKey>().Property(x => x.Description).HasColumnType("varchar(100)");
             modelBuilder.Entity<CharacteristicKey>().Property(x => x.Description).HasColumnName("description");
             modelBuilder.Entity<CharacteristicKey>().Property(x => x.Description).IsRequired();
-
         }
     }
 }

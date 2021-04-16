@@ -42,12 +42,10 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<Product>> FindAll()
         {
-            return null;
-            //return await _context.Products.AsNoTracking()
-            //                             .Include(x => x.Manufecturer)
-            //                             .Include(x => x.SpecificationItems)
-            //                             .Include(x => x.Category)
-            //                             .Where(x=> x.SpecificationItems.Any(s => s.ProductId == x.Id)).ToListAsync();
+            return await _context.Products.AsNoTracking()
+                                            .Include(x => x.Category)
+                                            .Include(x => x.Manufecturer)
+                                            .ToListAsync();
         }
 
         public async Task<IList<Product>> FindByCategory(int category)
