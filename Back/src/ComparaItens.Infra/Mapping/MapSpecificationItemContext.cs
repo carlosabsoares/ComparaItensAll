@@ -18,7 +18,7 @@ namespace ComparaItens.Infra.Mapping
             modelBuilder.Entity<SpecificationItem>().Property(x => x.ProductId).HasColumnName("ProductId");
 
             // Relationships
-            //modelBuilder.Entity<SpecificationItem>().HasOne(p => p.SpecificationCharacteristcRels).WithMany().HasForeignKey(f => f.Id);
+            modelBuilder.Entity<SpecificationItem>().HasMany(p => p.SpecificationCharacteristcRels).WithOne().HasForeignKey(f => f.SpecificationItemId);
         }
     }
 }

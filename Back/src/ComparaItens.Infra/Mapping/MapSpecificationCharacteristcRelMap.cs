@@ -11,16 +11,21 @@ namespace ComparaItens.Infra.Mapping
 
             modelBuilder.Entity<SpecificationCharacteristcRel>().Property(x => x.SpecificationItemId).HasColumnType("int(11)");
             modelBuilder.Entity<SpecificationCharacteristcRel>().Property(x => x.SpecificationItemId).HasColumnName("specificationItemId");
-            modelBuilder.Entity<SpecificationCharacteristcRel>().HasKey(x => x.SpecificationItemId);
             modelBuilder.Entity<SpecificationCharacteristcRel>().HasIndex(x => x.SpecificationItemId);
 
             modelBuilder.Entity<SpecificationCharacteristcRel>().Property(x => x.CharacteristicDescriptionId).HasColumnType("int(11)");
             modelBuilder.Entity<SpecificationCharacteristcRel>().Property(x => x.CharacteristicDescriptionId).HasColumnName("characteristicDescriptionId");
-            modelBuilder.Entity<SpecificationCharacteristcRel>().HasKey(x => x.CharacteristicDescriptionId);
             modelBuilder.Entity<SpecificationCharacteristcRel>().HasIndex(x => x.CharacteristicDescriptionId);
-
-            modelBuilder.Entity<SpecificationCharacteristcRel>().HasAlternateKey(c => new { c.SpecificationItemId, c.CharacteristicDescriptionId });
             //modelBuilder.Entity<SpecificationCharacteristcRel>().HasNoKey();
+
+            modelBuilder.Entity<SpecificationCharacteristcRel>().HasKey(c => new { c.SpecificationItemId, c.CharacteristicDescriptionId });
+
+            // Relationships
+            modelBuilder.Entity<SpecificationCharacteristcRel>().HasOne(p => p.SpecificationItem).WithMany().HasForeignKey(f => f.SpecificationItemId);
+            modelBuilder.Entity<SpecificationCharacteristcRel>().HasOne(p => p.CharacteristicDescription).WithMany().HasForeignKey(f => f.CharacteristicDescriptionId);
+
+
+
         }
     }
 }

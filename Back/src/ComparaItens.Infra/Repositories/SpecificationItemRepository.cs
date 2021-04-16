@@ -18,10 +18,11 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<SpecificationItem>> FindAll()
         {
-            //return await _context.SpecificationItems.AsNoTracking().ToListAsync();
 
-            var _return = await _context.SpecificationItems.AsNoTracking().ToListAsync();
-
+            var _return = await _context.SpecificationItems
+                //.Include(x=>x.SpecificationCharacteristcRels)
+                //.ThenInclude(x=> x.CharacteristicDescription)
+                .ToListAsync();
 
             foreach (var item in _return)
             {
