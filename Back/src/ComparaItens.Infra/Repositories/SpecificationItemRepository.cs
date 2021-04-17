@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace ComparaItens.Infra.Repositories
 {
     public class SpecificationItemRepository : ISpecificationItemRepository
@@ -19,7 +18,6 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<SpecificationItem>> FindAll()
         {
-
             var _return = await _context.SpecificationItems
                 .ToListAsync();
 
@@ -30,7 +28,6 @@ namespace ComparaItens.Infra.Repositories
             }
 
             return _return;
-            
         }
 
         public async Task<IList<SpecificationItem>> FindByProductId(int productId)

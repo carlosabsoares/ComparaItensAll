@@ -11,22 +11,22 @@ namespace ComparaItens.Domain.Entities
 
         public int ManufecturerId { get; set; }
 
-        [NotMapped]
-        public Manufacturer Manufecturer { get; set; }
-
         public string Model { get; set; }
 
         public int CategoryId { get; set; }
-
-        [NotMapped]
-        public Category Category { get; set; }
 
         public int YearOfManufacture { get; set; }
         public string Image { get; set; }
         public string Folder { get; set; }
 
-        [NotMapped] 
-        public CharacteristicDescription CharacteristicDescription { get; set; }
+        [NotMapped]
+        public IList<ProductItem> ProductItems { get; set; }
+
+        [NotMapped]
+        public Manufacturer Manufecturer { get; set; }
+
+        [NotMapped]
+        public Category Category { get; set; }
 
         public Product()
         {

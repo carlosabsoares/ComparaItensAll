@@ -68,21 +68,6 @@ namespace ComparaItens.Api.Controllers
 
         /// <summary>Retorna lista de todos os produtos</summary>
         /// <returns>Retorna lista de todos os produtos</returns>
-        [HttpGet("product/findBySpecification")]
-        [AllowAnonymous]
-        [ProducesResponseType(typeof(IList<Product>), 200)]
-        public async Task<IList<Product>> FindBySpecificationProduct(
-            [FromQuery] int categoryId,
-            [FromQuery] string specification,
-            [FromServices] IProductRepository repository)
-        {
-            var result = await repository.FindBySpecificationItem(categoryId, specification);
-
-            return result;
-        }
-
-        /// <summary>Retorna lista de todos os produtos</summary>
-        /// <returns>Retorna lista de todos os produtos</returns>
         [HttpGet("product/findById")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(Product), 200)]
@@ -97,14 +82,22 @@ namespace ComparaItens.Api.Controllers
 
         /// <summary>Retorna lista de todos os produtos</summary>
         /// <returns>Retorna lista de todos os produtos</returns>
-        [HttpGet("product/findByCategory")]
+        [HttpGet("product/findByParameters")]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(IList<Product>), 200)]
-        public async Task<IList<Product>> FindByCategory(
+        [ProducesResponseType(typeof(Product), 200)]
+        public async Task<IList<Product>> FindByParameters(
             [FromQuery] int categoryId,
+            [FromQuery] int manufacturerId,
+            [FromQuery] int characteisticId,
+            [FromQuery] string key,
+            [FromQuery] string description,
             [FromServices] IProductRepository repository)
         {
-            var result = await repository.FindByCategory(categoryId);
+            var result = await repository.FindByParameters(categoryId,
+                                                                      manufacturerId,
+                                                                      characteisticId,
+                                                                      key,
+                                                                      description);
 
             return result;
         }

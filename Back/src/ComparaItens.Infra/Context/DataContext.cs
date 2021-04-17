@@ -12,6 +12,7 @@ namespace ComparaItens.Infra
 
         public DbSet<Category> Categorys { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductItem> ProductItens { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<SpecificationItem> SpecificationItems { get; set; }
         public DbSet<User> Users { get; set; }
@@ -32,6 +33,7 @@ namespace ComparaItens.Infra
             this.MapCharacteristicDescription(modelBuilder);
             this.MapSpecificationCharacteristcRel(modelBuilder);
             this.MapSpecificationItem(modelBuilder);
+            this.MapProductItem(modelBuilder);
         }
     }
 }

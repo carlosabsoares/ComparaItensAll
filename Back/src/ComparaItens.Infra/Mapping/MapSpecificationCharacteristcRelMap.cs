@@ -22,10 +22,7 @@ namespace ComparaItens.Infra.Mapping
 
             // Relationships
             //modelBuilder.Entity<SpecificationCharacteristcRel>().HasOne(p => p.SpecificationItem).WithMany().HasForeignKey(f => f.SpecificationItemId);
-           // modelBuilder.Entity<SpecificationCharacteristcRel>().HasOne(p => p.CharacteristicDescription).WithMany().HasForeignKey(f => f.CharacteristicDescriptionId);
-
-
-
+            // modelBuilder.Entity<SpecificationCharacteristcRel>().HasOne(p => p.CharacteristicDescription).WithMany().HasForeignKey(f => f.CharacteristicDescriptionId);
         }
     }
 }

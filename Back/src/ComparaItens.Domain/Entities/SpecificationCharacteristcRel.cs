@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace ComparaItens.Domain.Entities
+﻿namespace ComparaItens.Domain.Entities
 {
     public class SpecificationCharacteristcRel
     {
@@ -9,9 +6,6 @@ namespace ComparaItens.Domain.Entities
         //public SpecificationItem SpecificationItem { get; set; }
 
         public int CharacteristicDescriptionId { get; set; }
-       // public CharacteristicDescription CharacteristicDescription { get; set; }
-
-
-        
+        // public CharacteristicDescription CharacteristicDescription { get; set; }
     }
 }

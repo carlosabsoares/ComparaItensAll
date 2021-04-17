@@ -30,61 +30,79 @@ namespace ComparaItens.Infra.Repositories
             _context.Add(product);
             _context.SaveChanges();
 
-            //foreach (var item in entity.SpecificationItems)
-            //{
-            //    SpecificationItem specificationItem = new SpecificationItem();
-            //    specificationItem.ProductId = product.Id;
-            //    _context.Add(specificationItem);
-            //}
-
             return (await _context.SaveChangesAsync()) > 0;
         }
 
         public async Task<IList<Product>> FindAll()
         {
-            var _return =  await _context.Products.AsNoTracking()
+            ProductItemRepository productItem = new ProductItemRepository(_context);
+
+            var _return = await _context.Products.AsNoTracking()
                 .Include(x => x.Category)
                 .Include(x => x.Manufecturer)
                 .ToListAsync();
 
+            foreach (var item in _return)
+            {
+                item.ProductItems = await productItem.FindByProductId(item.Id);
+            }
 
             return _return;
-
-        }
-
-        public async Task<IList<Product>> FindByCategory(int category)
-        {
-            return null;
-            //return await _context.Products.AsNoTracking()
-            //                                  .Include(x => x.Manufecturer)
-            //                                  .Include(x => x.Category)
-            //                                  .Include(x => x.SpecificationItems)
-            //                                  .Where(x => x.CategoryId == category && x.SpecificationItems.Any(s => s.ProductId == x.Id)).ToListAsync();
         }
 
         public async Task<Product> FindById(int id)
         {
-            return null;
+            ProductItemRepository productItem = new ProductItemRepository(_context);
 
-            //return await _context.Products.AsNoTracking()
-            //                                  .Include(x => x.Manufecturer)
-            //                                  .Include(x => x.Category)
-            //                                  .Include( x=> x.SpecificationItems)
-            //                                  .Where(x => x.Id == id && x.SpecificationItems.Any(s=>s.ProductId == x.Id )).FirstOrDefaultAsync();
+            var _return = await _context.Products.AsNoTracking()
+                .Include(x => x.Category)
+                .Include(x => x.Manufecturer)
+                .Where(x => x.Id == id).ToListAsync();
+
+            foreach (var item in _return)
+            {
+                item.ProductItems = await productItem.FindByProductId(item.Id);
+            }
+
+            return _return.FirstOrDefault();
         }
 
-        public async Task<IList<SpecificationItem>> FindBySpecificationItem(int productId)
+        public async Task<IList<Product>> FindByParameters(int categoryId,
+                                                           int manufacturerId,
+                                                           int characteisticId,
+                                                           string key,
+                                                           string description)
         {
-            return await _context.SpecificationItems.AsNoTracking()
-                                              .Where(x => x.ProductId == productId).ToListAsync();
-        }
+            ProductItemRepository productItem = new ProductItemRepository(_context);
 
-        public async Task<IList<Product>> FindBySpecificationItem(int categoryId, string description)
-        {
-            //return await _context.Products.AsNoTracking().Where(x => x.CategoryId == categoryId
-            //                                                  && x.SpecificationItems.Any(s => s.Description.Contains(description))).ToListAsync();
+            var query = await _context.Products.AsNoTracking()
+                                                  .Include(x => x.Category)
+                                                  .Include(x => x.Manufecturer)
+                                                  .ToListAsync();
 
-            return null;
+            if (categoryId > 0)
+                query = (List<Product>)query.Where(x => x.Category.Id == categoryId);
+
+            if (manufacturerId > 0)
+                query = (List<Product>)query.Where(x => x.ManufecturerId == manufacturerId);
+
+            if (characteisticId > 0)
+                query = (List<Product>)query.Where(x => x.Category.Id == characteisticId);
+
+            foreach (var item in query)
+            {
+                item.ProductItems = await productItem.FindByProductId(item.Id);
+            }
+
+            if (!string.IsNullOrEmpty(key))
+                _ = query.Where(x =>
+                    x.ProductItems.Any(i => i.CharacteristicDescription.CharacteristicKeys.Key.Contains(key)));
+
+            if (!string.IsNullOrEmpty(description))
+                _ = query.Where(x =>
+                    x.ProductItems.Any(i => i.CharacteristicDescription.CharacteristicKeys.Description.Contains(description)));
+
+            return query;
         }
     }
 }
