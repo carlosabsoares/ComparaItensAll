@@ -25,11 +25,8 @@ namespace ComparaItens.Domain.Entities
         public string Image { get; set; }
         public string Folder { get; set; }
 
-        [NotMapped]
-        public int SpecificationItemId { get; set; }
-
-        [NotMapped]
-        public IList<SpecificationItem> SpecificationItems { get; set; }
+        [NotMapped] 
+        public CharacteristicDescription CharacteristicDescription { get; set; }
 
         public Product()
         {

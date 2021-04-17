@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace ComparaItens.Infra.Repositories
 {
     public class SpecificationItemRepository : ISpecificationItemRepository
@@ -20,8 +21,6 @@ namespace ComparaItens.Infra.Repositories
         {
 
             var _return = await _context.SpecificationItems
-                //.Include(x=>x.SpecificationCharacteristcRels)
-                //.ThenInclude(x=> x.CharacteristicDescription)
                 .ToListAsync();
 
             foreach (var item in _return)
@@ -29,7 +28,6 @@ namespace ComparaItens.Infra.Repositories
                 item.SpecificationCharacteristcRels = await _context.SpecificationCharacteristcRels.AsNoTracking()
                     .Where(x => x.SpecificationItemId == item.Id).ToListAsync();
             }
-
 
             return _return;
             

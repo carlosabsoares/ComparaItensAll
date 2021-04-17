@@ -20,7 +20,7 @@ namespace ComparaItens.Infra.Repositories
         {
             var query = _context.Users.AsNoTracking();
 
-            return await query.Select(x => new User { Id = x.Id, Email = x.Email, Login = x.Login, Name = x.Name, Password = MaskedEmail(x.Password), Role = x.Role }).ToListAsync();
+            return await query.Select(x => new User { Id = x.Id, Email = x.Email, Login = x.Login, Name = x.Name, Role = x.Role }).ToListAsync();
         }
 
         public async Task<User> FindById(string id)
@@ -30,23 +30,23 @@ namespace ComparaItens.Infra.Repositories
             return await query.Where(x => x.Id.ToString() == id).FirstOrDefaultAsync();
         }
 
-        public string MaskedEmail(string source)
-        {
-            if (string.IsNullOrEmpty(source))
-                return source;
+        //public string MaskedEmail(string source)
+        //{
+        //    if (string.IsNullOrEmpty(source))
+        //        return source;
 
-            int posEmailPre = source.IndexOf("@");
+        //    int posEmailPre = source.IndexOf("@");
 
-            string firstPosition = source.Substring(0, 1);
-            string lastPosition = source.Substring((posEmailPre - 1), 1);
+        //    string firstPosition = source.Substring(0, 1);
+        //    string lastPosition = source.Substring((posEmailPre - 1), 1);
 
-            string centerPosition = new string('*', (posEmailPre - 2));
+        //    string centerPosition = new string('*', (posEmailPre - 2));
 
-            string emailComplemente = source.Substring(posEmailPre, (source.Length - posEmailPre));
+        //    string emailComplemente = source.Substring(posEmailPre, (source.Length - posEmailPre));
 
-            var maskedString = string.Concat(firstPosition, centerPosition, lastPosition, emailComplemente);
-            return maskedString;
-        }
+        //    var maskedString = string.Concat(firstPosition, centerPosition, lastPosition, emailComplemente);
+        //    return maskedString;
+        //}
 
         public async Task<User> VerifyUser(string login, string password)
         {

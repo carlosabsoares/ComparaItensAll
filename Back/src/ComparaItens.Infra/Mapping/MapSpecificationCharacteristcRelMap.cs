@@ -21,8 +21,8 @@ namespace ComparaItens.Infra.Mapping
             modelBuilder.Entity<SpecificationCharacteristcRel>().HasKey(c => new { c.SpecificationItemId, c.CharacteristicDescriptionId });
 
             // Relationships
-            modelBuilder.Entity<SpecificationCharacteristcRel>().HasOne(p => p.SpecificationItem).WithMany().HasForeignKey(f => f.SpecificationItemId);
-            modelBuilder.Entity<SpecificationCharacteristcRel>().HasOne(p => p.CharacteristicDescription).WithMany().HasForeignKey(f => f.CharacteristicDescriptionId);
+            //modelBuilder.Entity<SpecificationCharacteristcRel>().HasOne(p => p.SpecificationItem).WithMany().HasForeignKey(f => f.SpecificationItemId);
+           // modelBuilder.Entity<SpecificationCharacteristcRel>().HasOne(p => p.CharacteristicDescription).WithMany().HasForeignKey(f => f.CharacteristicDescriptionId);
 
 
 
