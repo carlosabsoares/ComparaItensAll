@@ -90,6 +90,7 @@ namespace ComparaItens.Api.Controllers
             [FromQuery] int manufacturerId,
             [FromQuery] int characteisticId,
             [FromQuery] string key,
+            [FromQuery] string keyDescription,
             [FromQuery] string description,
             [FromServices] IProductRepository repository)
         {

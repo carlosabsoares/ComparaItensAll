@@ -71,6 +71,7 @@ namespace ComparaItens.Infra.Repositories
                                                            int manufacturerId,
                                                            int characteisticId,
                                                            string key,
+                                                           string keyDescription,
                                                            string description)
         {
             ProductItemRepository productItem = new ProductItemRepository(_context);
@@ -81,26 +82,31 @@ namespace ComparaItens.Infra.Repositories
                                                   .ToListAsync();
 
             if (categoryId > 0)
-                query = (List<Product>)query.Where(x => x.Category.Id == categoryId);
+                query = query.Where(x => x.CategoryId == categoryId).ToList();
 
             if (manufacturerId > 0)
-                query = (List<Product>)query.Where(x => x.ManufecturerId == manufacturerId);
-
-            if (characteisticId > 0)
-                query = (List<Product>)query.Where(x => x.Category.Id == characteisticId);
+                query = query.Where(x => x.ManufecturerId == manufacturerId).ToList();
 
             foreach (var item in query)
             {
                 item.ProductItems = await productItem.FindByProductId(item.Id);
             }
 
+            if (characteisticId > 0)
+                query = query.Where(x =>
+                    x.ProductItems.Any(i => i.CharacteristicDescription.Characteristics.Id==characteisticId)).ToList();
+
             if (!string.IsNullOrEmpty(key))
-                _ = query.Where(x =>
-                    x.ProductItems.Any(i => i.CharacteristicDescription.CharacteristicKeys.Key.Contains(key)));
+                query = query.Where(x =>
+                    x.ProductItems.Any(i => i.CharacteristicDescription.CharacteristicKeys.Key.ToLower().Contains(key.ToLower()))).ToList();
 
             if (!string.IsNullOrEmpty(description))
-                _ = query.Where(x =>
-                    x.ProductItems.Any(i => i.CharacteristicDescription.CharacteristicKeys.Description.Contains(description)));
+                query = query.Where(x =>
+                    x.ProductItems.Any(i => i.CharacteristicDescription.CharacteristicKeys.Description.ToLower().Contains(keyDescription.ToLower()))).ToList();
+
+            if (!string.IsNullOrEmpty(description))
+                query = query.Where(x =>
+                    x.ProductItems.Any(i => i.CharacteristicDescription.Characteristics.Description.ToLower().Contains(description.ToLower()))).ToList();
 
             return query;
         }

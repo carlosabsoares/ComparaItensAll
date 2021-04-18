@@ -12,6 +12,6 @@ namespace ComparaItens.Domain.Repositories
 
         Task<Product> FindById(int id);
 
-        Task<IList<Product>> FindByParameters(int categoryId, int manufacturerId, int characteisticId, string key, string description);
+        Task<IList<Product>> FindByParameters(int categoryId, int manufacturerId, int characteisticId, string key, string keyDescription, string description);
     }
 }
