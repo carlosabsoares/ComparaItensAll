@@ -98,6 +98,7 @@ namespace ComparaItens.Api.Controllers
                                                                       manufacturerId,
                                                                       characteisticId,
                                                                       key,
+                                                                      keyDescription,
                                                                       description);
 
             return result;

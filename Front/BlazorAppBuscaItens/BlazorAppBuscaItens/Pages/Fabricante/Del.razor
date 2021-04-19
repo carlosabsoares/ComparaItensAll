@@ -1,0 +1,13 @@
+﻿@page "/fabricante/Del"
+
+<h3>Delete fabricante</h3>
+
+id = @Manufacturer.Id
+description = @Manufacturer.Description
+
+@code {
+
+    [Parameter]
+    public Manufacturer Manufacturer { get; set; }
+
+}

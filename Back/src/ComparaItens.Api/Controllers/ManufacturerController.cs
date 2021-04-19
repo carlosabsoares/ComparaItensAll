@@ -16,7 +16,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Adiciona fabricantes de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("manufacturer/create")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostManufacturer(
             [FromBody] ManufacturerInsertCommand command,
@@ -28,7 +28,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Deleta fabricantes de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpDelete("manufacturer/delete")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> DeleteManufacturer(
             //[FromBody] CategoryDeleteCommand command,
@@ -43,7 +43,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Altera fabricantes de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPut("manufacturer/update")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> UpdateManufacturer(
             [FromBody] ManufacturerUpdateCommand command,
