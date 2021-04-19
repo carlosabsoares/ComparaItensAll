@@ -1,0 +1,28 @@
+﻿<EditForm Model="@Manufacturer" OnValidSubmit="@OnValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label>Nome</label>
+        @if (ButtonText == "Excluir")
+        {
+            <input type="text" value="@Manufacturer.Description" disabled="" />
+        }
+        else
+        {
+            <InputText @bind-Value="@Manufacturer.Description"></InputText>
+            <ValidationMessage For="@(()=> Manufacturer.Description)" />
+        }
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">@ButtonText</button>
+        <a href="fabricante" class="btn btn-warning">Cancelar</a>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public Manufacturer Manufacturer { get; set; }
+    [Parameter] public string ButtonText { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

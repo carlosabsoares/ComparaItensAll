@@ -64,5 +64,19 @@ namespace ComparaItens.Api.Controllers
 
             return result;
         }
+
+        /// <summary>Retorna fabricantes de produtos</summary>
+        /// <returns>Retorna fabricantes de produtos</returns>
+        [HttpGet("manufacturer/findById")]
+        //[Authorize(Roles = "Administrator")]
+        [ProducesResponseType(typeof(IList<Manufacturer>), 200)]
+        public async Task<Manufacturer> FindByIdManufacturer(
+            [FromQuery] int id,
+            [FromServices] IManufacturerRepository repository)
+        {
+            var result = await repository.FindById(id);
+
+            return result;
+        }
     }
 }

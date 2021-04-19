@@ -1,11 +1,12 @@
-﻿@page "/fabricante/deletar/{id:int}"
+﻿@page "/fabricante/editar/{id:int}"
+@using BlazorAppBuscaItens.Infra
 @inject HttpClient Http
 @inject NavigationManager navigation
 
-<h3>Delete fabricante</h3>
+<h3>Editar Fabricante</h3>
 <hr />
 
-<FormFabricante Manufacturer="@manufacturer" ButtonText="Excluir" OnValidSubmit="@DeleteManufactures"></FormFabricante>
+<FormFabricante Manufacturer="@manufacturer" ButtonText="Atualizar" OnValidSubmit="@EditarFabricante"></FormFabricante>
 
 @code {
 
@@ -19,10 +20,9 @@
         manufacturer = await Http.GetFromJsonAsync<Manufacturer>("https://localhost:44324/v1/comparaItens/manufacturer/findById?id=" + id);
     }
 
-    async Task DeleteManufactures()
+    async Task EditarFabricante()
     {
-
-        var result = await Http.DeleteAsync("https://localhost:44324/v1/comparaItens/manufacturer/delete?id=" + manufacturer.Id);
+        var result = await Http.PutAsJsonAsync("https://localhost:44324/v1/comparaItens/manufacturer/update", manufacturer);
 
         if (result.IsSuccessStatusCode)
             navigation.NavigateTo("fabricante");

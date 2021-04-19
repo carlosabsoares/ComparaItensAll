@@ -1,14 +1,18 @@
 ﻿@page "/fabricante/index"
+@page "/fabricante"
 @using BlazorAppBuscaItens.Model
 @using System.Net
 @using BlazorAppBuscaItens.Infra
 @inject HttpClient Http
-@inject IModalService modal
+@*@inject IModalService modal*@
 
 <h1>Fabricantes</h1>
 
+<hr />
+
 <div>
     <a href="fabricante/criar" class="btn btn-success"><i class="oi oi-plus"></i></a>
+    @*<button type="button" class="btn btn-primary" tooltip="Criar"><i class="oi oi-plus" @onclick="@(() => modal.Show<Add>("Cadastra Fabricante"))"></i></button>*@
 </div>
 
 <br />
@@ -40,10 +44,8 @@
                         <td>@item.Description</td>
                         <td>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar"><i class="oi oi-document"></i></button>
-                                <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir" @onclick="@(() => modal.Show<Del>())">
-                                    <i class="oi oi-trash"></i>
-                                </button>
+                                <a href="fabricante/editar/@item.Id" class="btn btn-primary btn-sm mr-2"><i class="oi oi-document"></i></a>
+                                <a href="fabricante/deletar/@item.Id" class="btn btn-danger btn-sm mr-2"><i class="oi oi-trash"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -61,7 +63,20 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //manufactures = (Manufacturer[]) await _manufacturerRepository.GetAll();
+        //manufactures = (List<Manufacturer>) await _manufacturerRepository.GetAll();
+        await LoadManufactures();
+    }
+
+    async Task LoadManufactures()
+    {
         manufactures = await Http.GetFromJsonAsync<List<Manufacturer>>("https://localhost:44324/v1/comparaItens/manufacturer/findAll");
     }
+
+    //async Task DeleteManufactures(int id)
+    //{
+
+    //    await Http.DeleteAsync("https://localhost:44324/v1/comparaItens/manufacturer/delete?id="+ id );
+
+    //    await LoadManufactures();
+    //}
 }

@@ -8,8 +8,12 @@ namespace BlazorAppBuscaItens.Infra.Interface
     {
         Task<IList<Manufacturer>> GetAll();
 
-        Task<Manufacturer> GetById();
+        Task<Manufacturer> GetById(int id);
 
         Task<bool> Add(Manufacturer manufacturer);
+
+        Task<bool> Remove(Manufacturer manufacturer);
+
+        Task<bool> Update(Manufacturer manufacturer);
     }
 }

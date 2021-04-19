@@ -1,9 +1,27 @@
 ﻿@page "/fabricante/criar"
+@using BlazorAppBuscaItens.Infra
+@inject HttpClient Http
+@inject NavigationManager navigation
 
 <h3>Cadastrar Fabricante</h3>
+<hr />
+
+<FormFabricante Manufacturer="@manufacturer" ButtonText="Adicionar" OnValidSubmit="@CriarFabricante"></FormFabricante>
 
 @code {
 
+    ManufacturerRepository _manufacturerRepository = new ManufacturerRepository();
     Manufacturer manufacturer = new Manufacturer();
+
+    async Task CriarFabricante()
+    {
+
+        //var result = await _manufacturerRepository.Add(manufacturer);
+
+        var result = await Http.PostAsJsonAsync(@"https://localhost:44324/v1/comparaItens/manufacturer/create", manufacturer);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("fabricante");
+    }
 
 }
