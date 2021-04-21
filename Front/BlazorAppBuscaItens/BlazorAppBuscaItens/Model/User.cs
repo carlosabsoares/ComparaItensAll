@@ -8,7 +8,7 @@ namespace BlazorAppBuscaItens.Model
 {
     public class User
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Login é obrigatório")]
         [MaxLength(50)]
