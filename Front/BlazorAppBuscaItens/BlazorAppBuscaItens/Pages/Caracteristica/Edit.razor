@@ -1,0 +1,31 @@
+﻿@page "/caracteristica/editar/{id:int}"
+@using BlazorAppBuscaItens.Infra
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Editar Característica</h3>
+<hr />
+
+<FormCaracteristica Characteristic="@characteristic" ButtonText="Atualizar" OnValidSubmit="@EditarCaracteristica"></FormCaracteristica>
+
+@code {
+
+    Characteristic characteristic = new Characteristic();
+
+    [Parameter]
+    public int id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        characteristic = await Http.GetFromJsonAsync<Characteristic>(@"https://localhost:44324/v1/comparaItens/characteristic/findById?id=" + id);
+    }
+
+    async Task EditarCaracteristica()
+    {
+        var result = await Http.PutAsJsonAsync(@"https://localhost:44324/v1/comparaItens/characteristic/update", characteristic);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("caracteristica");
+    }
+
+}

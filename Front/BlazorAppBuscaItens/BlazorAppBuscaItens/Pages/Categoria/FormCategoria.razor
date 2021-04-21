@@ -1,4 +1,4 @@
-﻿<EditForm Model="@Manufacturer" OnValidSubmit="@OnValidSubmit">
+﻿<EditForm Model="@Category" OnValidSubmit="@OnValidSubmit">
 
     <DataAnnotationsValidator />
 
@@ -6,17 +6,17 @@
         <label>Nome</label>
         @if (ButtonText == "Excluir")
         {
-            <input type="text" value="@Manufacturer.Description" disabled="" />
+            <input type="text" value="@Category.Description" disabled="" />
         }
         else
         {
-            <InputText @bind-Value="@Manufacturer.Description"></InputText>
-            <ValidationMessage For="@(()=> Manufacturer.Description)" />
+            <InputText @bind-Value="@Category.Description"></InputText>
+            <ValidationMessage For="@(()=> Category.Description)" />
         }
     </div>
-
+    
     <div>
-        @if (@Manufacturer.Description == null && ButtonText != "Adicionar")
+        @if (@Category.Description == null && ButtonText != "Adicionar")
         {
             <p><em>Carregando...</em></p>
         }
@@ -24,12 +24,12 @@
 
     <div>
         <button type="submit" class="btn btn-primary">@ButtonText</button>
-        <a href="fabricante" class="btn btn-warning">Cancelar</a>
+        <a href="categoria" class="btn btn-warning">Cancelar</a>
     </div>
 </EditForm>
 
 @code {
-    [Parameter] public Manufacturer Manufacturer { get; set; }
+    [Parameter] public Category Category { get; set; }
     [Parameter] public string ButtonText { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 }

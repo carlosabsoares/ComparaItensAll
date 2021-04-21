@@ -1,0 +1,31 @@
+﻿@page "/categoria/editar/{id:int}"
+@using BlazorAppBuscaItens.Infra
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Editar Categoria</h3>
+<hr />
+
+<FormCategoria Category="@category" ButtonText="Atualizar" OnValidSubmit="@EditarFabricante"></FormCategoria>
+
+@code {
+
+    Category category = new Category();
+
+    [Parameter]
+    public int id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        category = await Http.GetFromJsonAsync<Category>("https://localhost:44324/v1/comparaItens/category/findById?id=" + id);
+    }
+
+    async Task EditarFabricante()
+    {
+        var result = await Http.PutAsJsonAsync("https://localhost:44324/v1/comparaItens/category/update", category);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("categoria");
+    }
+
+}

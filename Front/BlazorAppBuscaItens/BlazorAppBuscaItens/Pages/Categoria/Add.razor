@@ -1,0 +1,30 @@
+﻿@page "/categoria/criar"
+@using BlazorAppBuscaItens.Infra
+@using System.Net.Http.Headers
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Cadastrar Categoria</h3>
+<hr />
+
+<FormCategoria Category="@category" ButtonText="Adicionar" OnValidSubmit="@CriarCategoria"></FormCategoria>
+
+@code {
+
+    
+    Category category = new Category();
+
+    async Task CriarCategoria()
+    {
+
+    //var result = await _manufacturerRepository.Add(manufacturer);
+
+        var result = await Http.PostAsJsonAsync(
+            @"https://localhost:44324/v1/comparaItens/category/create", 
+            category);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("categoria");
+    }
+
+}

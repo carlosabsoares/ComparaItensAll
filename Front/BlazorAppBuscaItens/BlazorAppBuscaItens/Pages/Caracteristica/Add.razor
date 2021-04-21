@@ -1,0 +1,27 @@
+﻿@page "/caracteristica/criar"
+@using BlazorAppBuscaItens.Infra
+@using System.Net.Http.Headers
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Cadastrar Característica</h3>
+<hr />
+
+<FormCaracteristica Characteristic="@characteristic" ButtonText="Adicionar" OnValidSubmit="@CriarCaracteristica"></FormCaracteristica>
+
+@code {
+
+    Characteristic characteristic = new Characteristic();
+
+    async Task CriarCaracteristica()
+    {
+
+        var result = await Http.PostAsJsonAsync(
+            @"https://localhost:44324/v1/comparaItens/characteristic/create",
+            characteristic);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("caracteristica");
+    }
+
+}

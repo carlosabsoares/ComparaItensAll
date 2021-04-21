@@ -1,0 +1,31 @@
+﻿@page "/categoria/deletar/{id:int}"
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Delete categoria</h3>
+<hr />
+
+<FormCategoria Category="@category" ButtonText="Excluir" OnValidSubmit="@DeleteCategories"></FormCategoria>
+
+@code {
+
+    Category category = new Category();
+
+    [Parameter]
+    public int id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        category = await Http.GetFromJsonAsync<Category>("https://localhost:44324/v1/comparaItens/category/findById?id=" + id);
+    }
+
+    async Task DeleteCategories()
+    {
+
+        var result = await Http.DeleteAsync("https://localhost:44324/v1/comparaItens/category/delete?id=" + category.Id);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("categoria");
+    }
+
+}

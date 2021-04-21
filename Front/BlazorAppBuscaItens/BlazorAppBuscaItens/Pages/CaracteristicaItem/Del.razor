@@ -1,0 +1,31 @@
+﻿@page "/caracteristicaitem/deletar/{id:int}"
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Delete Característica Item</h3>
+<hr />
+
+<FormCaracteristicaItem CharacteristicKey="@characteristicitem" ButtonText="Excluir" OnValidSubmit="@DeleteCharacteristicItem"></FormCaracteristicaItem>
+
+@code {
+
+    CharacteristicKey characteristicitem = new CharacteristicKey();
+
+    [Parameter]
+    public int id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        characteristicitem = await Http.GetFromJsonAsync<CharacteristicKey>("https://localhost:44324/v1/comparaItens/characteristicKey/findById?id=" + id);
+    }
+
+    async Task DeleteCharacteristicItem()
+    {
+
+        var result = await Http.DeleteAsync("https://localhost:44324/v1/comparaItens/characteristicKey/delete?id=" + characteristicitem.Id);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("caracteristicaitem");
+    }
+
+}

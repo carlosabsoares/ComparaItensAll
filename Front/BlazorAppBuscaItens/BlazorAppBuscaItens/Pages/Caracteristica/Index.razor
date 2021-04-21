@@ -1,5 +1,5 @@
-﻿@page "/fabricante/index"
-@page "/fabricante"
+﻿@page "/caracteristica/index"
+@page "/caracteristica"
 @using BlazorAppBuscaItens.Model
 @using System.Net
 @using BlazorAppBuscaItens.Infra
@@ -11,7 +11,7 @@
 <hr />
 
 <div>
-    <a href="fabricante/criar" class="btn btn-success"><i class="oi oi-plus"></i></a>
+    <a href="caracteristica/criar" class="btn btn-success"><i class="oi oi-plus"></i></a>
     @*<button type="button" class="btn btn-primary" tooltip="Criar"><i class="oi oi-plus" @onclick="@(() => modal.Show<Add>("Cadastra Fabricante"))"></i></button>*@
 </div>
 
@@ -43,8 +43,8 @@
                         <td>@item.Description</td>
                         <td>
                             <div class="btn-group">
-                                <a href="fabricante/editar/@item.Id" class="btn btn-primary btn-sm mr-2"><i class="oi oi-document"></i></a>
-                                <a href="fabricante/deletar/@item.Id" class="btn btn-danger btn-sm mr-2"><i class="oi oi-trash"></i></a>
+                                <a href="caracteristica/editar/@item.Id" class="btn btn-primary btn-sm mr-2"><i class="oi oi-document"></i></a>
+                                <a href="caracteristica/deletar/@item.Id" class="btn btn-danger btn-sm mr-2"><i class="oi oi-trash"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -67,7 +67,7 @@
     async Task LoadManufactures()
     {
         template = "Carregando...";
-        characteristics = await Http.GetFromJsonAsync<List<Characteristic>>("https://localhost:44324/v1/comparaItens/manufacturer/findAll");
+        characteristics = await Http.GetFromJsonAsync<List<Characteristic>>("https://localhost:44324/v1/comparaItens/characteristic/findAll");
 
         if (characteristics.Count == 0)
         {

@@ -1,0 +1,53 @@
+﻿<EditForm Model="@CharacteristicKey" OnValidSubmit="@OnValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+
+        @if (ButtonText == "Excluir")
+        {
+            <div>
+                <label>Item</label>
+                <input type="text" value="@CharacteristicKey.Key" disabled="" />
+            </div>
+            <br/>
+            <div>
+            <label>Descrição</label>
+                <input type="text" value="@CharacteristicKey.Description" disabled="" />
+            </div>
+
+        }
+        else
+        {
+            <label>Item</label>
+            <div>
+                <InputText @bind-Value="@CharacteristicKey.Key"></InputText>
+                <ValidationMessage For="@(() => CharacteristicKey.Key)" />
+            </div>
+            <br/>
+            <label>Descrição</label>
+            <div>
+                <InputText @bind-Value="@CharacteristicKey.Description"></InputText>
+                <ValidationMessage For="@(() => CharacteristicKey.Description)" />
+            </div>
+        }
+    </div>
+
+    <div>
+        @if (@CharacteristicKey.Description == null && ButtonText != "Adicionar")
+        {
+            <p><em>Carregando...</em></p>
+        }
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">@ButtonText</button>
+        <a href="caracteristicaitem" class="btn btn-warning">Cancelar</a>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public CharacteristicKey CharacteristicKey { get; set; }
+    [Parameter] public string ButtonText { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

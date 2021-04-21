@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 
 namespace ComparaItens.Api.Controllers
 {
+    [ApiController]
+    [Route("v1/comparaItens")]
     public class CharacteristicController : ControllerBase
     {
         /// <summary>Adiciona categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("characteristic/create")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostCharacteristic(
             [FromBody] CharacteristicInsertCommand command,
@@ -26,7 +28,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Deleta categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpDelete("characteristic/delete")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> DeleteCharacteristic(
             //[FromBody] CategoryDeleteCommand command,
@@ -41,7 +43,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Altera categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPut("characteristic/update")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> UpdateCharacteristic(
             [FromBody] CharacteristicUpdateCommand command,
@@ -65,7 +67,7 @@ namespace ComparaItens.Api.Controllers
 
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
-        [HttpGet("characteristic/findAllById")]
+        [HttpGet("characteristic/findById")]
         //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<Characteristic>), 200)]
         public async Task<Characteristic> FindByIdCharacteristic(

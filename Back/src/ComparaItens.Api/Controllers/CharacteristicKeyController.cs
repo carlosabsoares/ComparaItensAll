@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 
 namespace ComparaItens.Api.Controllers
 {
+    [ApiController]
+    [Route("v1/comparaItens")]
     public class CharacteristicKeyController : ControllerBase
     {
         /// <summary>Adiciona categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("characteristicKey/create")]
-        [Authorize(Roles = "Administrator")]
+       // [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostCharacteristic(
             [FromBody] CharacteristicKeyInsertCommand command,
@@ -26,7 +28,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Deleta categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpDelete("characteristicKey/delete")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> DeleteCharacteristic(
             //[FromBody] CategoryDeleteCommand command,
@@ -41,7 +43,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Altera categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPut("characteristicKey/update")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> UpdateCharacteristic(
             [FromBody] CharacteristicKeyUpdateCommand command,
@@ -65,7 +67,7 @@ namespace ComparaItens.Api.Controllers
 
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
-        [HttpGet("characteristicKey/findAllById")]
+        [HttpGet("characteristicKey/findById")]
         //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<CharacteristicKey>), 200)]
         public async Task<CharacteristicKey> FindByIdCharacteristic(
