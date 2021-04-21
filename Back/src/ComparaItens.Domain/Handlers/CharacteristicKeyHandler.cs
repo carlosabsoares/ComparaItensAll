@@ -67,7 +67,7 @@ namespace ComparaItens.Domain.Handlers
             _entity.Key = command.Key;
             _entity.Description = command.Description;
 
-            var _result = await _cudRepository.Delete(_entity);
+            var _result = await _cudRepository.Update(_entity);
 
             //retorna o resultado
             if (!_result)

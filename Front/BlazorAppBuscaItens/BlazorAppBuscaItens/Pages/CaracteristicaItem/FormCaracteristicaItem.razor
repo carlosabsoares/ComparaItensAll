@@ -6,13 +6,13 @@
 
         @if (ButtonText == "Excluir")
         {
+            <label>Item</label>
             <div>
-                <label>Item</label>
                 <input type="text" value="@CharacteristicKey.Key" disabled="" />
             </div>
-            <br/>
-            <div>
+            <br />
             <label>Descrição</label>
+            <div>
                 <input type="text" value="@CharacteristicKey.Description" disabled="" />
             </div>
 
@@ -24,7 +24,7 @@
                 <InputText @bind-Value="@CharacteristicKey.Key"></InputText>
                 <ValidationMessage For="@(() => CharacteristicKey.Key)" />
             </div>
-            <br/>
+            <br />
             <label>Descrição</label>
             <div>
                 <InputText @bind-Value="@CharacteristicKey.Description"></InputText>
