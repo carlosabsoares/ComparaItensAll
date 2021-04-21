@@ -1,0 +1,26 @@
+﻿@page "/usuario/criar"
+@using BlazorAppBuscaItens.Infra
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Cadastrar usuário</h3>
+<hr />
+
+<FormUsuario User="@user" ButtonText="Adicionar" OnValidSubmit="@CriarUsuario"></FormUsuario>
+
+@code {
+
+    User user = new User();
+
+    async Task CriarUsuario()
+    {
+
+    //var result = await _manufacturerRepository.Add(manufacturer);
+
+        var result = await Http.PostAsJsonAsync(@"https://localhost:44324/v1/comparaItens/user/create", user);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("usuario");
+    }
+
+}

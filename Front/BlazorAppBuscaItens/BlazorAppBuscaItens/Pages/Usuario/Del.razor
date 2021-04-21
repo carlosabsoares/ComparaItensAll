@@ -1,0 +1,31 @@
+﻿@page "/usuario/deletar/{id:int}"
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Delete usuário</h3>
+<hr />
+
+<FormUsuario User="@user" ButtonText="Excluir" OnValidSubmit="@DeleteUsers"></FormUsuario>
+
+@code {
+
+    User user = new User();
+
+    [Parameter]
+    public int id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        user = await Http.GetFromJsonAsync<User>("https://localhost:44324/v1/comparaItens/user/findById?id=" + id);
+    }
+
+    async Task DeleteUsers()
+    {
+
+        var result = await Http.DeleteAsync("https://localhost:44324/v1/comparaItens/user/delete?id=" + user.Id);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("fabricante");
+    }
+
+}

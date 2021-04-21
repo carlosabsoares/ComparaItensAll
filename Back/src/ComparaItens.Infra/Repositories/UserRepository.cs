@@ -23,11 +23,11 @@ namespace ComparaItens.Infra.Repositories
             return await query.Select(x => new User { Id = x.Id, Email = x.Email, Login = x.Login, Name = x.Name, Role = x.Role }).ToListAsync();
         }
 
-        public async Task<User> FindById(string id)
+        public async Task<User> FindById(int id)
         {
             var query = _context.Users.AsNoTracking();
 
-            return await query.Where(x => x.Id.ToString() == id).FirstOrDefaultAsync();
+            return await query.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         //public string MaskedEmail(string source)

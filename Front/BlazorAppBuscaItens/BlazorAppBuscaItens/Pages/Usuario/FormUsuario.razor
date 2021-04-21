@@ -1,0 +1,74 @@
+﻿<EditForm Model="@User" OnValidSubmit="@OnValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label>Nome</label>
+        @if (ButtonText == "Excluir")
+        {
+            <label>Nome</label>
+            <div>
+                <input type="text" value="@User.Name" disabled="" />
+            </div>
+            <br />
+            <label>Email</label>
+            <div>
+                <input type="text" value="@User.Email" disabled="" />
+            </div>
+            <br />
+            <label>Login</label>
+            <div>
+                <input type="text" value="@User.Login" disabled="" />
+            </div>
+            <br />
+            <label>Senha</label>
+            <div>
+                <input type="text" value="@User.Password" disabled="" />
+            </div>
+        }
+        else
+        {
+            <label>Nome</label>
+            <div>
+                <InputText @bind-Value="@User.Name"></InputText>
+                <ValidationMessage For="@(() => User.Name)" />
+            </div>
+            <br />
+            <label>Email</label>
+            <div>
+                <InputText @bind-Value="@User.Email"></InputText>
+                <ValidationMessage For="@(() => User.Email)" />
+            </div>
+            <br />
+            <label>Login</label>
+            <div>
+                <InputText @bind-Value="@User.Login"></InputText>
+                <ValidationMessage For="@(() => User.Login)" />
+            </div>
+            <br />
+            <label>Senha</label>
+            <div>
+                <InputText @bind-Value="@User.Password"></InputText>
+                <ValidationMessage For="@(() => User.Password)" />
+            </div>
+        }
+    </div>
+
+    <div>
+        @if (User.Login == null && ButtonText != "Adicionar")
+        {
+            <p><em>Carregando...</em></p>
+        }
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">@ButtonText</button>
+        <a href="usuario" class="btn btn-warning">Cancelar</a>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public User User { get; set; }
+    [Parameter] public string ButtonText { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

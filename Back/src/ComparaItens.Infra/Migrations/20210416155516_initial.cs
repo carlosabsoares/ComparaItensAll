@@ -77,7 +77,7 @@ namespace ComparaItens.Infra.Migrations
                 name: "tabUser",
                 columns: table => new
                 {
-                    idUser = table.Column<string>(type: "varchar(50)", nullable: false),
+                    id = table.Column<int>(type: "varchar(50)", nullable: false),
                     login = table.Column<string>(type: "varchar(50)", nullable: false),
                     password = table.Column<string>(type: "varchar(50)", nullable: false),
                     name = table.Column<string>(type: "varchar(100)", nullable: false),
@@ -86,7 +86,7 @@ namespace ComparaItens.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tabUser", x => x.idUser);
+                    table.PrimaryKey("PK_tabUser", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -233,7 +233,7 @@ namespace ComparaItens.Infra.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_tabUser_idUser",
                 table: "tabUser",
-                column: "idUser");
+                column: "id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

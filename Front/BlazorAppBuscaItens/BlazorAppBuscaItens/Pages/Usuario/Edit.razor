@@ -1,0 +1,31 @@
+﻿@page "/usuario/editar/{id:string}"
+@using BlazorAppBuscaItens.Infra
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Editar usuário</h3>
+<hr />
+
+<FormUsuario User="@user" ButtonText="Atualizar" OnValidSubmit="@EditarFabricante"></FormUsuario>
+
+@code {
+
+    User user = new User();
+
+    [Parameter]
+    public string id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        user = await Http.GetFromJsonAsync<User>("https://localhost:44324/v1/comparaItens/user/findById?id=" + id);
+    }
+
+    async Task EditarFabricante()
+    {
+        var result = await Http.PutAsJsonAsync("https://localhost:44324/v1/comparaItens/user/update", user);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("fabricante");
+    }
+
+}

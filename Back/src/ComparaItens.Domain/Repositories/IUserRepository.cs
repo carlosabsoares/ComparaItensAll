@@ -6,7 +6,7 @@ namespace ComparaItens.Domain.Repositories
 {
     public interface IUserRepository
     {
-        Task<User> FindById(string id);
+        Task<User> FindById(int id);
 
         Task<IList<User>> FindAll();
 

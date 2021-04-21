@@ -5,13 +5,13 @@ namespace ComparaItens.Domain.Commands
 {
     public class UserDeleteCommand : Notifiable, ICommand
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public UserDeleteCommand()
         {
         }
 
-        public UserDeleteCommand(string id)
+        public UserDeleteCommand(int id)
         {
             Id = id;
         }
@@ -21,7 +21,7 @@ namespace ComparaItens.Domain.Commands
             AddNotifications(
                 new Contract()
                     .Requires()
-                    .IsNotNullOrEmpty(Id, "Id", "Id não pode ser nulo")
+                    .IsGreaterThan(Id, 0, "Id", "O id é obrigatório")
             );
         }
     }

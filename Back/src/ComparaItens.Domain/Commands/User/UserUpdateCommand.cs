@@ -5,7 +5,7 @@ namespace ComparaItens.Domain.Commands
 {
     public class UserUpdateCommand : Notifiable, ICommand
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
         public string Name { get; set; }
@@ -16,7 +16,7 @@ namespace ComparaItens.Domain.Commands
             AddNotifications(
                 new Contract()
                     .Requires()
-                    .IsNotNullOrEmpty(Id, "Id", "Id não pode ser nulo")
+                    .IsGreaterThan(Id, 0, "Id", "O id é obrigatório")
                     .IsNotNullOrEmpty(Password, "Password", "Password não pode ser nulo")
                     .IsNotNullOrEmpty(Role.ToString(), "Role", "Role não pode ser nulo")
                     .IsNotNullOrEmpty(Name, "Name", "Name não pode ser nulo")

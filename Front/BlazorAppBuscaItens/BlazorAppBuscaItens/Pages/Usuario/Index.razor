@@ -1,0 +1,84 @@
+﻿@page "/usuario/index"
+@page "/usuario"
+@using BlazorAppBuscaItens.Model
+@using System.Net
+@using BlazorAppBuscaItens.Infra
+@inject HttpClient Http
+@*@inject IModalService modal*@
+
+<h1>Usuários</h1>
+
+<hr />
+
+<div>
+    <a href="usuario/criar" class="btn btn-success"><i class="oi oi-plus"></i></a>
+    @*<button type="button" class="btn btn-primary" tooltip="Criar"><i class="oi oi-plus" @onclick="@(() => modal.Show<Add>("Cadastra Fabricante"))"></i></button>*@
+</div>
+
+<p><em>@template</em></p>
+
+
+<br />
+
+<div>
+    @if (users == null)
+    {
+        <p><em>Carregando...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>login</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in users)
+                {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Login</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="usuario/editar/@item.Id" class="btn btn-primary btn-sm mr-2"><i class="oi oi-document"></i></a>
+                            <a href="usuario/deletar/@item.Id" class="btn btn-danger btn-sm mr-2"><i class="oi oi-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+
+    private List<User> users = new List<User>();
+    public string template { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadManufactures();
+    }
+
+    async Task LoadManufactures()
+    {
+        template = "Carregando...";
+        users = await Http.GetFromJsonAsync<List<User>>("https://localhost:44324/v1/comparaItens/user/findAll");
+
+        if (users.Count == 0)
+        {
+            template = "Não localizada informações no banco de dados.";
+        }
+        else
+        {
+            template = null;
+        }
+    }
+
+}

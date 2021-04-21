@@ -28,11 +28,11 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Deleta usuario de administração</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpDelete("user/delete")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> DeleteUser(
             //[FromBody] CategoryDeleteCommand command,
-            [FromQuery] string id,
+            [FromQuery] int id,
             [FromServices] IHandler<UserDeleteCommand> handler)
         {
             UserDeleteCommand command = new UserDeleteCommand(id);
@@ -43,7 +43,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Altera usuario de administração</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPut("user/update")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> UpdateUser(
             [FromBody] UserUpdateCommand command,
@@ -55,7 +55,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna usuário de administração</summary>
         /// <returns>Retorna usuário de administração</returns>
         [HttpGet("user/findAll")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<User>), 200)]
         public async Task<IList<User>> FindAllUser(
             [FromServices] IUserRepository repository)
@@ -65,10 +65,24 @@ namespace ComparaItens.Api.Controllers
             return result;
         }
 
+        /// <summary>Retorna usuário de administração</summary>
+        /// <returns>Retorna usuário de administração</returns>
+        [HttpGet("user/findById")]
+        //[Authorize(Roles = "Administrator")]
+        [ProducesResponseType(typeof(IList<User>), 200)]
+        public async Task<User> FindByIdUser(
+            [FromQuery] int id,
+            [FromServices] IUserRepository repository)
+        {
+            var result = await repository.FindById(id);
+
+            return result;
+        }
+
         /// <summary>Valida Acesso de usúário de administração</summary>
         /// <returns>Valida Acesso de usúário de administração</returns>
         [HttpPost("user/validateUser")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [ProducesResponseType(typeof(User), 200)]
         public async Task<GenericCommandResult> ValidateAccess(
             [FromBody] UserValidateAccessCommand command,

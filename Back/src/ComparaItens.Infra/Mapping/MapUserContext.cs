@@ -9,8 +9,8 @@ namespace ComparaItens.Infra.Mapping
         {
             modelBuilder.Entity<User>().ToTable("tabUser");
 
-            modelBuilder.Entity<User>().Property(x => x.Id).HasColumnType("varchar(50)");
-            modelBuilder.Entity<User>().Property(x => x.Id).HasColumnName("idUser");
+            modelBuilder.Entity<User>().Property(x => x.Id).HasColumnType("int(11)");
+            modelBuilder.Entity<User>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<User>().HasKey(x => x.Id);
             modelBuilder.Entity<User>().HasIndex(x => x.Id);
 

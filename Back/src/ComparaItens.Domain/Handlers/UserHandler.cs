@@ -5,6 +5,7 @@ using ComparaItens.Domain.Repositories;
 using ComparaItens.Domain.Services;
 using Flunt.Notifications;
 using System.Net;
+using System.Runtime.Serialization.Formatters;
 using System.Threading.Tasks;
 
 namespace ComparaItens.Domain.Handlers
@@ -36,7 +37,17 @@ namespace ComparaItens.Domain.Handlers
             _entity.Password = command.Password;
             _entity.Name = command.Name;
             _entity.Email = command.Email;
-            _entity.Role = command.Role.ToString();
+
+            if (!string.IsNullOrEmpty(command.Role))
+            {
+                _entity.Role = command.Role.ToString();
+            }
+            else
+            {
+                _entity.Role = "Administrator";
+            }
+                
+
 
             var _result = await _cudRepository.Add(_entity);
 
