@@ -1,0 +1,82 @@
+﻿@page "/produto/index"
+@page "/produto"
+@inject HttpClient Http
+@*@inject IModalService modal*@
+
+<h1>Produtos</h1>
+
+<hr />
+
+<div>
+    <a href="produto/criar" class="btn btn-success"><i class="oi oi-plus"></i></a>
+</div>
+
+<p><em>@template</em></p>
+
+
+<br />
+
+<div>
+    @if (products == null)
+    {
+        <p><em>Carregando...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Fabricante</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in products)
+                {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Description</td>
+                    <td>@item.Category.Description</td>
+                    <td>@item.Manufecturer.Description</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="produto/editar/@item.Id" class="btn btn-primary btn-sm mr-2"><i class="oi oi-document"></i></a>
+                            <a href="produto/deletar/@item.Id" class="btn btn-danger btn-sm mr-2"><i class="oi oi-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+
+    private List<Product> products = new List<Product>();
+    public string template { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadManufactures();
+    }
+
+    async Task LoadManufactures()
+    {
+        template = "Carregando...";
+        products = await Http.GetFromJsonAsync<List<Product>>("https://localhost:44324/v1/comparaItens/product/findAll");
+
+        if (products.Count == 0)
+        {
+            template = "Não localizada informações no banco de dados.";
+        }
+        else
+        {
+            template = null;
+        }
+    }
+
+}

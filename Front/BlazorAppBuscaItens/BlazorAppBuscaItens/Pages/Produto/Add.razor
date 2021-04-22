@@ -1,0 +1,26 @@
+﻿@page "/produto/criar"
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Cadastrar Produto</h3>
+<hr />
+
+<FormProduto Product="@product" ButtonText="Adicionar" OnValidSubmit="@CriarProduto"></FormProduto>
+
+@code {
+
+    Product product = new Product();
+
+    async Task CriarProduto()
+    {
+
+        //var result = await _manufacturerRepository.Add(manufacturer);
+
+        var result = await Http.PostAsJsonAsync(
+            @"https://localhost:44324/v1/comparaItens/product/create",
+            product);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("produto");
+    }
+}

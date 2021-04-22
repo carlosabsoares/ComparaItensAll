@@ -1,0 +1,31 @@
+﻿@page "/produto/deletar/{id:int}"
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Delete Produto</h3>
+<hr />
+
+<FormProduto Product="@product" ButtonText="Excluir" OnValidSubmit="@DeleteManufactures"></FormProduto>
+
+@code {
+
+    Product product = new Product();
+
+    [Parameter]
+    public int id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        product = await Http.GetFromJsonAsync<Product>("https://localhost:44324/v1/comparaItens/product/findById?id=" + id);
+    }
+
+    async Task DeleteManufactures()
+    {
+
+        var result = await Http.DeleteAsync("https://localhost:44324/v1/comparaItens/product/delete?id=" + product.Id);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("produto");
+    }
+
+}

@@ -1,0 +1,30 @@
+﻿@page "/produto/editar/{id:int}"
+@inject HttpClient Http
+@inject NavigationManager navigation
+
+<h3>Editar Produto</h3>
+<hr />
+
+<FormProduto Product="@product" ButtonText="Atualizar" OnValidSubmit="@EditarFabricante"></FormProduto>
+
+@code {
+
+    Product product = new Product();
+
+    [Parameter]
+    public int id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        product = await Http.GetFromJsonAsync<Product>("https://localhost:44324/v1/comparaItens/product/findById?id=" + id);
+    }
+
+    async Task EditarFabricante()
+    {
+        var result = await Http.PutAsJsonAsync("https://localhost:44324/v1/product/manufacturer/update", product);
+
+        if (result.IsSuccessStatusCode)
+            navigation.NavigateTo("fabricante");
+    }
+
+}
