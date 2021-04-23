@@ -30,6 +30,8 @@
                     <th>Descrição</th>
                     <th>Categoria</th>
                     <th>Fabricante</th>
+                    <th>Modelo</th>
+                    <th>Ano</th>
                     <th>Opções</th>
                 </tr>
             </thead>
@@ -41,6 +43,8 @@
                     <td>@item.Description</td>
                     <td>@item.Category.Description</td>
                     <td>@item.Manufecturer.Description</td>
+                    <td>@item.Model</td>
+                    <td>@item.YearOfManufacture</td>
                     <td>
                         <div class="btn-group">
                             <a href="produto/editar/@item.Id" class="btn btn-primary btn-sm mr-2"><i class="oi oi-document"></i></a>
