@@ -38,16 +38,7 @@ namespace ComparaItens.Domain.Handlers
             _entity.Name = command.Name;
             _entity.Email = command.Email;
 
-            if (!string.IsNullOrEmpty(command.Role))
-            {
-                _entity.Role = command.Role.ToString();
-            }
-            else
-            {
-                _entity.Role = "Administrator";
-            }
-                
-
+            _entity.Role = (!string.IsNullOrEmpty(command.Role)) ? command.Role : "Administrator";
 
             var _result = await _cudRepository.Add(_entity);
 
@@ -98,7 +89,7 @@ namespace ComparaItens.Domain.Handlers
             _entity.Login = _verify.Login;
             _entity.Password = command.Password;
             _entity.Name = command.Name;
-            _entity.Role = command.Role.ToString();
+            _entity.Role = (!string.IsNullOrEmpty(command.Role)) ? command.Role : "Administrator";
 
             var _result = await _cudRepository.Update(_entity);
 

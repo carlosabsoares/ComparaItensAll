@@ -1,35 +1,42 @@
-﻿<EditForm Model="@Product" OnValidSubmit="@OnValidSubmit">
+﻿@inject HttpClient Http
+
+<EditForm Model="@Product" OnValidSubmit="@OnValidSubmit">
 
     <DataAnnotationsValidator />
 
-    @*<div class="form-group">
-        <label>Nome</label>
-        @if (ButtonText == "Excluir")
-        {
-            <input type="text" value="@Product." disabled="" />
-        }
-        else
-        {
+    <div class="form-group">
+        <label for="instrumento"> Escolha seu instrumento</label>
+        <select name="instrumento" id="instrumento">
+            <option value="trp">trompete</option>
+            <option value="tpa">trompa</option>
+            <option value="tbn">trombone</option>
+            <option value="tub">tuba</option>
+        </select>
+        <div>
             <InputText @bind-Value="@Product.Description"></InputText>
-            <ValidationMessage For="@(()=> Product.Description)" />
-        }
-    </div>
-
-    <div>
-        @if (Product.Description == null && ButtonText != "Adicionar")
-        {
-            <p><em>Carregando...</em></p>
-        }
-    </div>*@
-
-    <div>
-        <button type="submit" class="btn btn-primary">@ButtonText</button>
-        <a href="produto" class="btn btn-warning">Cancelar</a>
+            <ValidationMessage For="@(() => Product.Description)" />
+        </div>
+        <br />
     </div>
 </EditForm>
 
 @code {
     [Parameter] public Product Product { get; set; }
+    [Parameter] public List<Manufacturer> manufacturers { get; set; }
     [Parameter] public string ButtonText { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadManufactures();
+    }
+
+    async Task LoadManufactures()
+    {
+
+        manufacturers = await Http.GetFromJsonAsync<List<Manufacturer>>("https://localhost:44324/v1/comparaItens/manufacturer/findAll");
+
+    }
+
 }

@@ -25,7 +25,7 @@
         var result = await Http.DeleteAsync("https://localhost:44324/v1/comparaItens/user/delete?id=" + user.Id);
 
         if (result.IsSuccessStatusCode)
-            navigation.NavigateTo("fabricante");
+            navigation.NavigateTo("usuario");
     }
 
 }

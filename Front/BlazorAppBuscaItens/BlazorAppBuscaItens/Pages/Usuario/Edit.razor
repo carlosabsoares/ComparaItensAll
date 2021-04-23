@@ -25,7 +25,7 @@
         var result = await Http.PutAsJsonAsync("https://localhost:44324/v1/comparaItens/user/update", user);
 
         if (result.IsSuccessStatusCode)
-            navigation.NavigateTo("fabricante");
+            navigation.NavigateTo("usuario");
     }
 
 }

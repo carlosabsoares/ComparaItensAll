@@ -24,7 +24,7 @@
         var result = await Http.PutAsJsonAsync("https://localhost:44324/v1/product/manufacturer/update", product);
 
         if (result.IsSuccessStatusCode)
-            navigation.NavigateTo("fabricante");
+            navigation.NavigateTo("produto");
     }
 
 }
