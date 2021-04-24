@@ -1,8 +1,32 @@
-﻿@inject HttpClient Http
+﻿@using BlazorStrap
+@inject HttpClient Http
+
+
 
 <EditForm Model="@Product" OnValidSubmit="@OnValidSubmit">
 
     <DataAnnotationsValidator />
+    
+    @*<InputSelectNumber class="form-control"
+                       ValueExpression="@(() => Product.ManufecturerId)"
+                       Value="Product.Manufecturer.Id">
+        
+        <option value="0">--Selecione um fabricante</option>
+        <option value="1">--Selecione um caralho qualquer</option>
+
+    </InputSelectNumber>*@
+    
+    <b>@displayFruit</b>
+
+    <select @bind="displayFruit">
+        <option value="1">Apple</option>
+        <option value="2">Banana</option>
+        <option value="3" selected="selected">Kiwi</option>
+        <option value="4">Orange</option>
+
+    </select>
+
+
 
     <div class="form-group">
         <label for="instrumento"> Escolha seu instrumento</label>
@@ -25,7 +49,9 @@
     [Parameter] public List<Manufacturer> manufacturers { get; set; }
     [Parameter] public string ButtonText { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
-    
+
+
+    string displayFruit = "";
 
     protected override async Task OnInitializedAsync()
     {
