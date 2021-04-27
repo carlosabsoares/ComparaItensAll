@@ -6,52 +6,27 @@
 <EditForm Model="@Product" OnValidSubmit="@OnValidSubmit">
 
     <DataAnnotationsValidator />
+
+    <InputSelect id="department" @bind-Value="Product.ManufecturerId">
+        @foreach (var manufacturer in manufacturers)
+        {
+            <option value="@manufacturer.Id">@manufacturer.Description</option>
+        }
+    </InputSelect>
     
-    @*<InputSelectNumber class="form-control"
-                       ValueExpression="@(() => Product.ManufecturerId)"
-                       Value="Product.Manufecturer.Id">
-        
-        <option value="0">--Selecione um fabricante</option>
-        <option value="1">--Selecione um caralho qualquer</option>
+    <br />
 
-    </InputSelectNumber>*@
-    
-    <b>@displayFruit</b>
-
-    <select @bind="displayFruit">
-        <option value="1">Apple</option>
-        <option value="2">Banana</option>
-        <option value="3" selected="selected">Kiwi</option>
-        <option value="4">Orange</option>
-
-    </select>
-
-
-
-    <div class="form-group">
-        <label for="instrumento"> Escolha seu instrumento</label>
-        <select name="instrumento" id="instrumento">
-            <option value="trp">trompete</option>
-            <option value="tpa">trompa</option>
-            <option value="tbn">trombone</option>
-            <option value="tub">tuba</option>
-        </select>
-        <div>
-            <InputText @bind-Value="@Product.Description"></InputText>
-            <ValidationMessage For="@(() => Product.Description)" />
-        </div>
-        <br />
-    </div>
 </EditForm>
 
 @code {
     [Parameter] public Product Product { get; set; }
-    [Parameter] public List<Manufacturer> manufacturers { get; set; }
     [Parameter] public string ButtonText { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
+    List<Manufacturer> manufacturers = new List<Manufacturer>();
 
-    string displayFruit = "";
+
+    
 
     protected override async Task OnInitializedAsync()
     {
@@ -60,9 +35,7 @@
 
     async Task LoadManufactures()
     {
-
         manufacturers = await Http.GetFromJsonAsync<List<Manufacturer>>("https://localhost:44324/v1/comparaItens/manufacturer/findAll");
-
     }
 
 }
