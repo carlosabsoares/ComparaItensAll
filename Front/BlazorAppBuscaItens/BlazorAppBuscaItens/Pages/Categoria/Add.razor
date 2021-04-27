@@ -11,16 +11,15 @@
 
 @code {
 
-    
     Category category = new Category();
 
     async Task CriarCategoria()
     {
 
-    //var result = await _manufacturerRepository.Add(manufacturer);
+        //var result = await _manufacturerRepository.Add(manufacturer);
 
         var result = await Http.PostAsJsonAsync(
-            @"https://localhost:44324/v1/comparaItens/category/create", 
+            @"https://localhost:44324/v1/comparaItens/category/create",
             category);
 
         if (result.IsSuccessStatusCode)

@@ -1,21 +1,62 @@
 ﻿@using BlazorStrap
 @inject HttpClient Http
 
-
-
 <EditForm Model="@Product" OnValidSubmit="@OnValidSubmit">
 
     <DataAnnotationsValidator />
+    <div class="form-horizontal">
 
-    <InputSelect id="department" @bind-Value="Product.ManufecturerId">
-        @foreach (var manufacturer in manufacturers)
-        {
-            <option value="@manufacturer.Id">@manufacturer.Description</option>
-        }
-    </InputSelect>
-    
-    <br />
+        <label>Descrição</label>
+        <div class="form-horizontal">
+            <InputText @bind-Value="@Product.Description"></InputText>
+            <ValidationMessage For="@(() => Product.Description)" />
+        </div>
+        <br />
 
+        <label>Fabricante</label>
+        <div class="form-horizontal">
+            <InputSelect id="department" @bind-Value="Product.ManufecturerId">
+                @foreach (var manufacturer in manufacturers)
+                {
+                    <option value="@manufacturer.Id">@manufacturer.Description</option>
+                }
+            </InputSelect>
+        </div>
+
+        <label>Modelo</label>
+        <div class="form-horizontal">
+
+            <InputText @bind-Value="@Product.Model"></InputText>
+            <ValidationMessage For="@(() => Product.Model)" />
+        </div>
+        
+        <label>Ano de Fabricação</label>
+        <div class="form-horizontal">
+        
+            <InputNumber @bind-Value="@Product.YearOfManufacture"></InputNumber>
+            <ValidationMessage For="@(() => Product.YearOfManufacture)" />
+        </div>
+
+        <label>Imagem</label>
+        <div class="form-horizontal">
+
+            <InputText @bind-Value="@Product.Image"></InputText>
+            <ValidationMessage For="@(() => Product.Image)" />
+        </div>
+
+        <div class="form-horizontal">
+            <label>Folder</label>
+            <InputText @bind-Value="@Product.Folder"></InputText>
+            <ValidationMessage For="@(() => Product.Folder)" />
+        </div>
+
+        <InputSelect id="department" @bind-Value="Product.ManufecturerId">
+            @foreach (var manufacturer in manufacturers)
+            {
+                <option value="@manufacturer.Id">@manufacturer.Description</option>
+            }
+        </InputSelect>
+    </div>
 </EditForm>
 
 @code {
@@ -24,9 +65,6 @@
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
     List<Manufacturer> manufacturers = new List<Manufacturer>();
-
-
-    
 
     protected override async Task OnInitializedAsync()
     {

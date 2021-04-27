@@ -15,7 +15,7 @@
     async Task CriarUsuario()
     {
 
-    //var result = await _manufacturerRepository.Add(manufacturer);
+        //var result = await _manufacturerRepository.Add(manufacturer);
 
         var result = await Http.PostAsJsonAsync(@"https://localhost:44324/v1/comparaItens/user/create", user);
 
