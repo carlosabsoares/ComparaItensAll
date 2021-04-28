@@ -13,15 +13,38 @@
         </div>
         <br />
 
+        <label>Categorias</label>
+        <div class="form-horizontal">
+            <InputSelect id="category" @bind-Value="Product.CategoryId">
+                @foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Description</option>
+                }
+            </InputSelect>
+        </div>
+        <br />
+
         <label>Fabricante</label>
         <div class="form-horizontal">
-            <InputSelect id="department" @bind-Value="Product.ManufecturerId">
+            <InputSelect id="manufacturer" @bind-Value="Product.ManufecturerId">
                 @foreach (var manufacturer in manufacturers)
                 {
                     <option value="@manufacturer.Id">@manufacturer.Description</option>
                 }
             </InputSelect>
         </div>
+        <br />
+
+        @*<label>Caracteristica</label>
+        <div class="form-horizontal">
+            <InputSelect id="characteristic" @bind-Value="Product.c">
+                @foreach (var category in characteristics)
+                {
+                    <option value="@category.Id">@category.Description</option>
+                }
+            </InputSelect>
+        </div>
+        <br />*@
 
         <label>Modelo</label>
         <div class="form-horizontal">
@@ -29,13 +52,15 @@
             <InputText @bind-Value="@Product.Model"></InputText>
             <ValidationMessage For="@(() => Product.Model)" />
         </div>
-        
+        <br />
+
         <label>Ano de Fabricação</label>
         <div class="form-horizontal">
-        
+
             <InputNumber @bind-Value="@Product.YearOfManufacture"></InputNumber>
             <ValidationMessage For="@(() => Product.YearOfManufacture)" />
         </div>
+        <br />
 
         <label>Imagem</label>
         <div class="form-horizontal">
@@ -43,19 +68,20 @@
             <InputText @bind-Value="@Product.Image"></InputText>
             <ValidationMessage For="@(() => Product.Image)" />
         </div>
+        <br />
 
+        <label>Folder</label>
         <div class="form-horizontal">
-            <label>Folder</label>
             <InputText @bind-Value="@Product.Folder"></InputText>
             <ValidationMessage For="@(() => Product.Folder)" />
         </div>
 
-        <InputSelect id="department" @bind-Value="Product.ManufecturerId">
+        @*<InputSelect id="department" @bind-Value="Product.ManufecturerId">
             @foreach (var manufacturer in manufacturers)
             {
                 <option value="@manufacturer.Id">@manufacturer.Description</option>
             }
-        </InputSelect>
+        </InputSelect>*@
     </div>
 </EditForm>
 
@@ -64,7 +90,14 @@
     [Parameter] public string ButtonText { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
+    string URL = @"https://localhost:44324/v1/comparaItens/";
+
     List<Manufacturer> manufacturers = new List<Manufacturer>();
+    List<Category> categories = new List<Category>();
+    List<Characteristic> characteristics = new List<Characteristic>();
+    List<CharacteristicKey> caracteristicaItem = new List<CharacteristicKey>();
+
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -73,7 +106,11 @@
 
     async Task LoadManufactures()
     {
-        manufacturers = await Http.GetFromJsonAsync<List<Manufacturer>>("https://localhost:44324/v1/comparaItens/manufacturer/findAll");
+        manufacturers = await Http.GetFromJsonAsync<List<Manufacturer>>( URL + "manufacturer/findAll");
+        categories = await Http.GetFromJsonAsync<List<Category>>(URL + "category/findAll");
+        characteristics = await Http.GetFromJsonAsync<List<Characteristic>>(URL + "characteristic/findAll");
+        caracteristicaItem = await Http.GetFromJsonAsync<List<CharacteristicKey>>(URL + "characteristicKey/findAll");
+
     }
 
 }
