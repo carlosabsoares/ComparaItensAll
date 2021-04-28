@@ -8,14 +8,14 @@
 
         <label>Descrição</label>
         <div class="form-horizontal">
-            <InputText @bind-Value="@Product.Description"></InputText>
+            <InputText @bind-Value="@Product.Description" class ="col-sm-10"></InputText>
             <ValidationMessage For="@(() => Product.Description)" />
         </div>
         <br />
 
         <label>Fabricante</label>
         <div class="form-horizontal">
-            <InputSelect id="department" @bind-Value="Product.ManufecturerId">
+            <InputSelect id="department" @bind-Value="Product.ManufecturerId" class ="col-sm-10">
                 @foreach (var manufacturer in manufacturers)
                 {
                     <option value="@manufacturer.Id">@manufacturer.Description</option>
@@ -25,21 +25,18 @@
 
         <label>Modelo</label>
         <div class="form-horizontal">
-
             <InputText @bind-Value="@Product.Model"></InputText>
             <ValidationMessage For="@(() => Product.Model)" />
         </div>
         
         <label>Ano de Fabricação</label>
         <div class="form-horizontal">
-        
             <InputNumber @bind-Value="@Product.YearOfManufacture"></InputNumber>
             <ValidationMessage For="@(() => Product.YearOfManufacture)" />
         </div>
 
         <label>Imagem</label>
         <div class="form-horizontal">
-
             <InputText @bind-Value="@Product.Image"></InputText>
             <ValidationMessage For="@(() => Product.Image)" />
         </div>
