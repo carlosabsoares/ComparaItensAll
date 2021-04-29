@@ -5,80 +5,108 @@
 
     <DataAnnotationsValidator />
     <div class="form-horizontal">
+        
+        <div class="d-flex">
+            
+            <div class="form-horizontal d-flex flex-column col-sm-5 p-0 pr-2">
+                <label>Categorias</label>
+                <InputSelect id="category" @bind-Value="Product.CategoryId">
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category.Id">@category.Description</option>
+                    }
+                </InputSelect>
+            </div>
 
+            <div class="form-horizontal d-flex flex-column col-sm-5 p-0">
+                <label>Fabricante</label>
+                <InputSelect id="manufacturer" @bind-Value="Product.ManufecturerId">
+                    @foreach (var manufacturer in manufacturers)
+                    {
+                        <option value="@manufacturer.Id">@manufacturer.Description</option>
+                    }
+                </InputSelect>
+            </div>
+        </div>
+        <br />
+        
         <label>Descrição</label>
         <div class="form-horizontal">
-            <InputText @bind-Value="@Product.Description" class ="col-sm-10"></InputText>
+            <InputText @bind-Value="@Product.Description" class="col-sm-10"></InputText>
             <ValidationMessage For="@(() => Product.Description)" />
         </div>
         <br />
 
-        <label>Categorias</label>
-        <div class="form-horizontal">
-            <InputSelect id="category" @bind-Value="Product.CategoryId" class ="col-sm-10">
-                @foreach (var category in categories)
-                {
-                    <option value="@category.Id">@category.Description</option>
-                }
-            </InputSelect>
+        <div class="d-flex">
+            <div class="form-horizontal d-flex flex-column col-sm-6 p-0 pr-2">
+                <label>Modelo</label>
+                <InputText @bind-Value="@Product.Model"></InputText>
+                <ValidationMessage For="@(() => Product.Model)" />
+            </div>
+            
+            
+            <div class="form-horizontal d-flex flex-column col-sm-4 p-0">
+                <label>Ano de Fabricação</label>
+                <InputNumber @bind-Value="@Product.YearOfManufacture" ></InputNumber>
+                <ValidationMessage For="@(() => Product.YearOfManufacture)" />
+            </div>
         </div>
-        <br />
 
-        <label>Fabricante</label>
-        <div class="form-horizontal" >
-            <InputSelect id="department" @bind-Value="Product.ManufecturerId" class ="col-sm-10">
+        @*<label>Fabricante</label>
+        <div class="form-horizontal">
+            <InputSelect id="manufacturer" @bind-Value="Product.ManufecturerId" class="col-sm-10">
                 @foreach (var manufacturer in manufacturers)
                 {
                     <option value="@manufacturer.Id">@manufacturer.Description</option>
                 }
             </InputSelect>
-        </div>
+        </div>*@
         <br />
 
-        @*<label>Caracteristica</label>
-        <div class="form-horizontal">
-            <InputSelect id="characteristic" @bind-Value="Product.c">
-                @foreach (var category in characteristics)
-                {
-                    <option value="@category.Id">@category.Description</option>
-                }
-            </InputSelect>
-        </div>
-        <br />*@
-
-        <label>Modelo</label>
-        <div class="form-horizontal">
-            <InputText @bind-Value="@Product.Model" class ="col-sm-10"></InputText>
-            <ValidationMessage For="@(() => Product.Model)" />
-        </div>
-        <br />
-
-        <label>Ano de Fabricação</label>
-        <div class="form-horizontal">
-            <InputNumber @bind-Value="@Product.YearOfManufacture" class ="col-sm-10"></InputNumber>
-            <ValidationMessage For="@(() => Product.YearOfManufacture)" />
-        </div>
-        <br />
 
         <label>Imagem</label>
         <div class="form-horizontal">
-            <InputText @bind-Value="@Product.Image" class ="col-sm-10"></InputText>
+            <InputText @bind-Value="@Product.Image" class="col-sm-10"></InputText>
             <ValidationMessage For="@(() => Product.Image)" />
         </div>
         <br />
 
         <label>Folder</label>
         <div class="form-horizontal">
-            <InputText @bind-Value="@Product.Folder" class ="col-sm-10"></InputText>
+            <InputText @bind-Value="@Product.Folder" class="col-sm-10"></InputText>
             <ValidationMessage For="@(() => Product.Folder)" />
         </div>
 
-        @*<InputSelect id="department" @bind-Value="Product.ManufecturerId">
-            @foreach (var manufacturer in manufacturers)
-            {
-                <option value="@manufacturer.Id">@manufacturer.Description</option>
-            }
-        </InputSelect>*@
+        <br />
+
+        <div class="d-flex">
+
+            <div class="form-horizontal d-flex flex-column col-sm-5 p-0 pr-2">
+                <label>Caracteristica</label>
+                <select name="characteristic" id="characteristic">
+                    @foreach (var characteristic in characteristics)
+                    {
+                        <option value="@characteristic.Id">@characteristic.Description</option>
+                    }
+                </select>
+            </div>
+            
+            <div class="row mb-2">
+                <div class="form-horizontal d-flex flex-column col-sm-5 p-0">
+                    <label>Caracteristica</label>
+                    <select name="characteristic" id="characteristic">
+                        @foreach (var characteristic in characteristics)
+                        {
+                            <option value="@characteristic.Id">@characteristic.Description</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            
+        </div>
+
+        <br />
+
     </div>
 </EditForm>
 
@@ -103,7 +131,7 @@
 
     async Task LoadManufactures()
     {
-        manufacturers = await Http.GetFromJsonAsync<List<Manufacturer>>( URL + "manufacturer/findAll");
+        manufacturers = await Http.GetFromJsonAsync<List<Manufacturer>>(URL + "manufacturer/findAll");
         categories = await Http.GetFromJsonAsync<List<Category>>(URL + "category/findAll");
         characteristics = await Http.GetFromJsonAsync<List<Characteristic>>(URL + "characteristic/findAll");
         caracteristicaItem = await Http.GetFromJsonAsync<List<CharacteristicKey>>(URL + "characteristicKey/findAll");
