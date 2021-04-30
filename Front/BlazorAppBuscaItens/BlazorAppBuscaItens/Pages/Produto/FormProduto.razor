@@ -90,19 +90,31 @@
                     }
                 </select>
             </div>
-            
-            <div class="row mb-2">
-                <div class="form-horizontal d-flex flex-column col-sm-5 p-0">
-                    <label>Caracteristica</label>
-                    <select name="characteristic" id="characteristic">
-                        @foreach (var characteristic in characteristics)
+
+            @*<div class="row mb-2">
+                <div class="form-horizontal d-flex flex-column col-sm-2 p-0">
+                    <label>Caracteristica Item</label>
+                    <select name="characteristicItem" id="characteristicItem">
+                        @foreach (var characteristicItem in caracteristicaItemGroup)
                         {
-                            <option value="@characteristic.Id">@characteristic.Description</option>
+                            <option value="@characteristicItem.Id">@characteristicItem.Key</option>
                         }
                     </select>
                 </div>
             </div>
-            
+
+            <div class="row mb-2">
+                <div class="form-horizontal d-flex flex-column col-sm-3 p-0">
+                    <label>Caracteristica Item Descrição</label>
+                    <select name="characteristicItemDescricao" id="characteristicItemDescricao">
+                        @foreach (var characteristicItem in caracteristicaItem)
+                        {
+                            <option value="@characteristicItem.Id">@characteristicItem.Description</option>
+                        }
+                    </select>
+                </div>
+            </div>*@
+
         </div>
 
         <br />
@@ -121,6 +133,7 @@
     List<Category> categories = new List<Category>();
     List<Characteristic> characteristics = new List<Characteristic>();
     List<CharacteristicKey> caracteristicaItem = new List<CharacteristicKey>();
+    List<CharacteristicKey> caracteristicaItemGroup = new List<CharacteristicKey>();
 
 
 
@@ -135,6 +148,8 @@
         categories = await Http.GetFromJsonAsync<List<Category>>(URL + "category/findAll");
         characteristics = await Http.GetFromJsonAsync<List<Characteristic>>(URL + "characteristic/findAll");
         caracteristicaItem = await Http.GetFromJsonAsync<List<CharacteristicKey>>(URL + "characteristicKey/findAll");
+
+        var caracteristicaItemGroup = caracteristicaItem.GroupBy(x => x.Key).ToList();
 
     }
 
