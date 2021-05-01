@@ -1,13 +1,14 @@
 ﻿@using BlazorStrap
+@using System.IO
 @inject HttpClient Http
 
 <EditForm Model="@Product" OnValidSubmit="@OnValidSubmit">
 
     <DataAnnotationsValidator />
     <div class="form-horizontal">
-        
+
         <div class="d-flex">
-            
+
             <div class="form-horizontal d-flex flex-column col-sm-5 p-0 pr-2">
                 <label>Categorias</label>
                 <InputSelect id="category" @bind-Value="Product.CategoryId">
@@ -17,6 +18,8 @@
                     }
                 </InputSelect>
             </div>
+            
+
 
             <div class="form-horizontal d-flex flex-column col-sm-5 p-0">
                 <label>Fabricante</label>
@@ -29,7 +32,7 @@
             </div>
         </div>
         <br />
-        
+
         <label>Descrição</label>
         <div class="form-horizontal">
             <InputText @bind-Value="@Product.Description" class="col-sm-10"></InputText>
@@ -43,24 +46,24 @@
                 <InputText @bind-Value="@Product.Model"></InputText>
                 <ValidationMessage For="@(() => Product.Model)" />
             </div>
-            
-            
+
+
             <div class="form-horizontal d-flex flex-column col-sm-4 p-0">
                 <label>Ano de Fabricação</label>
-                <InputNumber @bind-Value="@Product.YearOfManufacture" ></InputNumber>
+                <InputNumber @bind-Value="@Product.YearOfManufacture"></InputNumber>
                 <ValidationMessage For="@(() => Product.YearOfManufacture)" />
             </div>
         </div>
 
         @*<label>Fabricante</label>
-        <div class="form-horizontal">
-            <InputSelect id="manufacturer" @bind-Value="Product.ManufecturerId" class="col-sm-10">
-                @foreach (var manufacturer in manufacturers)
-                {
-                    <option value="@manufacturer.Id">@manufacturer.Description</option>
-                }
-            </InputSelect>
-        </div>*@
+            <div class="form-horizontal">
+                <InputSelect id="manufacturer" @bind-Value="Product.ManufecturerId" class="col-sm-10">
+                    @foreach (var manufacturer in manufacturers)
+                    {
+                        <option value="@manufacturer.Id">@manufacturer.Description</option>
+                    }
+                </InputSelect>
+            </div>*@
         <br />
 
 
@@ -81,7 +84,7 @@
 
         <div class="d-flex">
 
-            <div class="form-horizontal d-flex flex-column col-sm-5 p-0 pr-2">
+            <div class="form-horizontal d-flex flex-column col-sm-3 p-0 pr-2">
                 <label>Caracteristica</label>
                 <select name="characteristic" id="characteristic">
                     @foreach (var characteristic in characteristics)
@@ -91,29 +94,40 @@
                 </select>
             </div>
 
-            @*<div class="row mb-2">
-                <div class="form-horizontal d-flex flex-column col-sm-2 p-0">
-                    <label>Caracteristica Item</label>
-                    <select name="characteristicItem" id="characteristicItem">
-                        @foreach (var characteristicItem in caracteristicaItemGroup)
-                        {
-                            <option value="@characteristicItem.Id">@characteristicItem.Key</option>
-                        }
-                    </select>
-                </div>
-            </div>
+            <div class="form-horizontal d-flex flex-column col-sm-3 p-0">
+                <label>Caracteristica Item</label>
 
-            <div class="row mb-2">
-                <div class="form-horizontal d-flex flex-column col-sm-3 p-0">
-                    <label>Caracteristica Item Descrição</label>
-                    <select name="characteristicItemDescricao" id="characteristicItemDescricao">
-                        @foreach (var characteristicItem in caracteristicaItem)
-                        {
-                            <option value="@characteristicItem.Id">@characteristicItem.Description</option>
-                        }
-                    </select>
-                </div>
+                <InputSelect id="caracteristicaItemGroup"  @bind-Value="@key">
+                    @foreach (var characteristicItem in caracteristicaItemGroup)
+                    {
+                        <option value="@characteristicItem">@characteristicItem</option>
+                    }
+                </InputSelect>
+            </div>
+            
+            <label>@key</label>
+            
+            @*<div class="form-horizontal d-flex flex-column col-sm-3 p-0">
+                <label>Caracteristica Item</label>
+                <select name="characteristicItem" id="characteristicItem">
+                    @foreach (var characteristicItem in caracteristicaItemGroup)
+                    {
+                        <option value="@characteristicItem">@characteristicItem</option>
+                    }
+                </select>
             </div>*@
+
+            @*<div class="row mb-2">
+                    <div class="form-horizontal d-flex flex-column col-sm-3 p-0">
+                        <label>Caracteristica Item Descrição</label>
+                        <select name="characteristicItemDescricao" id="characteristicItemDescricao">
+                            @foreach (var characteristicItem in caracteristicaItem)
+                            {
+                                <option value="@characteristicItem.Id">@characteristicItem.Description</option>
+                            }
+                        </select>
+                    </div>
+                </div>*@
 
         </div>
 
@@ -128,12 +142,14 @@
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
     string URL = @"https://localhost:44324/v1/comparaItens/";
+    string key;
 
     List<Manufacturer> manufacturers = new List<Manufacturer>();
     List<Category> categories = new List<Category>();
     List<Characteristic> characteristics = new List<Characteristic>();
     List<CharacteristicKey> caracteristicaItem = new List<CharacteristicKey>();
-    List<CharacteristicKey> caracteristicaItemGroup = new List<CharacteristicKey>();
+    List<string> caracteristicaItemGroup = new List<string>();
+    List<CharacteristicKey> caracteristicaItemGroupDescription = new List<CharacteristicKey>();
 
 
 
@@ -149,8 +165,11 @@
         characteristics = await Http.GetFromJsonAsync<List<Characteristic>>(URL + "characteristic/findAll");
         caracteristicaItem = await Http.GetFromJsonAsync<List<CharacteristicKey>>(URL + "characteristicKey/findAll");
 
-        var caracteristicaItemGroup = caracteristicaItem.GroupBy(x => x.Key).ToList();
+        caracteristicaItemGroup = (from ci in caracteristicaItem select ci.Key).Distinct().ToList();
 
+        Console.WriteLine(key);
+
+        caracteristicaItemGroupDescription = caracteristicaItem.Where(x => x.Key == key).ToList();
     }
 
 }
