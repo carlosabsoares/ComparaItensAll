@@ -31,9 +31,7 @@ namespace ComparaItens.Domain.Entities
         [NotMapped]
         public Category Category { get; set; }
 
-        public Product()
-        {
-        }
+        public Product(){}
 
         public Product(int id)
         {
