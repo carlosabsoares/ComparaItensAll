@@ -82,7 +82,7 @@
             <div class="form-horizontal d-flex flex-column col-sm-3 p-0 pr-2">
                 <label>Caracteristica</label>
                 <InputSelect id="characteristic" @bind-Value="@characteristicId">
-                    <option value=0>--Todos--</option>
+                    <option value=0>--</option>
                     @foreach (var characteristic in characteristics)
                     {
                         <option value="@characteristic.Id">@characteristic.Description</option>
@@ -94,7 +94,7 @@
                 <label>Item</label>
                 
                 <InputSelect id="caracteristicaItemGroup" @bind-Value="@key">
-                    <option value=0>--Todos--</option>
+                    <option value=0>--</option>
                     @foreach (var characteristicItem in caracteristicaItemGroup)
                     {
                         <option value="@characteristicItem">@characteristicItem</option>
@@ -104,14 +104,7 @@
 
             <div class="form-horizontal d-flex flex-column col-sm-3 p-0">
                 <label>Descrição</label>
-                
-                <InputSelect id="caracteristicaItemGroupId" @bind-Value="@caracteristicaItemGroupId">
-                    
-                    @*@if(@key == "--Todos--")
-                    {
-                      <option value=0>--Todos--</option>
-                    }*@
-
+                <InputSelect id="caracteristicaItemGroup" @bind-Value="@caracteristicaItemGroupId">
                     @foreach (var citem in caracteristicaItem)
                     {
                         @if (citem.Key == key)
@@ -124,6 +117,7 @@
             </div>
         </div>
         
+        <em>@caracteristicaItemGroupId</em>
         
 
         <div class="form-horizontal d-flex flex-column col-sm-1 p-0">
@@ -131,16 +125,19 @@
         </div>
         
         <br/>
+        
+        <em>@test</em>
 
         <div class="d-flex">
             <table class="table table-striped col-sm-10 p-0 pr-2">
                 <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Caracteristicas</th>
-                    <th scope="col">Item</th>
-                    <th scope="col">Descricao</th>
-                </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Caracteristicas</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Descricao</th>
+                        <th scope="col"></th>
+                    </tr>
                 </thead>
                 <tbody>
                 <tr>
@@ -148,18 +145,21 @@
                     <td>Mark</td>
                     <td>Otto</td>
                     <td>mdo</td>
+                    <td>mdo</td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
                     <td>Jacob</td>
                     <td>Thornton</td>
                     <td>fat</td>
+                    <td>mdo</td>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>the Bird</td>
                     <td>twitter</td>
+                    <td>mdo</td>
                 </tr>
                 </tbody>
             </table>
@@ -191,11 +191,35 @@
 
     List<CharacteristicDescription> characteristicDescriptions = new List<CharacteristicDescription>();
 
+    string test;
+
 
 
     private void AdicionaCaracteristicas()
     {
-        
+
+        test = $"Id={characteristicId} , " +
+               $"Description ={characteristics.Where(x => x.Id == characteristicId).FirstOrDefault().Description} ," +
+               $"CharacteristicKeysId = {caracteristicaItemGroupId}," +
+               $"Key = {key} , " +
+               $" Description = {caracteristicaItem.Where(x => x.Id == caracteristicaItemGroupId).FirstOrDefault().Description}";
+
+
+    //characteristicDescriptions.Add(new CharacteristicDescription()
+    //{
+    //    CharacteristicId = characteristicId,
+    //    Characteristics = new Characteristic()
+    //    {
+    //        Id = characteristicId,
+    //        Description = characteristics.Where(x=> x.Id == characteristicId).FirstOrDefault().Description
+    //    },
+    //    CharacteristicKeys = new CharacteristicKey()
+    //    {
+    //        Id = caracteristicaItemGroupId,
+    //        Key = key,
+    //        Description = caracteristicaItem.Where( x=> x.Id == caracteristicaItemGroupId ).FirstOrDefault().Description
+    //    }
+    //});
     }
 
     protected override async Task OnInitializedAsync()
@@ -215,8 +239,6 @@
         caracteristicaItem = (await Http.GetFromJsonAsync<List<CharacteristicKey>>(URL + "characteristicKey/findAll")).OrderBy(x => x.Description).ToList();
 
         caracteristicaItemGroup = (from ci in caracteristicaItem orderby ci.Key select ci.Key).Distinct().ToList();
-
-        //key = caracteristicaItemGroup.FirstOrDefault();
 
         template = "";
 
