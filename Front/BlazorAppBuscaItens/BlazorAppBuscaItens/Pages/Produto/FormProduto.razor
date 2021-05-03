@@ -16,7 +16,7 @@
             <div class="form-horizontal d-flex flex-column col-sm-5 p-0 pr-2">
                 <label>Categorias</label>
                 <InputSelect id="category" @bind-Value="Product.CategoryId">
-                    <option value=0>--Todos--</option>
+                    <option value=0>--</option>
                     @foreach (var category in categories)
                     {
                         <option value="@category.Id">@category.Description</option>
@@ -27,7 +27,7 @@
             <div class="form-horizontal d-flex flex-column col-sm-5 p-0">
                 <label>Fabricante</label>
                 <InputSelect id="manufacturer" @bind-Value="Product.ManufecturerId">
-                    <option value=0>--Todos--</option>
+                    <option value=0>--</option>
                     @foreach (var manufacturer in manufacturers)
                     {
                         <option value="@manufacturer.Id">@manufacturer.Description</option>
@@ -92,7 +92,6 @@
 
             <div class="form-horizontal d-flex flex-column col-sm-3 p-0 pr-2">
                 <label>Item</label>
-                
                 <InputSelect id="caracteristicaItemGroup" @bind-Value="@key">
                     <option value=0>--</option>
                     @foreach (var characteristicItem in caracteristicaItemGroup)
@@ -105,16 +104,17 @@
             <div class="form-horizontal d-flex flex-column col-sm-3 p-0">
                 <label>Descrição</label>
                 <InputSelect id="caracteristicaItemGroup" @bind-Value="@caracteristicaItemGroupId">
-                    @foreach (var citem in caracteristicaItem)
+                    <option value="0">--</option>
+                    @foreach (var citem in (caracteristicaItem.Where(x => x.Key == key)).ToList())
                     {
-                        @if (citem.Key == key)
-                        {
-                            <option value="@citem.Id">@citem.Description</option>
-                        }
+                        <option value = "@citem.Id" > @citem.Description </option>
 
                     }
+
                 </InputSelect>
             </div>
+            
+
         </div>
         
         <em>@caracteristicaItemGroupId</em>
@@ -131,13 +131,13 @@
         <div class="d-flex">
             <table class="table table-striped col-sm-10 p-0 pr-2">
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Caracteristicas</th>
-                        <th scope="col">Item</th>
-                        <th scope="col">Descricao</th>
-                        <th scope="col"></th>
-                    </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Caracteristicas</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Descricao</th>
+                    <th scope="col"></th>
+                </tr>
                 </thead>
                 <tbody>
                 <tr>
@@ -168,6 +168,8 @@
 
     </div>
 </EditForm>
+
+
 
 @code {
     [Parameter] public Product Product { get; set; }
@@ -205,21 +207,21 @@
                $" Description = {caracteristicaItem.Where(x => x.Id == caracteristicaItemGroupId).FirstOrDefault().Description}";
 
 
-    //characteristicDescriptions.Add(new CharacteristicDescription()
-    //{
-    //    CharacteristicId = characteristicId,
-    //    Characteristics = new Characteristic()
-    //    {
-    //        Id = characteristicId,
-    //        Description = characteristics.Where(x=> x.Id == characteristicId).FirstOrDefault().Description
-    //    },
-    //    CharacteristicKeys = new CharacteristicKey()
-    //    {
-    //        Id = caracteristicaItemGroupId,
-    //        Key = key,
-    //        Description = caracteristicaItem.Where( x=> x.Id == caracteristicaItemGroupId ).FirstOrDefault().Description
-    //    }
-    //});
+        //characteristicDescriptions.Add(new CharacteristicDescription()
+        //{
+        //    CharacteristicId = characteristicId,
+        //    Characteristics = new Characteristic()
+        //    {
+        //        Id = characteristicId,
+        //        Description = characteristics.Where(x=> x.Id == characteristicId).FirstOrDefault().Description
+        //    },
+        //    CharacteristicKeys = new CharacteristicKey()
+        //    {
+        //        Id = caracteristicaItemGroupId,
+        //        Key = key,
+        //        Description = caracteristicaItem.Where( x=> x.Id == caracteristicaItemGroupId ).FirstOrDefault().Description
+        //    }
+        //});
     }
 
     protected override async Task OnInitializedAsync()
@@ -241,6 +243,9 @@
         caracteristicaItemGroup = (from ci in caracteristicaItem orderby ci.Key select ci.Key).Distinct().ToList();
 
         template = "";
+
+        if(key!= null)
+            caracteristicaItemGroupId = caracteristicaItem.Where(x=> x.Key == key).FirstOrDefault().Id;
 
     }
 
