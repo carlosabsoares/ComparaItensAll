@@ -92,7 +92,7 @@
 
             <div class="form-horizontal d-flex flex-column col-sm-3 p-0 pr-2">
                 <label>Item</label>
-                <InputSelect id="caracteristicaItemGroup" @bind-Value="@key">
+                <InputSelect name="teste1" id="caracteristicaItemGroup" @bind-Value="@key">
                     <option value=0>--</option>
                     @foreach (var characteristicItem in caracteristicaItemGroup)
                     {
@@ -103,7 +103,7 @@
 
             <div class="form-horizontal d-flex flex-column col-sm-3 p-0">
                 <label>Descrição</label>
-                <InputSelect id="caracteristicaItemGroup" @bind-Value="@caracteristicaItemGroupId">
+                <InputSelect name="teste2" id="caracteristicaItemGroupDescrition" @bind-Value="@caracteristicaItemGroupId">
                     <option value="0" selected="selected">--</option>
                     @foreach (var citem in (caracteristicaItem.Where(x => x.Key == key)).ToList())
                     {
