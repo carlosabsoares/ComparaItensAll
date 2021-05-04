@@ -6,7 +6,7 @@
 
     <DataAnnotationsValidator />
     <div class="form-horizontal">
-        
+
         <p><em>@template</em></p>
 
         <br />
@@ -35,47 +35,47 @@
                 </InputSelect>
             </div>
         </div>
-        <br/>
+        <br />
 
         <label>Descrição</label>
         <div class="form-horizontal">
             <InputText @bind-Value="@Product.Description" class="col-sm-10"></InputText>
-            <ValidationMessage For="@(() => Product.Description)"/>
+            <ValidationMessage For="@(() => Product.Description)" />
         </div>
-        <br/>
+        <br />
 
         <div class="d-flex">
             <div class="form-horizontal d-flex flex-column col-sm-6 p-0 pr-2">
                 <label>Modelo</label>
                 <InputText @bind-Value="@Product.Model"></InputText>
-                <ValidationMessage For="@(() => Product.Model)"/>
+                <ValidationMessage For="@(() => Product.Model)" />
             </div>
 
 
             <div class="form-horizontal d-flex flex-column col-sm-4 p-0">
                 <label>Ano de Fabricação</label>
                 <InputNumber @bind-Value="@Product.YearOfManufacture"></InputNumber>
-                <ValidationMessage For="@(() => Product.YearOfManufacture)"/>
+                <ValidationMessage For="@(() => Product.YearOfManufacture)" />
             </div>
         </div>
-        <br/>
+        <br />
 
         <div class="d-flex">
 
             <div class="form-horizontal d-flex flex-column col-sm-5 p-0 pr-2">
                 <label>Imagem</label>
                 <InputText @bind-Value="@Product.Image"></InputText>
-                <ValidationMessage For="@(() => Product.Image)"/>
+                <ValidationMessage For="@(() => Product.Image)" />
             </div>
 
 
             <div class="form-horizontal d-flex flex-column col-sm-5 p-0">
                 <label>Folder</label>
                 <InputText @bind-Value="@Product.Folder"></InputText>
-                <ValidationMessage For="@(() => Product.Folder)"/>
+                <ValidationMessage For="@(() => Product.Folder)" />
             </div>
         </div>
-        <br/>
+        <br />
 
         <div class="d-flex">
 
@@ -104,67 +104,56 @@
             <div class="form-horizontal d-flex flex-column col-sm-3 p-0">
                 <label>Descrição</label>
                 <InputSelect id="caracteristicaItemGroup" @bind-Value="@caracteristicaItemGroupId">
-                    <option value="0">--</option>
+                    <option value="0" selected="selected">--</option>
                     @foreach (var citem in (caracteristicaItem.Where(x => x.Key == key)).ToList())
                     {
-                        <option value = "@citem.Id" > @citem.Description </option>
+                        <option value="@citem.Id"> @citem.Description </option>
 
                     }
 
                 </InputSelect>
             </div>
-            
-
         </div>
-        
+
         <em>@caracteristicaItemGroupId</em>
-        
+
 
         <div class="form-horizontal d-flex flex-column col-sm-1 p-0">
             <a class="btn btn-primary btn-sm mr-2" @onclick="AdicionaCaracteristicas"><i class="oi oi-plus"></i></a>
         </div>
-        
-        <br/>
-        
+
+        <br />
+
         <em>@test</em>
 
         <div class="d-flex">
             <table class="table table-striped col-sm-10 p-0 pr-2">
                 <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Caracteristicas</th>
-                    <th scope="col">Item</th>
-                    <th scope="col">Descricao</th>
-                    <th scope="col"></th>
-                </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Caracteristicas</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Descricao</th>
+                        <th scope="col"></th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>mdo</td>
-                    <td>mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>fat</td>
-                    <td>mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>twitter</td>
-                    <td>mdo</td>
-                </tr>
+                @foreach (var itensDescricao in characteristicDescriptions)
+                    {
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>@itensDescricao.Characteristics.Description</td>
+                            <td>@itensDescricao.CharacteristicKeys.Key</td>
+                            <td>@itensDescricao.CharacteristicKeys.Description</td>
+                            <td>
+                                <a href="produto/deletar/0" class="btn btn-danger btn-sm mr-2"><i class="oi oi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
-        <br/>
+        <br />
 
     </div>
 </EditForm>
@@ -180,6 +169,7 @@
     string key;
     int characteristicId;
     int caracteristicaItemGroupId;
+    string caracteristicaItemGroupDescription;
 
     string template;
 
@@ -199,29 +189,22 @@
 
     private void AdicionaCaracteristicas()
     {
+        characteristicDescriptions.Add(new CharacteristicDescription()
+        {
+            Id = characteristicId,
+            Characteristics = new Characteristic() { Id = characteristicId, Description = characteristics.Where(x => x.Id == characteristicId).FirstOrDefault().Description },
+            CharacteristicKeys = new CharacteristicKey() { Id = caracteristicaItemGroupId, Key = key, Description = (caracteristicaItem.Where(x => x.Id == caracteristicaItemGroupId).FirstOrDefault().Description) }
+        });
+    }
 
-        test = $"Id={characteristicId} , " +
-               $"Description ={characteristics.Where(x => x.Id == characteristicId).FirstOrDefault().Description} ," +
-               $"CharacteristicKeysId = {caracteristicaItemGroupId}," +
-               $"Key = {key} , " +
-               $" Description = {caracteristicaItem.Where(x => x.Id == caracteristicaItemGroupId).FirstOrDefault().Description}";
-
-
-        //characteristicDescriptions.Add(new CharacteristicDescription()
-        //{
-        //    CharacteristicId = characteristicId,
-        //    Characteristics = new Characteristic()
-        //    {
-        //        Id = characteristicId,
-        //        Description = characteristics.Where(x=> x.Id == characteristicId).FirstOrDefault().Description
-        //    },
-        //    CharacteristicKeys = new CharacteristicKey()
-        //    {
-        //        Id = caracteristicaItemGroupId,
-        //        Key = key,
-        //        Description = caracteristicaItem.Where( x=> x.Id == caracteristicaItemGroupId ).FirstOrDefault().Description
-        //    }
-        //});
+    private void RemoverCaracteristicas()
+    {
+        characteristicDescriptions.Add(new CharacteristicDescription()
+        {
+            Id = characteristicId,
+            Characteristics = new Characteristic() { Id = characteristicId, Description = characteristics.Where(x => x.Id == characteristicId).FirstOrDefault().Description },
+            CharacteristicKeys = new CharacteristicKey() { Id = caracteristicaItemGroupId, Key = key, Description = (caracteristicaItem.Where(x => x.Id == caracteristicaItemGroupId).FirstOrDefault().Description) }
+        });
     }
 
     protected override async Task OnInitializedAsync()
@@ -243,9 +226,6 @@
         caracteristicaItemGroup = (from ci in caracteristicaItem orderby ci.Key select ci.Key).Distinct().ToList();
 
         template = "";
-
-        if(key!= null)
-            caracteristicaItemGroupId = caracteristicaItem.Where(x=> x.Key == key).FirstOrDefault().Id;
 
     }
 
