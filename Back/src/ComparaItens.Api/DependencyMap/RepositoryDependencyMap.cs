@@ -18,7 +18,6 @@ namespace ComparaItens.Api.DependencyMap
             services.AddScoped<ICharacteristicDescriptionRepository, CharacteristicDescriptionRepository>();
             services.AddScoped<ISpecificationCharacteristcRelRepository, SpecificationCharacteristcRelRepository>();
             services.AddScoped<ISpecificationItemRepository, SpecificationItemRepository>();
-            services.AddScoped<IProductItemRepository, ProductItemRepository>();
         }
     }
 }
