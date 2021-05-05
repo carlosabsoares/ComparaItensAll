@@ -12,7 +12,6 @@ namespace ComparaItens.Infra.Repositories
         private readonly DataContext _context;
         private CharacteristicDescriptionRepository productItem;
 
-
         public ProductRepository(DataContext context)
         {
             _context = context;
@@ -38,7 +37,6 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<Product>> FindAll()
         {
-
             var _return = await _context.Products.AsNoTracking()
                 .Include(x => x.Category)
                 .Include(x => x.Manufecturer)
@@ -54,7 +52,6 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<Product> FindById(int id)
         {
-
             var _return = await _context.Products.AsNoTracking()
                 .Include(x => x.Category)
                 .Include(x => x.Manufecturer)
@@ -75,7 +72,6 @@ namespace ComparaItens.Infra.Repositories
                                                            string keyDescription,
                                                            string description)
         {
-
             var query = await _context.Products.AsNoTracking()
                                                   .Include(x => x.Category)
                                                   .Include(x => x.Manufecturer)
@@ -94,7 +90,7 @@ namespace ComparaItens.Infra.Repositories
 
             if (characteisticId > 0)
                 query = query.Where(x =>
-                    x.CharacteristicDescriptions.Any(i => i.Characteristics.Id==characteisticId)).ToList();
+                    x.CharacteristicDescriptions.Any(i => i.Characteristics.Id == characteisticId)).ToList();
 
             if (!string.IsNullOrEmpty(key))
                 query = query.Where(x =>

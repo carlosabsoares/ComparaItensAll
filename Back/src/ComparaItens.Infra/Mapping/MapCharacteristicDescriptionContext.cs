@@ -27,11 +27,9 @@ namespace ComparaItens.Infra
             modelBuilder.Entity<CharacteristicDescription>().Property(x => x.ProductId).HasColumnName("productId");
             modelBuilder.Entity<CharacteristicDescription>().HasIndex(x => x.ProductId);
 
-
             // Relationships
             modelBuilder.Entity<CharacteristicDescription>().HasOne(p => p.Characteristics).WithMany().HasForeignKey(f => f.CharacteristicId);
             modelBuilder.Entity<CharacteristicDescription>().HasOne(p => p.CharacteristicKeys).WithMany().HasForeignKey(f => f.CharacteristicKeyId);
-
         }
     }
 }

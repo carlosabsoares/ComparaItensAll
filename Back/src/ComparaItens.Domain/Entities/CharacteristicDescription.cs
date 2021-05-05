@@ -14,10 +14,8 @@ namespace ComparaItens.Domain.Entities
 
         [NotMapped]
         public Characteristic Characteristics { get; set; }
-        
+
         [NotMapped]
         public CharacteristicKey CharacteristicKeys { get; set; }
-        
-        
     }
 }

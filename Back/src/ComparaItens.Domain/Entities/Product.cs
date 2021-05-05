@@ -31,6 +31,8 @@ namespace ComparaItens.Domain.Entities
         [NotMapped]
         public IList<CharacteristicDescription> CharacteristicDescriptions { get; set; }
 
-        public Product(){}
+        public Product()
+        {
+        }
     }
 }
