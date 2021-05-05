@@ -11,5 +11,6 @@ namespace ComparaItens.Domain.Repositories
         Task<IList<CharacteristicDescription>> FindAll();
 
         Task<CharacteristicDescription> FindByDescription(string description);
+        Task<IList<CharacteristicDescription>> FindByProductId(int idProduct);
     }
 }

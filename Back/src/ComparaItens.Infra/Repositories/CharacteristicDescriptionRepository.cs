@@ -37,5 +37,14 @@ namespace ComparaItens.Infra.Repositories
 
             return await query.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
+
+        public async Task<IList<CharacteristicDescription>> FindByProductId(int idProduct)
+        {
+            var query = _context.CharacteristicDescriptions.AsNoTracking()
+                .Include(x => x.CharacteristicKeys)
+                .Include(x => x.Characteristics);
+
+            return await query.Where(x => x.ProductId == idProduct).ToListAsync();
+        }
     }
 }

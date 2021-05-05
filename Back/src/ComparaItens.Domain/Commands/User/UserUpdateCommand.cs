@@ -17,7 +17,7 @@ namespace ComparaItens.Domain.Commands
                 new Contract()
                     .Requires()
                     .IsGreaterThan(Id, 0, "Id", "O id é obrigatório")
-                    .IsNotNullOrEmpty(Password, "Password", "Password não pode ser nulo")
+                    //.IsNotNullOrEmpty(Password, "Password", "Password não pode ser nulo")
                     //.IsNotNullOrEmpty(Role.ToString(), "Role", "Role não pode ser nulo")
                     .IsNotNullOrEmpty(Name, "Name", "Name não pode ser nulo")
                     .IsNotNullOrEmpty(Email, "Email", "Email não pode ser nulo")
