@@ -69,8 +69,8 @@ namespace ComparaItens.Infra.Migrations
                         .HasColumnName("characteristicKeyId")
                         .HasColumnType("int(11)");
 
-                    b.Property<int>("ProdutoId")
-                        .HasColumnName("produtoId")
+                    b.Property<int>("ProductId")
+                        .HasColumnName("productId")
                         .HasColumnType("int(11)");
 
                     b.HasKey("Id");
@@ -80,6 +80,8 @@ namespace ComparaItens.Infra.Migrations
                     b.HasIndex("CharacteristicKeyId");
 
                     b.HasIndex("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("tabCharacteristicDescription");
                 });
@@ -174,60 +176,6 @@ namespace ComparaItens.Infra.Migrations
                     b.ToTable("tabProdut");
                 });
 
-            modelBuilder.Entity("ComparaItens.Domain.Entities.ProductItem", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnName("productId")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("CharacteristicDescriptionId")
-                        .HasColumnName("characteristicDescriptionId")
-                        .HasColumnType("int(11)");
-
-                    b.HasKey("ProductId", "CharacteristicDescriptionId");
-
-                    b.HasIndex("CharacteristicDescriptionId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("tabProdutItem");
-                });
-
-            modelBuilder.Entity("ComparaItens.Domain.Entities.SpecificationCharacteristcRel", b =>
-                {
-                    b.Property<int>("SpecificationItemId")
-                        .HasColumnName("specificationItemId")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("CharacteristicDescriptionId")
-                        .HasColumnName("characteristicDescriptionId")
-                        .HasColumnType("int(11)");
-
-                    b.HasKey("SpecificationItemId", "CharacteristicDescriptionId");
-
-                    b.HasIndex("CharacteristicDescriptionId");
-
-                    b.HasIndex("SpecificationItemId");
-
-                    b.ToTable("tabSpecificationCharacteristcRel");
-                });
-
-            modelBuilder.Entity("ComparaItens.Domain.Entities.SpecificationItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnName("ProductId")
-                        .HasColumnType("int(11)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tabSpecificationItems");
-                });
-
             modelBuilder.Entity("ComparaItens.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -293,30 +241,6 @@ namespace ComparaItens.Infra.Migrations
                     b.HasOne("ComparaItens.Domain.Entities.Manufacturer", "Manufecturer")
                         .WithMany()
                         .HasForeignKey("ManufecturerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ComparaItens.Domain.Entities.ProductItem", b =>
-                {
-                    b.HasOne("ComparaItens.Domain.Entities.CharacteristicDescription", "CharacteristicDescription")
-                        .WithMany()
-                        .HasForeignKey("CharacteristicDescriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ComparaItens.Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ComparaItens.Domain.Entities.SpecificationCharacteristcRel", b =>
-                {
-                    b.HasOne("ComparaItens.Domain.Entities.SpecificationItem", null)
-                        .WithMany("SpecificationCharacteristcRels")
-                        .HasForeignKey("SpecificationItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
