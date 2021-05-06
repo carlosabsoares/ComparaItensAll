@@ -2,7 +2,6 @@
 using ComparaItens.Domain.Entities;
 using ComparaItens.Domain.Handlers.Contracts;
 using ComparaItens.Domain.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;

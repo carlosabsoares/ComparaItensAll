@@ -12,28 +12,21 @@ namespace ComparaItens.Infra
 
         public DbSet<Category> Categorys { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductItem> ProductItens { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
-        public DbSet<SpecificationItem> SpecificationItems { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Characteristic> Characteristics { get; set; }
         public DbSet<CharacteristicKey> CharacteristicKeys { get; set; }
         public DbSet<CharacteristicDescription> CharacteristicDescriptions { get; set; }
-        public DbSet<SpecificationCharacteristcRel> SpecificationCharacteristcRels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             this.MapCategory(modelBuilder);
             this.MapProduct(modelBuilder);
             this.MapManufacturer(modelBuilder);
-            this.MapSpecificationItem(modelBuilder);
             this.MapUser(modelBuilder);
             this.MapCharacteristic(modelBuilder);
             this.MapCharacteristicKey(modelBuilder);
             this.MapCharacteristicDescription(modelBuilder);
-            this.MapSpecificationCharacteristcRel(modelBuilder);
-            this.MapSpecificationItem(modelBuilder);
-            this.MapProductItem(modelBuilder);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ComparaItens.Domain.Entities
+﻿namespace ComparaItens.Domain.Entities
 {
     public class User
     {
@@ -10,6 +8,5 @@ namespace ComparaItens.Domain.Entities
         public string Name { get; set; }
         public string Email { get; set; }
         public string Role { get; set; }
-
     }
 }

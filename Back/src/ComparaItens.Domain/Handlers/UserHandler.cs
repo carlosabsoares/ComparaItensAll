@@ -5,7 +5,6 @@ using ComparaItens.Domain.Repositories;
 using ComparaItens.Domain.Services;
 using Flunt.Notifications;
 using System.Net;
-using System.Runtime.Serialization.Formatters;
 using System.Threading.Tasks;
 
 namespace ComparaItens.Domain.Handlers

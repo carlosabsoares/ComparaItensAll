@@ -23,19 +23,16 @@ namespace ComparaItens.Domain.Entities
         public string Folder { get; set; }
 
         [NotMapped]
-        public IList<ProductItem> ProductItems { get; set; }
-
-        [NotMapped]
         public Manufacturer Manufecturer { get; set; }
 
         [NotMapped]
         public Category Category { get; set; }
 
-        public Product(){}
+        [NotMapped]
+        public IList<CharacteristicDescription> CharacteristicDescriptions { get; set; }
 
-        public Product(int id)
+        public Product()
         {
-            Id = id;
         }
     }
 }
