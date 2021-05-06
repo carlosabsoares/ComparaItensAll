@@ -33,13 +33,13 @@ namespace ComparaItens.Domain.Handlers
             Product _entity = new Product();
 
             _entity.Description = command.Description;
-            _entity.ManufecturerId = command.ManufecturerId;
+            _entity.ManufacturerId = command.ManufacturerId;
             _entity.Model = command.Model;
             _entity.CategoryId = command.CategoryId;
             _entity.YearOfManufacture = command.YearOfManufacture;
             _entity.Image = command.Image;
             _entity.Folder = command.Folder;
-            //_entity.SpecificationItems = command.SpecificationItems;
+            _entity.CharacteristicDescriptions = command.CharacteristicDescriptions;
 
             var _result = await _productRepository.Add(_entity);
 

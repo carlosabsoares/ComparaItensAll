@@ -10,7 +10,7 @@ namespace ComparaItens.Domain.Entities
 
         public string Description { get; set; }
 
-        public int ManufecturerId { get; set; }
+        public int ManufacturerId { get; set; }
 
         public string Model { get; set; }
 

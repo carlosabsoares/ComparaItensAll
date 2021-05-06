@@ -19,9 +19,9 @@ namespace ComparaItens.Infra.Mapping
             modelBuilder.Entity<Product>().Property(x => x.Description).HasColumnName("description");
             modelBuilder.Entity<Product>().Property(x => x.Description).IsRequired();
 
-            modelBuilder.Entity<Product>().Property(x => x.ManufecturerId).HasColumnType("int(11)");
-            modelBuilder.Entity<Product>().Property(x => x.ManufecturerId).HasColumnName("manufecturerId");
-            modelBuilder.Entity<Product>().Property(x => x.ManufecturerId).IsRequired();
+            modelBuilder.Entity<Product>().Property(x => x.ManufacturerId).HasColumnType("int(11)");
+            modelBuilder.Entity<Product>().Property(x => x.ManufacturerId).HasColumnName("manufacturerId");
+            modelBuilder.Entity<Product>().Property(x => x.ManufacturerId).IsRequired();
 
             modelBuilder.Entity<Product>().Property(x => x.Model).HasColumnType("varchar(150)");
             modelBuilder.Entity<Product>().Property(x => x.Model).HasColumnName("model");
@@ -40,7 +40,7 @@ namespace ComparaItens.Infra.Mapping
             modelBuilder.Entity<Product>().Property(x => x.Folder).HasColumnName("folder");
 
             // Relationships
-            modelBuilder.Entity<Product>().HasOne(p => p.Manufecturer).WithMany().HasForeignKey(f => f.ManufecturerId);
+            modelBuilder.Entity<Product>().HasOne(p => p.Manufecturer).WithMany().HasForeignKey(f => f.ManufacturerId);
             modelBuilder.Entity<Product>().HasOne(p => p.Category).WithMany().HasForeignKey(f => f.CategoryId);
         }
     }

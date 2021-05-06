@@ -1,6 +1,7 @@
 ﻿using ComparaItens.Domain.Entities;
 using ComparaItens.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,19 +21,43 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<bool> Add(Product entity)
         {
-            Product product = new Product();
-            product.Folder = entity.Folder;
-            product.CategoryId = entity.CategoryId;
-            product.Description = entity.Description;
-            product.Image = entity.Image;
-            product.ManufecturerId = entity.ManufecturerId;
-            product.YearOfManufacture = entity.YearOfManufacture;
-            product.Model = entity.Model;
+            try
+            {
+                Product product = new Product();
+                product.Folder = entity.Folder;
+                product.CategoryId = entity.CategoryId;
+                product.Description = entity.Description;
+                product.Image = entity.Image;
+                product.ManufacturerId = entity.ManufacturerId;
+                product.YearOfManufacture = entity.YearOfManufacture;
+                product.Model = entity.Model;
 
-            _context.Add(product);
-            _context.SaveChanges();
+                _context.Add(product);
+                _context.SaveChanges();
 
-            return (await _context.SaveChangesAsync()) > 0;
+                if (entity.CharacteristicDescriptions.Count > 0)
+                {
+                    foreach (var item in entity.CharacteristicDescriptions)
+                    {
+                        CharacteristicDescription characteristicDescription = new CharacteristicDescription();
+
+                        characteristicDescription.ProductId = product.Id;
+                        characteristicDescription.CharacteristicId = item.CharacteristicId;
+                        characteristicDescription.CharacteristicKeyId = item.CharacteristicKeyId;
+
+                        _context.Add(characteristicDescription);
+                    }
+                }
+
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
         }
 
         public async Task<IList<Product>> FindAll()
@@ -81,7 +106,7 @@ namespace ComparaItens.Infra.Repositories
                 query = query.Where(x => x.CategoryId == categoryId).ToList();
 
             if (manufacturerId > 0)
-                query = query.Where(x => x.ManufecturerId == manufacturerId).ToList();
+                query = query.Where(x => x.ManufacturerId == manufacturerId).ToList();
 
             foreach (var item in query)
             {

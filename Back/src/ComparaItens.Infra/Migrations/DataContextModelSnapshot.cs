@@ -153,7 +153,7 @@ namespace ComparaItens.Infra.Migrations
                         .HasColumnName("image")
                         .HasColumnType("varchar(250)");
 
-                    b.Property<int>("ManufecturerId")
+                    b.Property<int>("ManufacturerId")
                         .HasColumnName("manufecturerId")
                         .HasColumnType("int(11)");
 
@@ -171,7 +171,7 @@ namespace ComparaItens.Infra.Migrations
 
                     b.HasIndex("Id");
 
-                    b.HasIndex("ManufecturerId");
+                    b.HasIndex("ManufacturerId");
 
                     b.ToTable("tabProdut");
                 });
@@ -240,7 +240,7 @@ namespace ComparaItens.Infra.Migrations
 
                     b.HasOne("ComparaItens.Domain.Entities.Manufacturer", "Manufecturer")
                         .WithMany()
-                        .HasForeignKey("ManufecturerId")
+                        .HasForeignKey("ManufacturerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
