@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ComparaItens.Infra.Migrations
 {
-    public partial class initial : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,23 +61,11 @@ namespace ComparaItens.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tabSpecificationItems",
+                name: "tabUser",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int(11)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ProductId = table.Column<int>(type: "int(11)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tabSpecificationItems", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tabUser",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "varchar(50)", nullable: false),
                     login = table.Column<string>(type: "varchar(50)", nullable: false),
                     password = table.Column<string>(type: "varchar(50)", nullable: false),
                     name = table.Column<string>(type: "varchar(100)", nullable: false),
@@ -95,6 +83,7 @@ namespace ComparaItens.Infra.Migrations
                 {
                     id = table.Column<int>(type: "int(11)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    productId = table.Column<int>(type: "int(11)", nullable: false),
                     characteristicId = table.Column<int>(type: "int(11)", nullable: false),
                     characteristicKeyId = table.Column<int>(type: "int(11)", nullable: false)
                 },
@@ -146,30 +135,6 @@ namespace ComparaItens.Infra.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "tabSpecificationCharacteristcRel",
-                columns: table => new
-                {
-                    specificationItemId = table.Column<int>(type: "int(11)", nullable: false),
-                    characteristicDescriptionId = table.Column<int>(type: "int(11)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tabSpecificationCharacteristcRel", x => new { x.specificationItemId, x.characteristicDescriptionId });
-                    table.ForeignKey(
-                        name: "FK_tabSpecificationCharacteristcRel_tabCharacteristicDescriptio~",
-                        column: x => x.characteristicDescriptionId,
-                        principalTable: "tabCharacteristicDescription",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_tabSpecificationCharacteristcRel_tabSpecificationItems_speci~",
-                        column: x => x.specificationItemId,
-                        principalTable: "tabSpecificationItems",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_tabCategory_id",
                 table: "tabCategory",
@@ -194,6 +159,11 @@ namespace ComparaItens.Infra.Migrations
                 name: "IX_tabCharacteristicDescription_id",
                 table: "tabCharacteristicDescription",
                 column: "id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tabCharacteristicDescription_productId",
+                table: "tabCharacteristicDescription",
+                column: "productId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tabCharacteristicKey_id",
@@ -221,17 +191,7 @@ namespace ComparaItens.Infra.Migrations
                 column: "manufecturerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tabSpecificationCharacteristcRel_characteristicDescriptionId",
-                table: "tabSpecificationCharacteristcRel",
-                column: "characteristicDescriptionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_tabSpecificationCharacteristcRel_specificationItemId",
-                table: "tabSpecificationCharacteristcRel",
-                column: "specificationItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_tabUser_idUser",
+                name: "IX_tabUser_id",
                 table: "tabUser",
                 column: "id");
         }
@@ -239,31 +199,25 @@ namespace ComparaItens.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "tabProdut");
-
-            migrationBuilder.DropTable(
-                name: "tabSpecificationCharacteristcRel");
-
-            migrationBuilder.DropTable(
-                name: "tabUser");
-
-            migrationBuilder.DropTable(
-                name: "tabCategory");
-
-            migrationBuilder.DropTable(
-                name: "tabManufacturer");
-
-            migrationBuilder.DropTable(
                 name: "tabCharacteristicDescription");
 
             migrationBuilder.DropTable(
-                name: "tabSpecificationItems");
+                name: "tabProdut");
+
+            migrationBuilder.DropTable(
+                name: "tabUser");
 
             migrationBuilder.DropTable(
                 name: "tabCharacteristic");
 
             migrationBuilder.DropTable(
                 name: "tabCharacteristicKey");
+
+            migrationBuilder.DropTable(
+                name: "tabCategory");
+
+            migrationBuilder.DropTable(
+                name: "tabManufacturer");
         }
     }
 }
