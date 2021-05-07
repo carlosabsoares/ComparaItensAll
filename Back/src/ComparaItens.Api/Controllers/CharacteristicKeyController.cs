@@ -77,5 +77,31 @@ namespace ComparaItens.Api.Controllers
 
             return result;
         }
+
+        /// <summary>Retorna categorias de produtos</summary>
+        /// <returns>Retorna categorias de produtos</returns>
+        [HttpGet("characteristicKey/findAllKey")]
+        //[Authorize(Roles = "Administrator")]
+        [ProducesResponseType(typeof(IList<string>), 200)]
+        public async Task<IList<string>> FindAllKey(
+            [FromServices] ICharacteristicKeyRepository repository)
+        {
+            var result = await repository.FindAllKey();
+
+            return result;
+        }
+
+        /// <summary>Retorna categorias de produtos</summary>
+        /// <returns>Retorna categorias de produtos</returns>
+        [HttpGet("characteristicKey/findByKey")]
+        //[Authorize(Roles = "Administrator")]
+        [ProducesResponseType(typeof(IList<CharacteristicKey>), 200)]
+        public async Task<IList<CharacteristicKey>> FindByKey(
+            [FromQuery] string key,
+            [FromServices] ICharacteristicKeyRepository repository)
+        {
+            var result = await repository.FindByAllDescription(key);
+            return result;
+        }
     }
 }

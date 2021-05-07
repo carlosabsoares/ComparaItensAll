@@ -10,6 +10,8 @@ namespace ComparaItens.Domain.Repositories
 
         Task<IList<CharacteristicKey>> FindAll();
 
-        Task<CharacteristicKey> FindByDescription(string description);
+        Task<IList<string>> FindAllKey();
+
+        Task<IList<CharacteristicKey>> FindByAllDescription(string key);
     }
 }
