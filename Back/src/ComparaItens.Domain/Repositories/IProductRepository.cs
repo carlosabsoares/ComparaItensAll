@@ -8,6 +8,10 @@ namespace ComparaItens.Domain.Repositories
     {
         Task<bool> Add(Product entity);
 
+        Task<bool> Update(Product entity);
+
+        Task<bool> Delete(Product entity);
+
         Task<IList<Product>> FindAll();
 
         Task<Product> FindById(int id);

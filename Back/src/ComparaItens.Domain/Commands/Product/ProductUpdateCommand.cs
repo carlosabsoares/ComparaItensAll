@@ -22,14 +22,14 @@ namespace ComparaItens.Domain.Commands.Product
             AddNotifications(
                 new Contract()
                     .Requires()
-                    .IsGreaterThan(Id, 0, "Id", "O ManufacturerId é obrigatório")
+                    .IsGreaterThan(Id, 0, "Id", "O Id é obrigatório")
                     .IsNotNullOrEmpty(Description, "Description", "Descrição não pode ser nulo")
                     .IsNotNullOrEmpty(Model, "Model", "Model não pode ser nulo")
                     .IsGreaterThan(CategoryId, 0, "CategoryId", "O CategoryId é obrigatório")
                     .IsGreaterThan(ManufacturerId, 0, "ManufacturerId", "O ManufacturerId é obrigatório")
                     .IsGreaterThan(YearOfManufacture, 0, "YearOfManufacture", "O YearOfManufacture é obrigatório")
-                    .IsNotNullOrEmpty(Image, "Image", "Image não pode ser nulo")
-                    .IsNotNullOrEmpty(Folder, "Folder", "Folder não pode ser nulo")
+                    //.IsNotNullOrEmpty(Image, "Image", "Image não pode ser nulo")
+                    //.IsNotNullOrEmpty(Folder, "Folder", "Folder não pode ser nulo")
             );
         }
     }

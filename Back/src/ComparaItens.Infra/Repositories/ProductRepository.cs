@@ -60,6 +60,35 @@ namespace ComparaItens.Infra.Repositories
             }
         }
 
+        public async Task<bool> Delete(Product entity)
+        {
+            try
+            {
+                Product product = new Product();
+                product.Folder = entity.Folder;
+                product.CategoryId = entity.CategoryId;
+                product.Description = entity.Description;
+                product.Image = entity.Image;
+                product.ManufacturerId = entity.ManufacturerId;
+                product.YearOfManufacture = entity.YearOfManufacture;
+                product.Model = entity.Model;
+
+                _context.Remove(product);
+                _context.SaveChanges();
+
+                var _result = productItem.FindByProductId(entity.Id);
+
+                _context.Remove(_result);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
         public async Task<IList<Product>> FindAll()
         {
             var _return = await _context.Products.AsNoTracking()
@@ -130,6 +159,64 @@ namespace ComparaItens.Infra.Repositories
                     x.CharacteristicDescriptions.Any(i => i.Characteristics.Description.ToLower().Contains(description.ToLower()))).ToList();
 
             return query;
+        }
+
+        public async Task<bool> Update(Product entity)
+        {
+            try
+            {
+                Product product = new Product();
+                product.Id = entity.Id;
+                product.Folder = entity.Folder;
+                product.CategoryId = entity.CategoryId;
+                product.Description = entity.Description;
+                product.Image = entity.Image;
+                product.ManufacturerId = entity.ManufacturerId;
+                product.YearOfManufacture = entity.YearOfManufacture;
+                product.Model = entity.Model;
+
+                _context.Update(product);
+                _context.SaveChanges();
+                
+                var _result = await productItem.FindByProductId(entity.Id);
+
+                if (_result.Count > 0)
+                {
+                    foreach (var item in _result)
+                    {
+                        CharacteristicDescription characteristicDescription = new CharacteristicDescription();
+
+                         characteristicDescription.ProductId = product.Id;
+                        characteristicDescription.CharacteristicId = item.CharacteristicId;
+                        characteristicDescription.CharacteristicKeyId = item.CharacteristicKeyId;
+
+                        _context.Remove(characteristicDescription);
+                    }
+                }
+
+                if (entity.CharacteristicDescriptions.Count > 0)
+                {
+                    foreach (var item in entity.CharacteristicDescriptions)
+                    {
+                        CharacteristicDescription characteristicDescription = new CharacteristicDescription();
+
+                        characteristicDescription.ProductId = product.Id;
+                        characteristicDescription.CharacteristicId = item.CharacteristicId;
+                        characteristicDescription.CharacteristicKeyId = item.CharacteristicKeyId;
+
+                        _context.Add(characteristicDescription);
+                    }
+                }
+
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
         }
     }
 }

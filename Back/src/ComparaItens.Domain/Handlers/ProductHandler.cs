@@ -83,6 +83,14 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
+            var _result = await _productRepository.Update(_verify);
+
+            //retorna o resultado
+            if (!_result)
+                return new GenericCommandResult(false, HttpStatusCode.BadRequest, _result);
+
+            return new GenericCommandResult(true, HttpStatusCode.OK, _result);
+
             return null;
         }
     }
