@@ -64,21 +64,16 @@ namespace ComparaItens.Infra.Repositories
         {
             try
             {
-                Product product = new Product();
-                product.Folder = entity.Folder;
-                product.CategoryId = entity.CategoryId;
-                product.Description = entity.Description;
-                product.Image = entity.Image;
-                product.ManufacturerId = entity.ManufacturerId;
-                product.YearOfManufacture = entity.YearOfManufacture;
-                product.Model = entity.Model;
+                var _resultDescription = await productItem.FindByProductIdDelete(entity.Id);
 
-                _context.Remove(product);
+                foreach (var item in _resultDescription)
+                {
+                    _context.Remove(item);
+                    _context.SaveChanges();
+                }
+
+                _context.Remove(entity);
                 _context.SaveChanges();
-
-                var _result = productItem.FindByProductId(entity.Id);
-
-                _context.Remove(_result);
 
                 return true;
             }
@@ -150,13 +145,13 @@ namespace ComparaItens.Infra.Repositories
                 query = query.Where(x =>
                     x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Key.ToLower().Contains(key.ToLower()))).ToList();
 
-            if (!string.IsNullOrEmpty(description))
+            if (!string.IsNullOrEmpty(keyDescription))
                 query = query.Where(x =>
-                    x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Description.ToLower().Contains(keyDescription.ToLower()))).ToList();
+                    x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Key.ToLower().Contains(keyDescription.ToLower()))).ToList();
 
             if (!string.IsNullOrEmpty(description))
                 query = query.Where(x =>
-                    x.CharacteristicDescriptions.Any(i => i.Characteristics.Description.ToLower().Contains(description.ToLower()))).ToList();
+                    x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Description.ToLower().Contains(description.ToLower()))).ToList();
 
             return query;
         }
@@ -175,23 +170,18 @@ namespace ComparaItens.Infra.Repositories
                 product.YearOfManufacture = entity.YearOfManufacture;
                 product.Model = entity.Model;
 
+                List<CharacteristicDescription> characteristicDescriptions = new List<CharacteristicDescription>();
+                characteristicDescriptions = entity.CharacteristicDescriptions.ToList();
+
                 _context.Update(product);
                 _context.SaveChanges();
-                
-                var _result = await productItem.FindByProductId(entity.Id);
 
-                if (_result.Count > 0)
+                var _result = await productItem.FindByProductIdDelete(entity.Id);
+
+                foreach (var item in _result)
                 {
-                    foreach (var item in _result)
-                    {
-                        CharacteristicDescription characteristicDescription = new CharacteristicDescription();
-
-                         characteristicDescription.ProductId = product.Id;
-                        characteristicDescription.CharacteristicId = item.CharacteristicId;
-                        characteristicDescription.CharacteristicKeyId = item.CharacteristicKeyId;
-
-                        _context.Remove(characteristicDescription);
-                    }
+                    _context.Remove(item);
+                    _context.SaveChanges();
                 }
 
                 if (entity.CharacteristicDescriptions.Count > 0)

@@ -94,11 +94,11 @@ namespace ComparaItens.Api.Controllers
             [FromServices] IProductRepository repository)
         {
             var result = await repository.FindByParameters(categoryId,
-                                                                      manufacturerId,
-                                                                      characteisticId,
-                                                                      key,
-                                                                      keyDescription,
-                                                                      description);
+                                                                     manufacturerId,
+                                                                     characteisticId,
+                                                                     key,
+                                                                     keyDescription,
+                                                                     description);
 
             return result;
         }

@@ -8,6 +8,8 @@ namespace ComparaItens.Domain.Repositories
     {
         Task<CharacteristicDescription> FindById(int id);
 
+        Task<bool> DeleteByProductId(int productId);
+
         Task<IList<CharacteristicDescription>> FindAll();
 
         Task<CharacteristicDescription> FindByDescription(string description);

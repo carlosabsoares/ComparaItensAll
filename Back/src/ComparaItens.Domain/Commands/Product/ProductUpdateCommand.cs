@@ -15,7 +15,7 @@ namespace ComparaItens.Domain.Commands.Product
         public int YearOfManufacture { get; set; }
         public string Image { get; set; }
         public string Folder { get; set; }
-        public IList<CharacteristicDescription> CharacteristicDescription { get; set; }
+        public IList<CharacteristicDescription> CharacteristicDescriptions { get; set; }
 
         public void Validate()
         {
@@ -28,8 +28,8 @@ namespace ComparaItens.Domain.Commands.Product
                     .IsGreaterThan(CategoryId, 0, "CategoryId", "O CategoryId é obrigatório")
                     .IsGreaterThan(ManufacturerId, 0, "ManufacturerId", "O ManufacturerId é obrigatório")
                     .IsGreaterThan(YearOfManufacture, 0, "YearOfManufacture", "O YearOfManufacture é obrigatório")
-                    //.IsNotNullOrEmpty(Image, "Image", "Image não pode ser nulo")
-                    //.IsNotNullOrEmpty(Folder, "Folder", "Folder não pode ser nulo")
+            //.IsNotNullOrEmpty(Image, "Image", "Image não pode ser nulo")
+            //.IsNotNullOrEmpty(Folder, "Folder", "Folder não pode ser nulo")
             );
         }
     }

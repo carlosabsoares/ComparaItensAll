@@ -65,7 +65,16 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
-            return null;
+            Product product = new Product();
+            product.Id = command.Id;
+
+            var _result = await _productRepository.Delete(product);
+
+            //retorna o resultado
+            if (!_result)
+                return new GenericCommandResult(false, HttpStatusCode.BadRequest, _result);
+
+            return new GenericCommandResult(true, HttpStatusCode.OK, _result);
         }
 
         public async Task<ICommandResult> Handle(ProductUpdateCommand command)
@@ -83,15 +92,25 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
-            var _result = await _productRepository.Update(_verify);
+            Product product = new Product();
+            product.Id = command.Id;
+            product.Folder = command.Folder;
+            product.CategoryId = command.CategoryId;
+            product.Description = command.Description;
+            product.Image = command.Image;
+            product.ManufacturerId = command.ManufacturerId;
+            product.YearOfManufacture = command.YearOfManufacture;
+            product.Model = command.Model;
+            product.CharacteristicDescriptions = command.CharacteristicDescriptions;
+
+            var _result = await _productRepository.Update(product);
 
             //retorna o resultado
             if (!_result)
                 return new GenericCommandResult(false, HttpStatusCode.BadRequest, _result);
 
             return new GenericCommandResult(true, HttpStatusCode.OK, _result);
-
-            return null;
+            ;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace ComparaItens.Infra.Repositories
         {
             var query = _context.CharacteristicKeys.AsNoTracking();
 
-            return await query.Select(x=> x.Key).Distinct().ToListAsync();
+            return await query.Select(x => x.Key).Distinct().ToListAsync();
         }
 
         public async Task<IList<CharacteristicKey>> FindByAllDescription(string key)
@@ -36,7 +36,6 @@ namespace ComparaItens.Infra.Repositories
 
             return await query.Where(x => x.Key == key).ToListAsync();
         }
-
 
         public async Task<CharacteristicKey> FindById(int id)
         {

@@ -83,8 +83,7 @@ namespace ComparaItens.Api.Controllers
         [HttpGet("characteristicKey/findAllKey")]
         //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<string>), 200)]
-        public async Task<IList<string>> FindAllKey(
-            [FromServices] ICharacteristicKeyRepository repository)
+        public async Task<IList<string>> FindAllKey([FromServices] ICharacteristicKeyRepository repository)
         {
             var result = await repository.FindAllKey();
 

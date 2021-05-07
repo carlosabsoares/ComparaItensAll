@@ -17,6 +17,27 @@ namespace ComparaItens.Infra.Repositories
             _context = context;
         }
 
+        public async Task<bool> DeleteByProductId(int productId)
+        {
+            try
+            {
+                //_context.CharacteristicDescriptions.Remove()
+
+                var result = _context.CharacteristicDescriptions
+                    .FromSqlRaw(@"delete from tabcharacteristicdescription where productid = {}", productId)
+                    .AsNoTracking();
+
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
         public async Task<IList<CharacteristicDescription>> FindAll()
         {
             var query = _context.CharacteristicDescriptions.AsNoTracking()
@@ -40,9 +61,16 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<CharacteristicDescription>> FindByProductId(int idProduct)
         {
-            var query = _context.CharacteristicDescriptions.AsNoTracking()
+            var query = _context.CharacteristicDescriptions.AsNoTracking();
+
+            return await query.Where(x => x.ProductId == idProduct)
                 .Include(x => x.CharacteristicKeys)
-                .Include(x => x.Characteristics);
+                .Include(x => x.Characteristics).ToListAsync();
+        }
+
+        public async Task<IList<CharacteristicDescription>> FindByProductIdDelete(int idProduct)
+        {
+            var query = _context.CharacteristicDescriptions.AsNoTracking();
 
             return await query.Where(x => x.ProductId == idProduct).ToListAsync();
         }
