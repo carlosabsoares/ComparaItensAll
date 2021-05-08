@@ -1,6 +1,5 @@
-import React, { useEffect, useState, forwardRef, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, forwardRef } from 'react';
 import crypto from 'crypto';
-import { useFilesField } from 'react-final-form-file-field';
 import { Form, Field } from 'react-final-form';
 import { TextField, Select } from 'final-form-material-ui';
 import ImageUploader from '../../ImageUploader';
@@ -22,7 +21,6 @@ import { findAllKeys, findByKey } from '../../../utils/produtos';
 import { findAll as findAllCategories } from '../../../utils/categorias';
 import { findAll as findAllManufacturer } from '../../../utils/fabricantes';
 import { findAll as findAllcharacteristics } from '../../../utils/caracteristicas';
-import { findAll as findAllcharacteristicKeys } from '../../../utils/caracteristicasItensKey';
 
 import CharacteristicTable from '../../Tables/CharacteristicTable';
 
@@ -111,22 +109,21 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
       characteristicId,
       characteristicKeyId,
       characteristicKeyId2,
-      // image: imageFile,
-      // folder: folderFile,
+      image: imageFile,
+      folder: folderFile,
       ...newData
     } = data;
     const parsedDescriptions = characteristicsArray.map((characteristic) => ({
       characteristicId: characteristic.characteristic.id,
       characteristicKeyId: characteristic.description.id,
     }));
-    // const image = imageFile[0].path;
-    // const folder = folderFile[0].path;
+    const image = imageFile?.find(x => x);
+    const folder = folderFile?.find(x => x);
     const sendData = { ...newData,
       characteristicDescriptions: parsedDescriptions,
-      // image,
-      // folder,
+      image,
+      folder,
     };
-    console.log(sendData);
     handleSubmit(sendData);
     handleClose();
   };
@@ -333,12 +330,12 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     onClick={reset}
                     disabled={submitting || pristine}
                   >
-                    Reset
+                    Resetar
                   </Button>
                 </Grid>
                 <Grid item style={{ marginTop: 16 }}>
                   <Button variant="contained" color="primary" type="submit" disabled={submitting}>
-                    Submit
+                    Enviar
                   </Button>
                 </Grid>
               </Grid>

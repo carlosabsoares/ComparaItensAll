@@ -10,9 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     alignSelf: 'flex-end',
-    fontWeight: '700',
     marginTop: '10px',
-    width: '80px',
   },
   content: {
     flexGrow: 1,

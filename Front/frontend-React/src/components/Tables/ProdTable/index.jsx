@@ -46,7 +46,7 @@ export default function UserTable({ list, update, exclude, create, ModalBody }) 
   function handleCreateClose() {
     setShowCreateModal(false);
   }
-  console.log(list)
+
   return (
     <>
       <AddBoxIcon className={classes.add} onClick={handleCreateOpen} />
