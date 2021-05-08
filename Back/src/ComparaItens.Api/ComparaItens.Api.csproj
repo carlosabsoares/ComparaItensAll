@@ -29,5 +29,10 @@
     <ProjectReference Include="..\ComparaItens.Domain\ComparaItens.Domain.csproj" />
     <ProjectReference Include="..\ComparaItens.Infra\ComparaItens.Infra.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
+    <Folder Include="Resources\Folders\" />
+  </ItemGroup>
 
 </Project>
