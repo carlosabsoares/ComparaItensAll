@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 export default function ProductCard({ item }) {
   const classes = useStyles();
 
-  const { image, category, description } = item;
+  const { image, category, description, model } = item;
 
   return (
     <Card className={classes.root}>
@@ -26,6 +26,9 @@ export default function ProductCard({ item }) {
         <CardMedia className={classes.media} image={image} title="Imagem do Produto" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
+            {model}
+          </Typography>
+          <Typography gutterBottom variant="h6" component="h2">
             {category.description}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
