@@ -5,6 +5,7 @@ using ComparaItens.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ComparaItens.Api.Controllers
 {
@@ -15,7 +16,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Adiciona categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("characteristicKey/create")]
-        // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostCharacteristic(
             [FromBody] CharacteristicKeyInsertCommand command,
@@ -27,7 +28,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Deleta categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpDelete("characteristicKey/delete")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> DeleteCharacteristic(
             //[FromBody] CategoryDeleteCommand command,
@@ -42,7 +43,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Altera categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPut("characteristicKey/update")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> UpdateCharacteristic(
             [FromBody] CharacteristicKeyUpdateCommand command,
@@ -54,7 +55,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristicKey/findAll")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<CharacteristicKey>), 200)]
         public async Task<IList<CharacteristicKey>> FindAllCharacteristic(
             [FromServices] ICharacteristicKeyRepository repository)
@@ -67,7 +68,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristicKey/findById")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<CharacteristicKey>), 200)]
         public async Task<CharacteristicKey> FindByIdCharacteristic(
             [FromQuery] int id,
@@ -81,7 +82,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristicKey/findAllKey")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<string>), 200)]
         public async Task<IList<string>> FindAllKey([FromServices] ICharacteristicKeyRepository repository)
         {
@@ -93,7 +94,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristicKey/findByKey")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<CharacteristicKey>), 200)]
         public async Task<IList<CharacteristicKey>> FindByKey(
             [FromQuery] string key,

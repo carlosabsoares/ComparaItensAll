@@ -5,6 +5,7 @@ using ComparaItens.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ComparaItens.Api.Controllers
 {
@@ -15,7 +16,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Adiciona categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("characteristic/create")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostCharacteristic(
             [FromBody] CharacteristicInsertCommand command,
@@ -27,7 +28,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Deleta categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpDelete("characteristic/delete")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> DeleteCharacteristic(
             //[FromBody] CategoryDeleteCommand command,
@@ -54,7 +55,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristic/findAll")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<Characteristic>), 200)]
         public async Task<IList<Characteristic>> FindAllCharacteristic(
             [FromServices] ICharacteristicRepository repository)
@@ -67,7 +68,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristic/findById")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<Characteristic>), 200)]
         public async Task<Characteristic> FindByIdCharacteristic(
             [FromQuery] int id,

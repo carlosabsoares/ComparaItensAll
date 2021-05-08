@@ -1,8 +1,8 @@
 ﻿using ComparaItens.Domain.Entities;
 using Flunt.Notifications;
 using Flunt.Validations;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace ComparaItens.Domain.Commands
 {

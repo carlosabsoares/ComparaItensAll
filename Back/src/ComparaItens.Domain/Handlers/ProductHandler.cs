@@ -63,7 +63,7 @@ namespace ComparaItens.Domain.Handlers
             _entity.Model = command.Model;
             _entity.CategoryId = command.CategoryId;
             _entity.YearOfManufacture = command.YearOfManufacture;
-            _entity.Image = command.Image.FileName;
+            _entity.Image = _dir + pathDocument + @"/" + command.Image.FileName;
             _entity.Folder = command.Folder.FileName;
             _entity.CharacteristicDescriptions = command.CharacteristicDescriptions;
 

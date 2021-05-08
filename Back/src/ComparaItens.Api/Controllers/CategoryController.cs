@@ -5,6 +5,7 @@ using ComparaItens.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ComparaItens.Api.Controllers
 {
@@ -15,7 +16,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Adiciona categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("category/create")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostCategory(
             [FromBody] CategoryInsertCommand command,
@@ -27,7 +28,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Deleta categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpDelete("category/delete")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> DeleteCategory(
             //[FromBody] CategoryDeleteCommand command,
@@ -42,7 +43,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Altera categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPut("category/update")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> UpdateCategory(
             [FromBody] CategoryUpdateCommand command,
@@ -54,7 +55,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("category/findAll")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<Category>), 200)]
         public async Task<IList<Category>> FindAllCategory(
             [FromServices] ICategoryRepository repository)
@@ -67,7 +68,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("category/findById")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<Category>), 200)]
         public async Task<Category> FindByIdCategory(
             [FromQuery] int id,
