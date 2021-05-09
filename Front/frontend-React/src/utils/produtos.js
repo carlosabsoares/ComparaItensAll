@@ -1,4 +1,4 @@
-import api, { apiMultiData } from './api';
+import api from './api';
 
 export const findAll = async () => {
   try {
@@ -10,9 +10,33 @@ export const findAll = async () => {
 };
 
 export const createItem = async (data) => {
-  console.log(data)
+  const {
+    categoryId,
+    characteristicDescriptions,
+    description,
+    folder,
+    image,
+    manufacturerId,
+    model,
+    yearOfManufacture,
+  } = data;
+  console.log(data);
+  const fd = new FormData();
+
+  fd.append('categoryId', categoryId);
+  fd.append('characteristicDescriptions', characteristicDescriptions);
+  fd.append('description', description);
+  if (folder) {
+    fd.append('folder', folder);
+  }
+  if (image) {
+    fd.append('image', image);
+  }
+  fd.append('manufacturerId', manufacturerId);
+  fd.append('model', model);
+  fd.append('yearOfManufacture', yearOfManufacture);
   try {
-    await apiMultiData.post('/v1/comparaItens/product/create', data);
+    await api.post('/v1/comparaItens/product/create', fd);
   } catch (err) {
     console.log(err);
   }
@@ -55,8 +79,9 @@ export const findAllKeys = async () => {
 export const findByParameter = async (data) => {
   try {
     const res = await api.get('/v1/comparaItens/product/findByParameters', {
-      params: data });
-    console.log(res.data)
+      params: data,
+    });
+    console.log(res.data);
     return res.data;
   } catch (err) {
     console.log(err);
