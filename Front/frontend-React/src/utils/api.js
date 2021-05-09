@@ -8,7 +8,23 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   const { token } = store.getState().loginReducer;
 
-  const headers = { ...config.headers };
+  const headers = { ...config.headers, };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  return { ...config, headers };
+});
+
+const apiMultiData = axios.create({
+  baseURL: process.env.REACT_APP_URL,
+});
+
+apiMultiData.interceptors.request.use((config) => {
+  const { token } = store.getState().loginReducer;
+
+  const headers = { ...config.headers, 'Content-Type': 'multipart/form-data' };
 
   if (token) {
     headers.Authorization = `Bearer ${token}`;
@@ -18,3 +34,5 @@ api.interceptors.request.use((config) => {
 });
 
 export default api;
+
+export { apiMultiData };

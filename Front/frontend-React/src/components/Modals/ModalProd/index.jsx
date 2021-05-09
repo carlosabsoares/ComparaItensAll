@@ -117,13 +117,12 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
       characteristicId: characteristic.characteristic.id,
       characteristicKeyId: characteristic.description.id,
     }));
-    const image = imageFile?.find(x => x);
-    const folder = folderFile?.find(x => x);
-    const sendData = { ...newData,
-      characteristicDescriptions: parsedDescriptions,
-      image,
-      folder,
+    const image = {
+      formFile: imageFile?.find((x) => x),
+      fileName: imageFile?.find((x) => x)?.name,
     };
+    const folder = folderFile?.find((x) => x);
+    const sendData = { ...newData, characteristicDescriptions: parsedDescriptions, image, folder };
     handleSubmit(sendData);
     handleClose();
   };
@@ -163,7 +162,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
         onSubmit={onSubmit}
         initialValues={item}
         render={({ handleSubmit, form, reset, submitting, pristine }) => (
-          <form onSubmit={handleSubmit} noValidate>
+          <form onSubmit={handleSubmit} noValidate encType="multipart/form-data">
             <Paper style={{ padding: 16 }}>
               <Grid container alignItems="flex-start" spacing={2}>
                 <Grid item xs={6}>
