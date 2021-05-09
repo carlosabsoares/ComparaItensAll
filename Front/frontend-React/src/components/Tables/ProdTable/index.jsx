@@ -64,7 +64,7 @@ export default function UserTable({ list, update, exclude, create, ModalBody }) 
             </TableRow>
           </TableHead>
           <TableBody>
-            {list.map((item) => (
+            {list?.map((item) => (
               <TableRow key={item.id}>
                 <TableCell component="th" scope="row">
                   {item.id}

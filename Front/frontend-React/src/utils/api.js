@@ -17,8 +17,4 @@ api.interceptors.request.use((config) => {
   return { ...config, headers };
 });
 
-const apiMultiData = axios.create({
-  baseURL: process.env.REACT_APP_URL,
-});
-
 export default api;

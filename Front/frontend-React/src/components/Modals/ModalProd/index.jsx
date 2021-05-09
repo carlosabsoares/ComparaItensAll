@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   add: {
     color: 'green',
     fontSize: 40,
-    margin: '2px',
+    margin: '10px 2px 2px',
   },
   button: {
     alignSelf: 'flex-end',
@@ -113,7 +113,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
       folder: folderFile,
       ...newData
     } = data;
-    const parsedDescriptions = characteristicsArray.map((characteristic) => ({
+    const parsedDescriptions = characteristicsArray?.map((characteristic) => ({
       characteristicId: characteristic.characteristic.id,
       characteristicKeyId: characteristic.description.id,
     }));
@@ -175,7 +175,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     label="Categorias"
                     formControlProps={{ fullWidth: true }}
                   >
-                    {categories.map((category) => (
+                    {categories?.map((category) => (
                       <MenuItem key={category.id} value={category.id}>
                         {category.description}
                       </MenuItem>
@@ -190,7 +190,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     label="Fabricante"
                     formControlProps={{ fullWidth: true }}
                   >
-                    {manufacturers.map((manufacturer) => (
+                    {manufacturers?.map((manufacturer) => (
                       <MenuItem key={manufacturer.id} value={manufacturer.id}>
                         {manufacturer.description}
                       </MenuItem>
@@ -255,7 +255,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     label="Característica"
                     formControlProps={{ fullWidth: true }}
                   >
-                    {characteristics.map((characteristic) => (
+                    {characteristics?.map((characteristic) => (
                       <MenuItem
                         key={characteristic.id}
                         value={characteristic.id}
@@ -268,7 +268,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     ))}
                   </Field>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                   <Field
                     fullWidth
                     name="characteristicKeyId"
@@ -276,7 +276,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     label="Item"
                     formControlProps={{ fullWidth: true }}
                   >
-                    {characteristicKeys.map((characteristicKey) => (
+                    {characteristicKeys?.map((characteristicKey) => (
                       <MenuItem
                         key={characteristicKey}
                         value={characteristicKey}
@@ -295,7 +295,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     label="Descrição"
                     formControlProps={{ fullWidth: true }}
                   >
-                    {characteristicDescriptions.map((characteristicKey) => (
+                    {characteristicDescriptions?.map((characteristicKey) => (
                       <MenuItem
                         key={characteristicKey.id}
                         value={characteristicKey.id}
@@ -315,7 +315,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     ))}
                   </Field>
                 </Grid>
-                <Grid item>
+                <Grid item xs={1} p="0">
                   <AddBoxIcon className={classes.add} onClick={handleCreateDescription} />
                 </Grid>
                 <Grid item xs={12}>

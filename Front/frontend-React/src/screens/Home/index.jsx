@@ -76,7 +76,7 @@ const Home = () => {
                   <MenuItem value="" className={classes.gray}>
                     Categoria
                   </MenuItem>
-                  {categories.map((category) => (
+                  {categories?.map((category) => (
                     <MenuItem key={category.id} value={category.id}>
                       {category.description}
                     </MenuItem>
@@ -94,7 +94,7 @@ const Home = () => {
                   <MenuItem value="" className={classes.gray}>
                     Fabricante
                   </MenuItem>
-                  {manufacturers.map((manufacturer) => (
+                  {manufacturers?.map((manufacturer) => (
                     <MenuItem key={manufacturer.id} value={manufacturer.id}>
                       {manufacturer.description}
                     </MenuItem>
@@ -124,7 +124,7 @@ const Home = () => {
                   <MenuItem value="" className={classes.gray}>
                     Característica
                   </MenuItem>
-                  {characteristics.map((characteristic) => (
+                  {characteristics?.map((characteristic) => (
                     <MenuItem key={characteristic.id} value={characteristic.id}>
                       {characteristic.description}
                     </MenuItem>
@@ -143,7 +143,7 @@ const Home = () => {
                     Item
                   </MenuItem>
 
-                  {characteristicKeys.map((characteristicKey) => (
+                  {characteristicKeys?.map((characteristicKey) => (
                     <MenuItem
                       key={characteristicKey}
                       value={characteristicKey}
@@ -166,7 +166,7 @@ const Home = () => {
                     Descrição
                   </MenuItem>
 
-                  {characteristicDescriptions.map((characteristicKey) => (
+                  {characteristicDescriptions?.map((characteristicKey) => (
                     <MenuItem key={characteristicKey.id} value={characteristicKey.id}>
                       {characteristicKey.description}
                     </MenuItem>
@@ -196,7 +196,7 @@ const Home = () => {
         )}
       />
       <Grid container alignItems="flex-start" spacing={2}>
-        {item.map((item) => (
+        {item?.map((item) => (
           <Grid item xs={4}>
             <Card item={item} />
           </Grid>
