@@ -5,6 +5,7 @@ using ComparaItens.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ComparaItens.Api.Controllers
 {
@@ -15,7 +16,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Adiciona fabricantes de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("manufacturer/create")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostManufacturer(
             [FromBody] ManufacturerInsertCommand command,
@@ -27,7 +28,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Deleta fabricantes de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpDelete("manufacturer/delete")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> DeleteManufacturer(
             //[FromBody] CategoryDeleteCommand command,
@@ -42,7 +43,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Altera fabricantes de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPut("manufacturer/update")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> UpdateManufacturer(
             [FromBody] ManufacturerUpdateCommand command,
@@ -54,7 +55,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna fabricantes de produtos</summary>
         /// <returns>Retorna fabricantes de produtos</returns>
         [HttpGet("manufacturer/findAll")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<Manufacturer>), 200)]
         public async Task<IList<Manufacturer>> FindAllManufacturer(
             [FromServices] IManufacturerRepository repository)
@@ -67,7 +68,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna fabricantes de produtos</summary>
         /// <returns>Retorna fabricantes de produtos</returns>
         [HttpGet("manufacturer/findById")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(IList<Manufacturer>), 200)]
         public async Task<Manufacturer> FindByIdManufacturer(
             [FromQuery] int id,
