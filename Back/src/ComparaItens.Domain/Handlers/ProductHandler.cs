@@ -20,10 +20,14 @@ namespace ComparaItens.Domain.Handlers
         private readonly IProductRepository _productRepository;
 
         private IHostingEnvironment _env;
-        private string _dir;
+        private readonly string _dir;
 
-        private string pathImage = @"\Resources\Imagens";
-        private string pathDocument = @"\Resources\Folders";
+        private readonly string path = "Resources";
+        
+        private readonly string pathImage = "Imagens";
+        private readonly string pathDocument = "Folders";
+
+
 
         public ProductHandler(ICudRepository cudRepository, IProductRepository productRepository, IHostingEnvironment env)
         {
@@ -43,7 +47,9 @@ namespace ComparaItens.Domain.Handlers
             //Se houver arquivo anexado, gravar na diretório
             if (!string.IsNullOrEmpty(command.Image.FileName))
             {
-                using (var fileStream = new FileStream(Path.Combine((_dir + pathImage), command.Image.FileName), FileMode.Create, FileAccess.Write))
+                string fullPathImage = Path.Combine(_dir, path, pathImage, pathImage);
+
+                using (var fileStream = new FileStream(Path.Combine(fullPathImage, command.Image.FileName), FileMode.Create, FileAccess.Write))
                 {
                     command.Image.CopyTo(fileStream);
                 }
@@ -51,6 +57,8 @@ namespace ComparaItens.Domain.Handlers
 
             if (!string.IsNullOrEmpty(command.Folder.FileName))
             {
+                string fullPathDocument = Path.Combine(_dir, path, pathImage, pathDocument);
+
                 using (var fileStream = new FileStream(Path.Combine((_dir + pathDocument), command.Folder.FileName), FileMode.Create, FileAccess.Write))
                 {
                     command.Folder.CopyTo(fileStream);
@@ -94,7 +102,9 @@ namespace ComparaItens.Domain.Handlers
             //Se houver arquivo anexado, gravar na diretório
             if (!string.IsNullOrEmpty(_verify.Image))
             {
-                string[] imageFile = Directory.GetFiles((_dir + pathImage), _verify.Image);
+                string fullPathImage = Path.Combine(_dir, path, pathImage, pathImage);
+
+                string[] imageFile = Directory.GetFiles(fullPathImage, _verify.Image);
 
                 foreach (var item in imageFile)
                 {
@@ -104,7 +114,9 @@ namespace ComparaItens.Domain.Handlers
 
             if (!string.IsNullOrEmpty(_verify.Folder))
             {
-                string[] imageFolder = Directory.GetFiles((_dir + pathImage), _verify.Folder);
+                string fullPathDocument = Path.Combine(_dir, path, pathImage, pathDocument);
+
+                string[] imageFolder = Directory.GetFiles(fullPathDocument, _verify.Folder);
 
                 foreach (var item in imageFolder)
                 {
@@ -142,7 +154,9 @@ namespace ComparaItens.Domain.Handlers
             //Se houver arquivo anexado, gravar na diretório
             if (!string.IsNullOrEmpty(command.Image.FileName))
             {
-                using (var fileStream = new FileStream(Path.Combine((_dir + pathImage), command.Image.FileName), FileMode.Create, FileAccess.Write))
+                string fullPathImage = Path.Combine(_dir, path, pathImage, pathImage);
+
+                using (var fileStream = new FileStream(Path.Combine(fullPathImage, command.Image.FileName), FileMode.Create, FileAccess.Write))
                 {
                     command.Image.CopyTo(fileStream);
                 }
@@ -150,7 +164,9 @@ namespace ComparaItens.Domain.Handlers
 
             if (!string.IsNullOrEmpty(command.Folder.FileName))
             {
-                using (var fileStream = new FileStream(Path.Combine((_dir + pathDocument), command.Folder.FileName), FileMode.Create, FileAccess.Write))
+                string fullPathDocument = Path.Combine(_dir, path, pathImage, pathDocument);
+
+                using (var fileStream = new FileStream(Path.Combine(fullPathDocument, command.Folder.FileName), FileMode.Create, FileAccess.Write))
                 {
                     command.Folder.CopyTo(fileStream);
                 }

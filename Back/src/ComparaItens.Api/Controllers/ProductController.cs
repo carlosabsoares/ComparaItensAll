@@ -82,7 +82,6 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna lista de todos os produtos</summary>
         /// <returns>Retorna lista de todos os produtos</returns>
         [HttpGet("product/findByParameters")]
-        [AllowAnonymous]
         [ProducesResponseType(typeof(Product), 200)]
         public async Task<IList<Product>> FindByParameters(
             [FromQuery] int categoryId,
