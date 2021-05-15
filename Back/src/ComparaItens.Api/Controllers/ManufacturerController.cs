@@ -55,7 +55,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna fabricantes de produtos</summary>
         /// <returns>Retorna fabricantes de produtos</returns>
         [HttpGet("manufacturer/findAll")]
-        [Authorize(Roles = "Administrator")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IList<Manufacturer>), 200)]
         public async Task<IList<Manufacturer>> FindAllManufacturer(
             [FromServices] IManufacturerRepository repository)
@@ -68,7 +68,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna fabricantes de produtos</summary>
         /// <returns>Retorna fabricantes de produtos</returns>
         [HttpGet("manufacturer/findById")]
-        [Authorize(Roles = "Administrator")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IList<Manufacturer>), 200)]
         public async Task<Manufacturer> FindByIdManufacturer(
             [FromQuery] int id,

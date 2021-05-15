@@ -43,7 +43,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Altera categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPut("characteristic/update")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> UpdateCharacteristic(
             [FromBody] CharacteristicUpdateCommand command,
@@ -55,7 +55,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristic/findAll")]
-        [Authorize(Roles = "Administrator")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IList<Characteristic>), 200)]
         public async Task<IList<Characteristic>> FindAllCharacteristic(
             [FromServices] ICharacteristicRepository repository)
@@ -68,7 +68,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristic/findById")]
-        [Authorize(Roles = "Administrator")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IList<Characteristic>), 200)]
         public async Task<Characteristic> FindByIdCharacteristic(
             [FromQuery] int id,

@@ -54,7 +54,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristicDescription/findAll")]
-        [Authorize(Roles = "Administrator")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IList<CharacteristicDescription>), 200)]
         public async Task<IList<CharacteristicDescription>> FindAllCharacteristicDescription(
             [FromServices] ICharacteristicDescriptionRepository repository)
@@ -67,7 +67,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristicDescription/findById")]
-        [Authorize(Roles = "Administrator")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IList<CharacteristicDescription>), 200)]
         public async Task<CharacteristicDescription> FindByIdCharacteristicDescription(
             [FromQuery] int id,

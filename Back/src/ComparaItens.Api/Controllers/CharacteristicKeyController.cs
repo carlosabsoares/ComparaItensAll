@@ -55,7 +55,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristicKey/findAll")]
-        [Authorize(Roles = "Administrator")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IList<CharacteristicKey>), 200)]
         public async Task<IList<CharacteristicKey>> FindAllCharacteristic(
             [FromServices] ICharacteristicKeyRepository repository)
@@ -68,7 +68,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristicKey/findById")]
-        [Authorize(Roles = "Administrator")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IList<CharacteristicKey>), 200)]
         public async Task<CharacteristicKey> FindByIdCharacteristic(
             [FromQuery] int id,
@@ -82,7 +82,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristicKey/findAllKey")]
-        [Authorize(Roles = "Administrator")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IList<string>), 200)]
         public async Task<IList<string>> FindAllKey([FromServices] ICharacteristicKeyRepository repository)
         {
@@ -94,7 +94,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
         [HttpGet("characteristicKey/findByKey")]
-        [Authorize(Roles = "Administrator")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IList<CharacteristicKey>), 200)]
         public async Task<IList<CharacteristicKey>> FindByKey(
             [FromQuery] string key,

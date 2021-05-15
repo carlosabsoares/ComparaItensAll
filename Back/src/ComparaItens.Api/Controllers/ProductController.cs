@@ -10,6 +10,9 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Linq;
+using System.Web;
 
 namespace ComparaItens.Api.Controllers
 {
@@ -89,6 +92,20 @@ namespace ComparaItens.Api.Controllers
             return result;
         }
 
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return PhysicalFile(@"E:\Test.jpg", "image/jpeg");
+        }
+
+        [Route("getImage/{pathImage}")]
+        public byte[] GetImage(string pathImage)
+        {
+            var dir = Server.MapPath("/Images");
+            var path = Path.Combine(dir, id + ".jpg");
+            return base.File(path, "image/jpeg");
+        }
+
         /// <summary>Retorna lista de todos os produtos</summary>
         /// <returns>Retorna lista de todos os produtos</returns>
         [HttpGet("product/findById")]
@@ -123,6 +140,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Retorna lista de todos os produtos</summary>
         /// <returns>Retorna lista de todos os produtos</returns>
         [HttpGet("product/findByParameters")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(Product), 200)]
         public async Task<IList<Product>> FindByParameters(
             [FromQuery] int categoryId,
