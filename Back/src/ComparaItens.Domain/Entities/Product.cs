@@ -22,13 +22,7 @@ namespace ComparaItens.Domain.Entities
 
         public string Image { get; set; }
 
-        [NotMapped]
-        public string PathImage { get; set; }
-
         public string Folder { get; set; }
-
-        [NotMapped]
-        public string PathFolder { get; set; }
 
         [NotMapped]
         public Manufacturer Manufecturer { get; set; }

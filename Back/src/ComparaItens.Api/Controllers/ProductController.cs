@@ -82,8 +82,8 @@ namespace ComparaItens.Api.Controllers
 
             foreach (var item in result)
             {
-                item.PathImage = GetPathImage(item.Image);
-                item.PathFolder = GetPathFolder(item.Folder);
+                item.Image = GetPathImage(item.Image);
+                item.Folder = GetPathFolder(item.Folder);
             }
             
             return result;
@@ -100,19 +100,24 @@ namespace ComparaItens.Api.Controllers
         {
             var result = await repository.FindById(id);
 
-            result.PathImage = GetPathImage(result.Image);
-            result.PathFolder = GetPathFolder(result.PathFolder);
+            result.Image = GetPathImage(result.Image);
+            result.Folder = GetPathFolder(result.Folder);
             return result;
         }
 
         private string GetPathImage(string nameImage)
         {
-            return Path.Combine(_dir, path, pathImage, nameImage);
+            var _result = Path.Combine(_dir, path, pathImage, nameImage);
+
+            _result = _result.Replace("\\", @"\");
+            _result = _result.Replace("//", @"/");
+
+            return _result;
         }
 
-        public string GetPathFolder(string nameFolder)
+        private string GetPathFolder(string nameFolder)
         {
-            return Path.Combine(_dir, path, pathImage, nameFolder);
+            return Path.Combine(_dir, path, pathDocument, nameFolder);
         }
 
         /// <summary>Retorna lista de todos os produtos</summary>
@@ -137,8 +142,8 @@ namespace ComparaItens.Api.Controllers
 
             foreach (var item in result)
             {
-                item.PathImage = GetPathImage(item.Image);
-                item.PathFolder = GetPathFolder(item.Folder);
+                item.Image = GetPathImage(item.Image);
+                item.Folder = GetPathFolder(item.Folder);
             }
 
             return result;
