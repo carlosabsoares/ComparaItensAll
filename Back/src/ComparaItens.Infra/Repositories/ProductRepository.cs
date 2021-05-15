@@ -84,6 +84,16 @@ namespace ComparaItens.Infra.Repositories
             }
         }
 
+        //public async Task<string> FindImage(string imageName)
+        //{
+        //    return (await _context.Products.Where( x=> x.Image == imageName).FirstOrDefaultAsync()).Image;
+        //}
+
+        //public async Task<string> FindFolder(string imageFolder)
+        //{
+        //    return (await _context.Products.Where(x => x.Folder == imageFolder).FirstOrDefaultAsync()).Image;
+        //}
+
         public async Task<IList<Product>> FindAll()
         {
             var _return = await _context.Products.AsNoTracking()

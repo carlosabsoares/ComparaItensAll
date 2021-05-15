@@ -24,7 +24,7 @@ namespace ComparaItens.Domain.Handlers
 
         private readonly string path = "Resources";
         
-        private readonly string pathImage = "Imagens";
+        private readonly string pathImage = "Images";
         private readonly string pathDocument = "Folders";
 
 
@@ -47,7 +47,7 @@ namespace ComparaItens.Domain.Handlers
             //Se houver arquivo anexado, gravar na diretório
             if (!string.IsNullOrEmpty(command.Image.FileName))
             {
-                string fullPathImage = Path.Combine(_dir, path, pathImage, pathImage);
+                string fullPathImage = Path.Combine(_dir, path, pathImage);
 
                 using (var fileStream = new FileStream(Path.Combine(fullPathImage, command.Image.FileName), FileMode.Create, FileAccess.Write))
                 {
@@ -57,9 +57,9 @@ namespace ComparaItens.Domain.Handlers
 
             if (!string.IsNullOrEmpty(command.Folder.FileName))
             {
-                string fullPathDocument = Path.Combine(_dir, path, pathImage, pathDocument);
+                string fullPathDocument = Path.Combine(_dir, path, pathDocument);
 
-                using (var fileStream = new FileStream(Path.Combine((_dir + pathDocument), command.Folder.FileName), FileMode.Create, FileAccess.Write))
+                using (var fileStream = new FileStream(Path.Combine(fullPathDocument, command.Folder.FileName), FileMode.Create, FileAccess.Write))
                 {
                     command.Folder.CopyTo(fileStream);
                 }
@@ -71,7 +71,7 @@ namespace ComparaItens.Domain.Handlers
             _entity.Model = command.Model;
             _entity.CategoryId = command.CategoryId;
             _entity.YearOfManufacture = command.YearOfManufacture;
-            _entity.Image = _dir + pathDocument + @"/" + command.Image.FileName;
+            _entity.Image = command.Image.FileName;
             _entity.Folder = command.Folder.FileName;
             _entity.CharacteristicDescriptions = command.CharacteristicDescriptions;
 

@@ -6,7 +6,9 @@ using ComparaItens.Domain.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ComparaItens.Api.Controllers
 {
@@ -14,13 +16,27 @@ namespace ComparaItens.Api.Controllers
     [Route("v1/comparaItens")]
     public class ProductController : ControllerBase
     {
+        private IHostingEnvironment _env;
+        private readonly string _dir;
+
+        private readonly string path = "Resources";
+
+        private readonly string pathImage = "Images";
+        private readonly string pathDocument = "Folders";
+
+        public ProductController(IHostingEnvironment env)
+        {
+            _env = env;
+            _dir = _env.ContentRootPath;
+        }
+
         /// <summary>Adiciona produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("product/create")]
         //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostManufacturer(
-            [FromBody] ProductInsertCommand command,
+            [FromForm] ProductInsertCommand command,
             [FromServices] IHandler<ProductInsertCommand> handler)
         {
             return (GenericCommandResult)await handler.Handle(command);
@@ -77,6 +93,24 @@ namespace ComparaItens.Api.Controllers
             var result = await repository.FindById(id);
 
             return result;
+        }
+
+        [HttpGet("resources/images/{nameImage}")]
+        [HttpGet]
+        public IActionResult GetImage(string nameImage)
+        {
+            string fullPathImage = Path.Combine(_dir, path, pathImage, nameImage);
+
+            return PhysicalFile(fullPathImage, "image/jpeg");
+        }
+
+        [HttpGet("resources/folder/{nameFolder}")]
+        [HttpGet]
+        public IActionResult GetFolder(string nameFolder)
+        {
+            string fullPathFolder = Path.Combine(_dir, path, pathImage, nameFolder);
+
+            return PhysicalFile(fullPathFolder, "application/pdf");
         }
 
         /// <summary>Retorna lista de todos os produtos</summary>

@@ -20,6 +20,7 @@ namespace ComparaItens.Domain.Entities
         public int YearOfManufacture { get; set; }
 
         public string Image { get; set; }
+        
         public string Folder { get; set; }
 
         [NotMapped]
