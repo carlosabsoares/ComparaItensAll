@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
@@ -23,6 +24,7 @@ namespace ComparaItens.Api.Controllers
 
         private readonly string pathImage = "Images";
         private readonly string pathDocument = "Folders";
+
 
         public ProductController(IHostingEnvironment env)
         {
@@ -78,6 +80,12 @@ namespace ComparaItens.Api.Controllers
         {
             var result = await repository.FindAll();
 
+            foreach (var item in result)
+            {
+                item.PathImage = GetPathImage(item.Image);
+                item.PathFolder = GetPathFolder(item.Folder);
+            }
+            
             return result;
         }
 
@@ -92,25 +100,19 @@ namespace ComparaItens.Api.Controllers
         {
             var result = await repository.FindById(id);
 
+            result.PathImage = GetPathImage(result.Image);
+            result.PathFolder = GetPathFolder(result.PathFolder);
             return result;
         }
 
-        [HttpGet("resources/images/{nameImage}")]
-        [HttpGet]
-        public IActionResult GetImage(string nameImage)
+        private string GetPathImage(string nameImage)
         {
-            string fullPathImage = Path.Combine(_dir, path, pathImage, nameImage);
-
-            return PhysicalFile(fullPathImage, "image/jpeg");
+            return Path.Combine(_dir, path, pathImage, nameImage);
         }
 
-        [HttpGet("resources/folder/{nameFolder}")]
-        [HttpGet]
-        public IActionResult GetFolder(string nameFolder)
+        public string GetPathFolder(string nameFolder)
         {
-            string fullPathFolder = Path.Combine(_dir, path, pathImage, nameFolder);
-
-            return PhysicalFile(fullPathFolder, "application/pdf");
+            return Path.Combine(_dir, path, pathImage, nameFolder);
         }
 
         /// <summary>Retorna lista de todos os produtos</summary>
@@ -132,6 +134,12 @@ namespace ComparaItens.Api.Controllers
                                                                      key,
                                                                      keyDescription,
                                                                      description);
+
+            foreach (var item in result)
+            {
+                item.PathImage = GetPathImage(item.Image);
+                item.PathFolder = GetPathFolder(item.Folder);
+            }
 
             return result;
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,8 +21,14 @@ namespace ComparaItens.Domain.Entities
         public int YearOfManufacture { get; set; }
 
         public string Image { get; set; }
-        
+
+        [NotMapped]
+        public string PathImage { get; set; }
+
         public string Folder { get; set; }
+
+        [NotMapped]
+        public string PathFolder { get; set; }
 
         [NotMapped]
         public Manufacturer Manufecturer { get; set; }
