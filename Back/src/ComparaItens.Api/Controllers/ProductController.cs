@@ -10,8 +10,11 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Http.Headers;
 using System.Web;
 
 namespace ComparaItens.Api.Controllers
@@ -92,19 +95,19 @@ namespace ComparaItens.Api.Controllers
             return result;
         }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return PhysicalFile(@"E:\Test.jpg", "image/jpeg");
-        }
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        //    return PhysicalFile(@"E:\Test.jpg", "image/jpeg");
+        //}
 
-        [Route("getImage/{pathImage}")]
-        public byte[] GetImage(string pathImage)
-        {
-            var dir = Server.MapPath("/Images");
-            var path = Path.Combine(dir, id + ".jpg");
-            return base.File(path, "image/jpeg");
-        }
+        //[Route("getImage/{pathImage}")]
+        //public byte[] GetImage(string pathImage)
+        //{
+        //    var dir = Server.MapPath("/Images");
+        //    var path = Path.Combine(dir, id + ".jpg");
+        //    return base.File(path, "image/jpeg");
+        //}
 
         /// <summary>Retorna lista de todos os produtos</summary>
         /// <returns>Retorna lista de todos os produtos</returns>
@@ -124,7 +127,7 @@ namespace ComparaItens.Api.Controllers
 
         private string GetPathImage(string nameImage)
         {
-            var _result = Path.Combine(_dir, path, pathImage, nameImage);
+            var _result = Path.Combine(@"https://localhost:5001", path, pathImage, nameImage);
 
             _result = _result.Replace("\\", @"\");
             _result = _result.Replace("//", @"/");

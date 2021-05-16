@@ -11,7 +11,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
 
 namespace ComparaItens.Api
 {
@@ -112,6 +115,12 @@ namespace ComparaItens.Api
                .AllowAnyOrigin()
                .AllowAnyMethod()
                .AllowAnyHeader());
+
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions(){
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),@"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();
