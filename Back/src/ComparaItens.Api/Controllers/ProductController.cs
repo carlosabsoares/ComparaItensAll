@@ -137,7 +137,12 @@ namespace ComparaItens.Api.Controllers
 
         private string GetPathFolder(string nameFolder)
         {
-            return Path.Combine(_dir, path, pathDocument, nameFolder);
+            var _result = Path.Combine(@"https://localhost:5001", path, pathDocument, nameFolder);
+
+            _result = _result.Replace("\\", @"\");
+            _result = _result.Replace("//", @"/");
+
+            return _result;
         }
 
         /// <summary>Retorna lista de todos os produtos</summary>
