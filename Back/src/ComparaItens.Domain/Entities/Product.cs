@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,9 +19,9 @@ namespace ComparaItens.Domain.Entities
         [Range(1900, 3000, ErrorMessage = "Valor inválido.")]
         public int YearOfManufacture { get; set; }
 
-        public string Image { get; set; }
+        //public string Image { get; set; }
 
-        public string Folder { get; set; }
+        //public string Folder { get; set; }
 
         [NotMapped]
         public Manufacturer Manufecturer { get; set; }

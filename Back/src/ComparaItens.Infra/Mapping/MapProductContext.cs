@@ -33,12 +33,6 @@ namespace ComparaItens.Infra.Mapping
             modelBuilder.Entity<Product>().Property(x => x.YearOfManufacture).HasColumnType("int(11)");
             modelBuilder.Entity<Product>().Property(x => x.YearOfManufacture).HasColumnName("yearOfManufacture");
 
-            modelBuilder.Entity<Product>().Property(x => x.Image).HasColumnType("varchar(250)");
-            modelBuilder.Entity<Product>().Property(x => x.Image).HasColumnName("image");
-
-            modelBuilder.Entity<Product>().Property(x => x.Folder).HasColumnType("varchar(250)");
-            modelBuilder.Entity<Product>().Property(x => x.Folder).HasColumnName("folder");
-
             // Relationships
             modelBuilder.Entity<Product>().HasOne(p => p.Manufecturer).WithMany().HasForeignKey(f => f.ManufacturerId);
             modelBuilder.Entity<Product>().HasOne(p => p.Category).WithMany().HasForeignKey(f => f.CategoryId);

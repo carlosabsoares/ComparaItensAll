@@ -23,11 +23,9 @@ namespace ComparaItens.Domain.Handlers
         private readonly string _dir;
 
         private readonly string path = "Resources";
-        
+
         private readonly string pathImage = "Images";
         private readonly string pathDocument = "Folders";
-
-
 
         public ProductHandler(ICudRepository cudRepository, IProductRepository productRepository, IHostingEnvironment env)
         {
@@ -71,8 +69,6 @@ namespace ComparaItens.Domain.Handlers
             _entity.Model = command.Model;
             _entity.CategoryId = command.CategoryId;
             _entity.YearOfManufacture = command.YearOfManufacture;
-            _entity.Image = command.Image.FileName;
-            _entity.Folder = command.Folder.FileName;
             _entity.CharacteristicDescriptions = command.CharacteristicDescriptions;
 
             var _result = await _productRepository.Add(_entity);
@@ -98,31 +94,6 @@ namespace ComparaItens.Domain.Handlers
 
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
-
-            //Se houver arquivo anexado, gravar na diretório
-            if (!string.IsNullOrEmpty(_verify.Image))
-            {
-                string fullPathImage = Path.Combine(_dir, path, pathImage, pathImage);
-
-                string[] imageFile = Directory.GetFiles(fullPathImage, _verify.Image);
-
-                foreach (var item in imageFile)
-                {
-                    File.Delete(item);
-                }
-            }
-
-            if (!string.IsNullOrEmpty(_verify.Folder))
-            {
-                string fullPathDocument = Path.Combine(_dir, path, pathImage, pathDocument);
-
-                string[] imageFolder = Directory.GetFiles(fullPathDocument, _verify.Folder);
-
-                foreach (var item in imageFolder)
-                {
-                    File.Delete(item);
-                }
-            }
 
             Product product = new Product();
             product.Id = command.Id;
@@ -151,33 +122,10 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
-            //Se houver arquivo anexado, gravar na diretório
-            if (!string.IsNullOrEmpty(command.Image.FileName))
-            {
-                string fullPathImage = Path.Combine(_dir, path, pathImage, pathImage);
-
-                using (var fileStream = new FileStream(Path.Combine(fullPathImage, command.Image.FileName), FileMode.Create, FileAccess.Write))
-                {
-                    command.Image.CopyTo(fileStream);
-                }
-            }
-
-            if (!string.IsNullOrEmpty(command.Folder.FileName))
-            {
-                string fullPathDocument = Path.Combine(_dir, path, pathImage, pathDocument);
-
-                using (var fileStream = new FileStream(Path.Combine(fullPathDocument, command.Folder.FileName), FileMode.Create, FileAccess.Write))
-                {
-                    command.Folder.CopyTo(fileStream);
-                }
-            }
-
             Product product = new Product();
             product.Id = command.Id;
-            product.Folder = command.Folder.FileName;
             product.CategoryId = command.CategoryId;
             product.Description = command.Description;
-            product.Image = command.Image.FileName;
             product.ManufacturerId = command.ManufacturerId;
             product.YearOfManufacture = command.YearOfManufacture;
             product.Model = command.Model;

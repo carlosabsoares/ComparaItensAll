@@ -11,11 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComparaItens.Infra", "Compa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComparaItens.Tests", "ComparaItens.Tests\ComparaItens.Tests.csproj", "{710B7487-8AA6-492B-9DBA-BA45C4AEA55A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Annotation", "Annotation", "{9860805F-4C25-46CD-AD71-980A170C258C}"
-	ProjectSection(SolutionItems) = preProject
-		Anotation.txt = Anotation.txt
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -24,10 +24,8 @@ namespace ComparaItens.Infra.Repositories
             try
             {
                 Product product = new Product();
-                product.Folder = entity.Folder;
                 product.CategoryId = entity.CategoryId;
                 product.Description = entity.Description;
-                product.Image = entity.Image;
                 product.ManufacturerId = entity.ManufacturerId;
                 product.YearOfManufacture = entity.YearOfManufacture;
                 product.Model = entity.Model;
@@ -172,10 +170,8 @@ namespace ComparaItens.Infra.Repositories
             {
                 Product product = new Product();
                 product.Id = entity.Id;
-                product.Folder = entity.Folder;
                 product.CategoryId = entity.CategoryId;
                 product.Description = entity.Description;
-                product.Image = entity.Image;
                 product.ManufacturerId = entity.ManufacturerId;
                 product.YearOfManufacture = entity.YearOfManufacture;
                 product.Model = entity.Model;

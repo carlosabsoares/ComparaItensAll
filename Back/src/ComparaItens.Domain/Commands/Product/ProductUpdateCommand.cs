@@ -1,7 +1,6 @@
 ﻿using ComparaItens.Domain.Entities;
 using Flunt.Notifications;
 using Flunt.Validations;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
 namespace ComparaItens.Domain.Commands.Product
@@ -14,10 +13,6 @@ namespace ComparaItens.Domain.Commands.Product
         public int CategoryId { get; set; }
         public int ManufacturerId { get; set; }
         public int YearOfManufacture { get; set; }
-
-        public IFormFile Image { get; set; }
-
-        public IFormFile Folder { get; set; }
 
         //public string Image { get; set; }
         //public string Folder { get; set; }
