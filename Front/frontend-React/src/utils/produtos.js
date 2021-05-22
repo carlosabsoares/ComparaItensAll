@@ -10,33 +10,9 @@ export const findAll = async () => {
 };
 
 export const createItem = async (data) => {
-  const {
-    categoryId,
-    characteristicDescriptions,
-    description,
-    folder,
-    image,
-    manufacturerId,
-    model,
-    yearOfManufacture,
-  } = data;
-  console.log(data);
-  const fd = new FormData();
-
-  fd.append('categoryId', categoryId);
-  fd.append('characteristicDescriptions', characteristicDescriptions);
-  fd.append('description', description);
-  if (folder) {
-    fd.append('folder', folder);
-  }
-  if (image) {
-    fd.append('image', image);
-  }
-  fd.append('manufacturerId', manufacturerId);
-  fd.append('model', model);
-  fd.append('yearOfManufacture', yearOfManufacture);
+  console.log(data)
   try {
-    await api.post('/v1/comparaItens/product/create', fd);
+    await api.post('/v1/comparaItens/product/create', data);
   } catch (err) {
     console.log(err);
   }
@@ -80,6 +56,17 @@ export const findByParameter = async (data) => {
   try {
     const res = await api.get('/v1/comparaItens/product/findByParameters', {
       params: data,
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const findById = async (id) => {
+  try {
+    const res = await api.get('/v1/comparaItens/product/findById', {
+      params: { id },
     });
     console.log(res.data);
     return res.data;

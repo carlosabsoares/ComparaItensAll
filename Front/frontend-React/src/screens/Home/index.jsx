@@ -1,18 +1,16 @@
-import React, { useEffect, useState, forwardRef } from 'react';
-import crypto from 'crypto';
+import React, { useEffect, useState } from 'react';
+
 import { Form, Field } from 'react-final-form';
 import { Select } from 'final-form-material-ui';
 
-import { Grid, Button, CssBaseline, MenuItem } from '@material-ui/core';
+import { Grid, Button, CssBaseline, MenuItem, Modal } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-// import { AddBox as AddBoxIcon } from '@material-ui/icons';
 
 import NavBar from '../../components/NavBar';
 import Card from '../../components/Card';
+import ModalItem from '../../components/Modals/ModalItem';
 
-// import ImageUploader from '../../components/ImageUploader';
-
-import { findAllKeys, findByKey, findByParameter } from '../../utils/produtos';
+import { findAllKeys, findByKey, findByParameter, findById } from '../../utils/produtos';
 import { findAll as findAllCategories } from '../../utils/categorias';
 import { findAll as findAllManufacturer } from '../../utils/fabricantes';
 import { findAll as findAllcharacteristics } from '../../utils/caracteristicas';
@@ -33,6 +31,8 @@ const Home = () => {
   const [characteristics, setCharacteristics] = useState([]);
   const [characteristicKeys, setCharacteristicKeys] = useState([]);
   const [characteristicDescriptions, setCharacteristicDescriptions] = useState([]);
+  const [modalItem, setModalItem] = useState({});
+  const [showModal, setShowModal] = useState(false);
   const [item, setItem] = useState([]);
 
   useEffect(async () => {
@@ -48,13 +48,24 @@ const Home = () => {
     setItem(itemsList);
   }, []);
 
-  const onSubmit = (data) => {
-    findByParameter(data);
+  const onSubmit = async (data) => {
+    const response = await findByParameter(data);
+    setItem(response);
   };
 
   const fetchCharacteristicDescription = async (value) => {
     const response = await findByKey(value);
     setCharacteristicDescriptions(response);
+  };
+
+  const handleModalOpen = async (id) => {
+    const response = await findById(Number(id));
+    setModalItem(response);
+    setShowModal(true)
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false)
   };
 
   return (
@@ -103,16 +114,6 @@ const Home = () => {
               </Grid>
             </Grid>
             <Grid container alignItems="flex-start" spacing={2}>
-              {/* <Grid item xs={12}>
-                <Field
-                  fullWidth
-                  name="description"
-                  component={TextField}
-                  type="text"
-                  label="Descrição"
-                />
-              </Grid> */}
-
               <Grid item xs={4}>
                 <Field
                   fullWidth
@@ -173,9 +174,7 @@ const Home = () => {
                   ))}
                 </Field>
               </Grid>
-              {/* <Grid item>
-                <AddBoxIcon className={classes.add} onClick={handleCreateDescription} />
-              </Grid> */}
+
               <Grid item>
                 <Button
                   type="button"
@@ -197,11 +196,20 @@ const Home = () => {
       />
       <Grid container alignItems="flex-start" spacing={2}>
         {item?.map((item) => (
-          <Grid item xs={4}>
-            <Card item={item} />
+          <Grid item xs={3} key={item.id}>
+            <Card item={item} onClick={() => handleModalOpen(item.id)}/>
           </Grid>
         ))}
       </Grid>
+      <Modal
+        open={showModal}
+        onClose={handleModalClose}
+      >
+        <ModalItem
+          item={modalItem}
+          handleClose={handleModalClose}
+        />
+      </Modal>
     </NavBar>
   );
 };

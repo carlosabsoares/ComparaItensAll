@@ -43,25 +43,25 @@ namespace ComparaItens.Domain.Handlers
                 return new GenericCommandResult(false, HttpStatusCode.BadRequest, command.Notifications);
 
             //Se houver arquivo anexado, gravar na diretório
-            if (!string.IsNullOrEmpty(command.Image.FileName))
-            {
-                string fullPathImage = Path.Combine(_dir, path, pathImage);
+            // if (!string.IsNullOrEmpty(command.Image.FileName))
+            // {
+            //     string fullPathImage = Path.Combine(_dir, path, pathImage);
 
-                using (var fileStream = new FileStream(Path.Combine(fullPathImage, command.Image.FileName), FileMode.Create, FileAccess.Write))
-                {
-                    command.Image.CopyTo(fileStream);
-                }
-            }
+            //     using (var fileStream = new FileStream(Path.Combine(fullPathImage, command.Image.FileName), FileMode.Create, FileAccess.Write))
+            //     {
+            //         command.Image.CopyTo(fileStream);
+            //     }
+            // }
 
-            if (!string.IsNullOrEmpty(command.Folder.FileName))
-            {
-                string fullPathDocument = Path.Combine(_dir, path, pathDocument);
+            // if (!string.IsNullOrEmpty(command.Folder.FileName))
+            // {
+            //     string fullPathDocument = Path.Combine(_dir, path, pathDocument);
 
-                using (var fileStream = new FileStream(Path.Combine(fullPathDocument, command.Folder.FileName), FileMode.Create, FileAccess.Write))
-                {
-                    command.Folder.CopyTo(fileStream);
-                }
-            }
+            //     using (var fileStream = new FileStream(Path.Combine(fullPathDocument, command.Folder.FileName), FileMode.Create, FileAccess.Write))
+            //     {
+            //         command.Folder.CopyTo(fileStream);
+            //     }
+            // }
 
             Product _entity = new Product();
             _entity.Description = command.Description;

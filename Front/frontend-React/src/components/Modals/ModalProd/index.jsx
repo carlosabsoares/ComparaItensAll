@@ -2,7 +2,6 @@ import React, { useEffect, useState, forwardRef } from 'react';
 import crypto from 'crypto';
 import { Form, Field } from 'react-final-form';
 import { TextField, Select } from 'final-form-material-ui';
-import ImageUploader from '../../ImageUploader';
 
 import {
   AppBar,
@@ -109,22 +108,18 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
       characteristicId,
       characteristicKeyId,
       characteristicKeyId2,
-      image: imageFile,
-      folder: folderFile,
       ...newData
     } = data;
+
     const parsedDescriptions = characteristicsArray?.map((characteristic) => ({
       characteristicId: characteristic.characteristic.id,
       characteristicKeyId: characteristic.description.id,
     }));
-    const image = imageFile?.find(x => x);
-    const folder = folderFile?.find(x => x);
+
     const sendData = { ...newData,
       characteristicDescriptions: parsedDescriptions,
-      image,
-      folder,
     };
-    console.log(sendData);
+
     handleSubmit(sendData);
     handleClose();
   };
@@ -229,7 +224,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     label="Ano de Fabricação"
                   />
                 </Grid>
-                <Grid item xs={6}>
+                {/* <Grid item xs={6}>
                   <Field name="image">
                     {(props) => (
                       <div>
@@ -246,7 +241,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                       </div>
                     )}
                   </Field>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={4}>
                   <Field
                     fullWidth

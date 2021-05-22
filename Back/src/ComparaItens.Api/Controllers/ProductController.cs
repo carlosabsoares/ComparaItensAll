@@ -33,10 +33,10 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Adiciona produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("product/create")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostManufacturer(
-            [FromForm] ProductInsertCommand command,
+            [FromBody] ProductInsertCommand command,
             [FromServices] IHandler<ProductInsertCommand> handler)
         {
             return (GenericCommandResult)await handler.Handle(command);

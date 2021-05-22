@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UserTable({ hasKey, list, update, exclude, create, ModalBody }) {
+export default function UserTable({ list, update, exclude, create, ModalBody }) {
   const classes = useStyles();
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
