@@ -5,7 +5,6 @@ using ComparaItens.Domain.Handlers.Contracts;
 using ComparaItens.Domain.Repositories;
 using Flunt.Notifications;
 using Microsoft.AspNetCore.Hosting;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -42,26 +41,6 @@ namespace ComparaItens.Domain.Handlers
             if (command.Invalid)
                 return new GenericCommandResult(false, HttpStatusCode.BadRequest, command.Notifications);
 
-            //Se houver arquivo anexado, gravar na diretório
-            // if (!string.IsNullOrEmpty(command.Image.FileName))
-            // {
-            //     string fullPathImage = Path.Combine(_dir, path, pathImage);
-
-            //     using (var fileStream = new FileStream(Path.Combine(fullPathImage, command.Image.FileName), FileMode.Create, FileAccess.Write))
-            //     {
-            //         command.Image.CopyTo(fileStream);
-            //     }
-            // }
-
-            // if (!string.IsNullOrEmpty(command.Folder.FileName))
-            // {
-            //     string fullPathDocument = Path.Combine(_dir, path, pathDocument);
-
-            //     using (var fileStream = new FileStream(Path.Combine(fullPathDocument, command.Folder.FileName), FileMode.Create, FileAccess.Write))
-            //     {
-            //         command.Folder.CopyTo(fileStream);
-            //     }
-            // }
 
             Product _entity = new Product();
             _entity.Description = command.Description;

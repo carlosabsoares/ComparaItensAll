@@ -1,3 +1,4 @@
+using System;
 using ComparaItens.Api.DependencyMap;
 using ComparaItens.Domain;
 using ComparaItens.Infra;
@@ -35,7 +36,8 @@ namespace ComparaItens.Api
 
             //Injeção de dependencia do banco de dados
             //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Sql")));
-            services.AddDbContext<DataContext>(opt => opt.UseMySql(Configuration.GetConnectionString("Mysql")));
+            services.AddDbContext<DataContext>(opt => opt.UseMySql(Configuration.GetConnectionString("Mysql"),
+                new MySqlServerVersion(new Version(8, 0, 11))));
             //services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCors();
@@ -99,7 +101,7 @@ namespace ComparaItens.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
+            //app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ComparaItens.Api v1"));
 
@@ -112,12 +114,12 @@ namespace ComparaItens.Api
                .AllowAnyMethod()
                .AllowAnyHeader());
 
-            app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-                RequestPath = new PathString("/Resources")
-            });
+            //app.UseStaticFiles();
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+            //    RequestPath = new PathString("/Resources")
+            //});
 
             app.UseAuthentication();
             app.UseAuthorization();

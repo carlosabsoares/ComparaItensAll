@@ -5,6 +5,9 @@
       "connectionId": "Mysql",
       "suggestion": "true",
       "ignored": "true"
+    },
+    "apis1": {
+      "type": "apis"
     }
   }
 }
