@@ -18,6 +18,6 @@ namespace ComparaItens.Domain.Repositories
 
         //Task<string> FindImage(string imageName);
 
-        Task<IList<Product>> FindByParameters(int categoryId, int manufacturerId, int characteisticId, string key, string keyDescription, string description);
+        Task<IList<Product>> FindByParameters(int categoryId, int manufacturerId, int characteristicId, string key, string keyDescription, string description);
     }
 }

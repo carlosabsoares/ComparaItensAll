@@ -2,7 +2,8 @@ import axios from 'axios';
 import store from '../store';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_URL,
+  // baseURL: 'https://buscaitens.azurewebsites.net',
+  baseURL: 'https://localhost:44324',
 });
 
 api.interceptors.request.use((config) => {

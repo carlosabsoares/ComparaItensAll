@@ -121,7 +121,7 @@ namespace ComparaItens.Api.Controllers
         public async Task<IList<Product>> FindByParameters(
             [FromQuery] int categoryId,
             [FromQuery] int manufacturerId,
-            [FromQuery] int characteisticId,
+            [FromQuery] int characteristicId,
             [FromQuery] string key,
             [FromQuery] string keyDescription,
             [FromQuery] string description,
@@ -129,7 +129,7 @@ namespace ComparaItens.Api.Controllers
         {
             var result = await repository.FindByParameters(categoryId,
                                                                      manufacturerId,
-                                                                     characteisticId,
+                                                                     characteristicId,
                                                                      key,
                                                                      keyDescription,
                                                                      description);

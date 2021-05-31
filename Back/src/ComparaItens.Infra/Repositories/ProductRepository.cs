@@ -124,7 +124,7 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<Product>> FindByParameters(int categoryId,
                                                            int manufacturerId,
-                                                           int characteisticId,
+                                                           int characteristicId,
                                                            string key,
                                                            string keyDescription,
                                                            string description)
@@ -145,9 +145,9 @@ namespace ComparaItens.Infra.Repositories
                 item.CharacteristicDescriptions = await productItem.FindByProductId(item.Id);
             }
 
-            if (characteisticId > 0)
+            if (characteristicId > 0)
                 query = query.Where(x =>
-                    x.CharacteristicDescriptions.Any(i => i.Characteristics.Id == characteisticId)).ToList();
+                    x.CharacteristicDescriptions.Any(i => i.Characteristics.Id == characteristicId)).ToList();
 
             if (!string.IsNullOrEmpty(key))
                 query = query.Where(x =>
