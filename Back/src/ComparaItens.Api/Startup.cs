@@ -102,8 +102,6 @@ namespace ComparaItens.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //app.UseDeveloperExceptionPage();
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ComparaItens.Api v1"));
 
             app.UseHttpsRedirection();
 
@@ -128,6 +126,10 @@ namespace ComparaItens.Api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ComparaItens.Api v1"));
+
         }
     }
 }
