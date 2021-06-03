@@ -41,7 +41,6 @@ export default function CaracteristicasItens() {
 
   const handleCreate = async (data) => {
     try {
-      console.log(data);
       await createItem(data);
       fetchAll();
     } catch (err) {

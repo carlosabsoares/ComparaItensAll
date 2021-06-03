@@ -10,7 +10,6 @@ export const findAll = async () => {
 };
 
 export const createItem = async (data) => {
-  console.log(data)
   try {
     await api.post('/v1/comparaItens/product/create', data);
   } catch (err) {
@@ -68,7 +67,6 @@ export const findById = async (id) => {
     const res = await api.get('/v1/comparaItens/product/findById', {
       params: { id },
     });
-    console.log(res.data);
     return res.data;
   } catch (err) {
     console.log(err);

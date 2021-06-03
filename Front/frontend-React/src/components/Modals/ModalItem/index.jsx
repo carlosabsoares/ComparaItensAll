@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 const ModalCat = forwardRef(({ item }, _ref) => {
   const classes = useStyles();
   const [description, setDescription] = useState(item?.description || '');
-  console.log(item);
   return (
     <div className={classes.modalBox}>
       <AppBar position="relative" className={classes.appBar}>
