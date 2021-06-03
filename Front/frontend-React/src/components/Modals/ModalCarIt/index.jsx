@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
 }));
 
-const ModalCar = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) => {
+const ModalCarIt = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) => {
   const classes = useStyles();
   const [description, setDescription] = useState(item?.description || '');
   const [key, setKey] = useState(item?.key || '');
@@ -78,7 +78,7 @@ const ModalCar = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) 
           color="primary"
           className={classes.button}
           onClick={async () => {
-            await handleSubmit(description, key);
+            await handleSubmit({ description, key });
             handleClose();
           }}
         >
@@ -89,4 +89,4 @@ const ModalCar = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) 
   );
 })
 
-export default ModalCar;
+export default ModalCarIt;
