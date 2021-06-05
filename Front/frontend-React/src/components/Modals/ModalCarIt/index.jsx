@@ -56,18 +56,18 @@ const ModalCar = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) 
       <div className={classes.modalBody}>
         <TextField
           label="Item"
-          name="description"
-          defaultValue={description}
-          onChange={(e) => setDescription(e.target.value)}
+          name="key"
+          defaultValue={key}
+          onChange={(e) => setKey(e.target.value)}
           variant="outlined"
           size="small"
         />
         <TextField
           className={classes.marginTop}
           label="Descrição"
-          name="key"
-          defaultValue={key}
-          onChange={(e) => setKey(e.target.value)}
+          name="description"
+          defaultValue={description}
+          onChange={(e) => setDescription(e.target.value)}
           variant="outlined"
           size="small"
         />

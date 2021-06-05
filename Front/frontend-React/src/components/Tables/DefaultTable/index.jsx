@@ -94,7 +94,7 @@ export default function ItemsTable({ hasKey, list, update, exclude, create, Moda
       >
         <ModalBody
           header="Criar"
-          handleSubmit={(description) => create({ description })}
+          handleSubmit={(description, key) => create({ description, key })}
           handleClose={handleCreateClose}
         />
       </Modal>
