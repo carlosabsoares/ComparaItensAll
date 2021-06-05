@@ -104,21 +104,14 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
   }, []);
 
   const onSubmit = (data) => {
-    const {
-      characteristicId,
-      characteristicKeyId,
-      characteristicKeyId2,
-      ...newData
-    } = data;
+    const { characteristicId, characteristicKeyId, characteristicKeyId2, ...newData } = data;
 
     const parsedDescriptions = characteristicsArray?.map((characteristic) => ({
       characteristicId: characteristic.characteristic.id,
       characteristicKeyId: characteristic.description.id,
     }));
 
-    const sendData = { ...newData,
-      characteristicDescriptions: parsedDescriptions,
-    };
+    const sendData = { ...newData, characteristicDescriptions: parsedDescriptions };
 
     handleSubmit(sendData);
     handleClose();
@@ -134,14 +127,19 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
     setCharacteristicsArray(newArray);
   };
 
-  const handleCreateDescription = () => {
+  const handleCreateDescription = (form) => {
     if (
       newCharacteristic.characteristic.id !== null &&
       newCharacteristic.key !== '' &&
       newCharacteristic.description.id !== null
     ) {
       setCharacteristicsArray([...characteristicsArray, newCharacteristic]);
-      setNewCharacteristic({ ...newCharacteristic, id: newId() });
+      setNewCharacteristic({
+        id: newId(),
+        characteristic: { id: null, description: '' },
+        key: '',
+        description: { id: null, description: '' },
+      });
     }
   };
 
@@ -158,7 +156,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
       <Form
         onSubmit={onSubmit}
         initialValues={item}
-        render={({ handleSubmit, form, reset, submitting, pristine }) => (
+        render={({ handleSubmit, form, submitting, pristine }) => (
           <form onSubmit={handleSubmit} noValidate>
             <Paper style={{ padding: 16 }}>
               <Grid container alignItems="flex-start" spacing={2}>
@@ -323,7 +321,10 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                   <Button
                     type="button"
                     variant="contained"
-                    onClick={reset}
+                    onClick={() => {
+                      form.reset();
+                      setCharacteristicsArray([]);
+                    }}
                     disabled={submitting || pristine}
                   >
                     Resetar

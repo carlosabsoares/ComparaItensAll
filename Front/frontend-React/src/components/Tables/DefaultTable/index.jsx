@@ -83,7 +83,7 @@ export default function ItemsTable({ hasKey, list, update, exclude, create, Moda
       >
         <ModalBody
           header="Editar"
-          handleSubmit={(description, key) => update({ id: item.id, description, key })}
+          handleSubmit={({ description, key }) => update({ id: item.id, description, key })}
           item={item}
           handleClose={handleEditClose}
         />
