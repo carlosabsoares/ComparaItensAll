@@ -18,6 +18,13 @@ namespace ComparaItens.Infra
             modelBuilder.Entity<Characteristic>().Property(x => x.Description).HasColumnType("varchar(100)");
             modelBuilder.Entity<Characteristic>().Property(x => x.Description).HasColumnName("description");
             modelBuilder.Entity<Characteristic>().Property(x => x.Description).IsRequired();
+
+            modelBuilder.Entity<Characteristic>().Property(x => x.CategoryId).HasColumnType("int(11)");
+            modelBuilder.Entity<Characteristic>().Property(x => x.CategoryId).HasColumnName("categoryId");
+            modelBuilder.Entity<Characteristic>().Property(x => x.CategoryId).IsRequired();
+
+            // Relationships
+            modelBuilder.Entity<Characteristic>().HasOne(p => p.Category).WithMany().HasForeignKey(f => f.CategoryId);
         }
     }
 }

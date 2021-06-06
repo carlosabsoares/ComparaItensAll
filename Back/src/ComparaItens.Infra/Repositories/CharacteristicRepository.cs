@@ -18,21 +18,27 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<Characteristic>> FindAll()
         {
-            var query = _context.Characteristics.AsNoTracking();
+            var query = _context.Characteristics
+                .Include(x=> x.Category)
+                .AsNoTracking();
 
             return await query.ToListAsync();
         }
 
         public async Task<Characteristic> FindByDescription(string description)
         {
-            var query = _context.Characteristics.AsNoTracking();
+            var query = _context.Characteristics
+                .Include(x => x.Category)
+                .AsNoTracking();
 
             return await query.Where(x => x.Description == description).FirstOrDefaultAsync();
         }
 
         public async Task<Characteristic> FindById(int id)
         {
-            var query = _context.Characteristics.AsNoTracking();
+            var query = _context.Characteristics
+                .Include(x => x.Category)
+                .AsNoTracking();
 
             return await query.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
