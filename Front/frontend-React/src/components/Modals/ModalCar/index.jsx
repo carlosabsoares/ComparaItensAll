@@ -1,6 +1,9 @@
-import React, { useState, forwardRef } from 'react';
-import { AppBar, Toolbar, Typography, TextField, Button } from '@material-ui/core';
+import React, { useState, useEffect, forwardRef } from 'react';
+import { AppBar, Toolbar, Typography, Grid, Button, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { findAll as findAllCategories } from '../../../utils/categorias';
+import { Form, Field } from 'react-final-form';
+import { Select, TextField } from 'final-form-material-ui';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -38,7 +41,21 @@ const useStyles = makeStyles((theme) => ({
 
 const ModalCar = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) => {
   const classes = useStyles();
-  const [description, setDescription] = useState(item?.description || '');
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const asyncEffect = async () => {
+      const categoriesList = await findAllCategories();
+      setCategories(categoriesList);
+    };
+
+    asyncEffect();
+  }, [findAllCategories]);
+
+  const onSubmit = (data) => {
+    handleSubmit(data);
+    handleClose();
+  };
 
   return (
     <div className={classes.modalBox}>
@@ -50,30 +67,54 @@ const ModalCar = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) 
         </Toolbar>
       </AppBar>
       <div className={classes.modalBody}>
-        <TextField
-          label="Descrição"
-          name="description"
-          defaultValue={description}
-          onChange={(e) => setDescription(e.target.value)}
-          variant="outlined"
-          size="small"
+        <Form
+          onSubmit={onSubmit}
+          initialValue={item}
+          render={({ handleSubmit }) => (
+            <form onSubmit={handleSubmit} noValidate>
+              <Grid container alignItems="flex-start" spacing={2}>
+                <Grid item xs={12}>
+                  <Field
+                    fullWidth
+                    name="categoryId"
+                    component={Select}
+                    label="Categorias"
+                    formControlProps={{ fullWidth: true }}
+                  >
+                    {categories?.map((category) => (
+                      <MenuItem key={category.id} value={category.id}>
+                        {category.description}
+                      </MenuItem>
+                    ))}
+                  </Field>
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    fullWidth
+                    label="Descrição"
+                    name="description"
+                    variant="outlined"
+                    size="small"
+                    type="text"
+                    component={TextField}
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                variant="contained"
+                size="small"
+                color="primary"
+                className={classes.button}
+              >
+                Enviar
+              </Button>
+            </form>
+          )}
         />
-        <Button
-          type="button"
-          variant="contained"
-          size="small"
-          color="primary"
-          className={classes.button}
-          onClick={async () => {
-            await handleSubmit(description);
-            handleClose();
-          }}
-        >
-          Enviar
-        </Button>
       </div>
     </div>
   );
-})
+});
 
 export default ModalCar;

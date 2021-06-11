@@ -65,7 +65,7 @@ const ModalFab = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) 
           color="primary"
           className={classes.button}
           onClick={async () => {
-            await handleSubmit(description);
+            await handleSubmit({ description });
             handleClose();
           }}
         >
@@ -74,6 +74,6 @@ const ModalFab = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) 
       </div>
     </div>
   );
-})
+});
 
 export default ModalFab;

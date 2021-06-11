@@ -46,7 +46,7 @@ export default function ItemsTable({ hasKey, list, update, exclude, create, Moda
   function handleCreateClose() {
     setShowCreateModal(false);
   }
-  
+
   return (
     <>
       <AddBoxIcon className={classes.add} onClick={handleCreateOpen} />
@@ -61,6 +61,7 @@ export default function ItemsTable({ hasKey, list, update, exclude, create, Moda
             </TableRow>
           </TableHead>
           <TableBody>
+            {console.log(list)}
             {list.map((item) => (
               <TableRow key={item.id}>
                 <TableCell component="th" scope="row">
@@ -77,24 +78,18 @@ export default function ItemsTable({ hasKey, list, update, exclude, create, Moda
           </TableBody>
         </Table>
       </TableContainer>
-      <Modal
-        open={showEditModal}
-        onClose={handleEditClose}
-      >
+      <Modal open={showEditModal} onClose={handleEditClose}>
         <ModalBody
           header="Editar"
-          handleSubmit={({ description, key }) => update({ id: item.id, description, key })}
+          handleSubmit={(data) => update(data)}
           item={item}
           handleClose={handleEditClose}
         />
       </Modal>
-      <Modal
-        open={showCreateModal}
-        onClose={handleCreateClose}
-      >
+      <Modal open={showCreateModal} onClose={handleCreateClose}>
         <ModalBody
           header="Criar"
-          handleSubmit={(description, key) => create({ description, key })}
+          handleSubmit={(data) => create(data)}
           handleClose={handleCreateClose}
         />
       </Modal>

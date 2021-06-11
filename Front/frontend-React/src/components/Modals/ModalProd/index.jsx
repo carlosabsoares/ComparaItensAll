@@ -92,15 +92,18 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
     description: { id: null, description: '' },
   });
 
-  useEffect(async () => {
-    const categoriesList = await findAllCategories();
-    setCategories(categoriesList);
-    const manufacturersList = await findAllManufacturer();
-    setManufacturers(manufacturersList);
-    const characteristicsList = await findAllcharacteristics();
-    setCharacteristics(characteristicsList);
-    const characteristicKeysList = await findAllKeys();
-    setCharacteristicKeys(characteristicKeysList);
+  useEffect(() => {
+    const asyncEffect = async () => {
+      const categoriesList = await findAllCategories();
+      setCategories(categoriesList);
+      const manufacturersList = await findAllManufacturer();
+      setManufacturers(manufacturersList);
+      const characteristicsList = await findAllcharacteristics();
+      setCharacteristics(characteristicsList);
+      const characteristicKeysList = await findAllKeys();
+      setCharacteristicKeys(characteristicKeysList);
+    };
+    asyncEffect();
   }, []);
 
   const onSubmit = (data) => {

@@ -78,7 +78,7 @@ const ModalCarIt = forwardRef(({ header, handleSubmit, item, handleClose }, _ref
           color="primary"
           className={classes.button}
           onClick={async () => {
-            await handleSubmit(description, key);
+            await handleSubmit({ description, key });
             handleClose();
           }}
         >
@@ -87,6 +87,6 @@ const ModalCarIt = forwardRef(({ header, handleSubmit, item, handleClose }, _ref
       </div>
     </div>
   );
-})
+});
 
 export default ModalCarIt;
