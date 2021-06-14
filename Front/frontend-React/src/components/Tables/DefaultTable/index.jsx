@@ -24,12 +24,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ItemsTable({ hasKey, list, update, exclude, create, ModalBody }) {
+export default function ItemsTable({ hasKey, list, update, exclude, create, ModalBody, isChar }) {
   const classes = useStyles();
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [item, setItem] = useState(null);
-
   function handleEditOpen(item) {
     setShowEditModal(true);
     setItem(item);
@@ -56,18 +55,19 @@ export default function ItemsTable({ hasKey, list, update, exclude, create, Moda
             <TableRow>
               <TableCell>Id</TableCell>
               {hasKey && <TableCell align="right">Item</TableCell>}
+              {isChar && <TableCell align="right">Categoria</TableCell>}
               <TableCell align="right">Descrição</TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {console.log(list)}
             {list.map((item) => (
               <TableRow key={item.id}>
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>
                 {hasKey && <TableCell align="right">{item.key}</TableCell>}
+                {isChar && <TableCell align="right">{item.category.description}</TableCell>}
                 <TableCell align="right">{item.description}</TableCell>
                 <TableCell align="right">
                   <EditIcon onClick={() => handleEditOpen(item)} />

@@ -52,6 +52,7 @@ export default function Caracteristicas() {
     <div>
       <NavBar header="Características">
         <Table
+          isChar
           list={list}
           update={handleUpdate}
           create={handleCreate}
