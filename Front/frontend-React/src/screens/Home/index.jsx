@@ -73,7 +73,7 @@ const Home = () => {
       <CssBaseline />
       <Form
         onSubmit={onSubmit}
-        render={({ handleSubmit, reset, submitting, pristine }) => (
+        render={({ handleSubmit, form, submitting, pristine }) => (
           <form onSubmit={handleSubmit} noValidate>
             <Grid container alignItems="flex-start" spacing={2}>
               <Grid item xs={6}>
@@ -179,7 +179,7 @@ const Home = () => {
                 <Button
                   type="button"
                   variant="contained"
-                  onClick={reset}
+                  onClick={() => form.reset()}
                   disabled={submitting || pristine}
                 >
                   Limpar
