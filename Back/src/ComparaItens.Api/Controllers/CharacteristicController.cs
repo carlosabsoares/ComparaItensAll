@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 
 namespace ComparaItens.Api.Controllers
 {
@@ -16,6 +17,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Adiciona categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpPost("characteristic/create")]
+        [EnableCors("AllowOrigin")]
         [Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> PostCharacteristic(
