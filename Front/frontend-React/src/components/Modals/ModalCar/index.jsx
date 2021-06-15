@@ -53,7 +53,13 @@ const ModalCar = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) 
   }, [findAllCategories]);
 
   const onSubmit = (data) => {
-    handleSubmit(data);
+    const id = item?.id;
+    const sendData = {
+      ...data,
+      id,
+    };
+
+    handleSubmit(sendData);
     handleClose();
   };
 
@@ -79,6 +85,7 @@ const ModalCar = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) 
                     name="categoryId"
                     component={Select}
                     label="Categorias"
+                    defaultValue={item?.categoryId || ''}
                     formControlProps={{ fullWidth: true }}
                   >
                     {categories?.map((category) => (
@@ -96,6 +103,7 @@ const ModalCar = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) 
                     variant="outlined"
                     size="small"
                     type="text"
+                    defaultValue={item?.description}
                     component={TextField}
                   />
                 </Grid>
