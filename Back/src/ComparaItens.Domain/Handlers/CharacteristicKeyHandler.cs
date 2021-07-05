@@ -34,7 +34,7 @@ namespace ComparaItens.Domain.Handlers
 
             CharacteristicKey _entity = new CharacteristicKey();
 
-            _entity.Key = command.Key;
+            _entity.CharacteristicId = command.characteristicId;
             _entity.Description = command.Description;
 
             var _result = await _cudRepository.Add(_entity);
@@ -64,7 +64,7 @@ namespace ComparaItens.Domain.Handlers
             CharacteristicKey _entity = new CharacteristicKey();
 
             _entity.Id = command.Id;
-            _entity.Key = command.Key;
+            _entity.CharacteristicId = command.characteristicId;
             _entity.Description = command.Description;
 
             var _result = await _cudRepository.Update(_entity);

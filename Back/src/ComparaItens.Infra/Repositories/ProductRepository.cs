@@ -19,7 +19,7 @@ namespace ComparaItens.Infra.Repositories
             productItem = new CharacteristicDescriptionRepository(_context);
         }
 
-        public async Task<bool> Add(Product entity)
+        public async  Task<bool> Add(Product entity)
         {
             try
             {
@@ -149,13 +149,13 @@ namespace ComparaItens.Infra.Repositories
                 query = query.Where(x =>
                     x.CharacteristicDescriptions.Any(i => i.Characteristics.Id == characteristicId)).ToList();
 
-            if (!string.IsNullOrEmpty(key))
-                query = query.Where(x =>
-                    x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Key.ToLower().Contains(key.ToLower()))).ToList();
+            //if (!string.IsNullOrEmpty(key))
+            //    query = query.Where(x =>
+            //        x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Key.ToLower().Contains(key.ToLower()))).ToList();
 
-            if (!string.IsNullOrEmpty(keyDescription))
-                query = query.Where(x =>
-                    x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Key.ToLower().Contains(keyDescription.ToLower()))).ToList();
+            //if (!string.IsNullOrEmpty(keyDescription))
+            //    query = query.Where(x =>
+            //        x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Key.ToLower().Contains(keyDescription.ToLower()))).ToList();
 
             if (!string.IsNullOrEmpty(description))
                 query = query.Where(x =>

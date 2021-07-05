@@ -18,28 +18,28 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<CharacteristicKey>> FindAll()
         {
-            var query = _context.CharacteristicKeys.AsNoTracking();
+            var query = _context.CharacteristicKeys.Include(x=> x.Characteristics).ThenInclude(y=>y.Category).AsNoTracking();
 
             return await query.ToListAsync();
         }
 
-        public async Task<IList<string>> FindAllKey()
+        //public async Task<IList<string>> FindAllKey()
+        //{
+        //    var query = _context.CharacteristicKeys.Include(x => x.Characteristics).AsNoTracking();
+
+        //    return  null;
+        //}
+
+        public async Task<IList<CharacteristicKey>> FindByAllDescription(string description)
         {
-            var query = _context.CharacteristicKeys.AsNoTracking();
+            var query = _context.CharacteristicKeys.Include(x=> x.Characteristics).ThenInclude(y=>y.Category).AsNoTracking();
 
-            return await query.Select(x => x.Key).Distinct().ToListAsync();
-        }
+            return await query.Where(x=> x.Description.Contains(description)).ToListAsync();
+         }
 
-        public async Task<IList<CharacteristicKey>> FindByAllDescription(string key)
+            public async Task<CharacteristicKey> FindById(int id)
         {
-            var query = _context.CharacteristicKeys.AsNoTracking();
-
-            return await query.Where(x => x.Key == key).ToListAsync();
-        }
-
-        public async Task<CharacteristicKey> FindById(int id)
-        {
-            var query = _context.CharacteristicKeys.AsNoTracking();
+            var query = _context.CharacteristicKeys.Include(x=> x.Characteristics).ThenInclude(y=> y.Category).AsNoTracking();
 
             return await query.Where(x => x.Id == id).FirstOrDefaultAsync();
         }

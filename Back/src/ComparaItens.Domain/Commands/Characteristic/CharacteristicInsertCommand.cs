@@ -8,6 +8,11 @@ namespace ComparaItens.Domain.Commands
         public string Description { get; set; }
         public int CategoryId { get; set; }
 
+        public CharacteristicInsertCommand()
+        {
+                
+        }
+
         public CharacteristicInsertCommand(string description, int categoryId)
         {
             Description = description;

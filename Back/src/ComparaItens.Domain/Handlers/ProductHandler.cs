@@ -23,8 +23,8 @@ namespace ComparaItens.Domain.Handlers
 
         private readonly string path = "Resources";
 
-        private readonly string pathImage = "Images";
-        private readonly string pathDocument = "Folders";
+        //private readonly string pathImage = "Images";
+        //private readonly string pathDocument = "Folders";
 
         public ProductHandler(ICudRepository cudRepository, IProductRepository productRepository, IHostingEnvironment env)
         {

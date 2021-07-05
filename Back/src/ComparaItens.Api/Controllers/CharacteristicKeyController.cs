@@ -79,28 +79,28 @@ namespace ComparaItens.Api.Controllers
             return result;
         }
 
+        ///// <summary>Retorna categorias de produtos</summary>
+        ///// <returns>Retorna categorias de produtos</returns>
+        //[HttpGet("characteristicKey/findAllKey")]
+        //[AllowAnonymous]
+        //[ProducesResponseType(typeof(IList<string>), 200)]
+        //public async Task<IList<string>> FindAllKey([FromServices] ICharacteristicKeyRepository repository)
+        //{
+        //    var result = await repository.FindAllKey();
+
+        //    return result;
+        //}
+
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
-        [HttpGet("characteristicKey/findAllKey")]
-        [AllowAnonymous]
-        [ProducesResponseType(typeof(IList<string>), 200)]
-        public async Task<IList<string>> FindAllKey([FromServices] ICharacteristicKeyRepository repository)
-        {
-            var result = await repository.FindAllKey();
-
-            return result;
-        }
-
-        /// <summary>Retorna categorias de produtos</summary>
-        /// <returns>Retorna categorias de produtos</returns>
-        [HttpGet("characteristicKey/findByKey")]
+        [HttpGet("characteristicKey/findByDescription")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(IList<CharacteristicKey>), 200)]
-        public async Task<IList<CharacteristicKey>> FindByKey(
-            [FromQuery] string key,
+        public async Task<IList<CharacteristicKey>> FindByDescription(
+            [FromQuery] string description,
             [FromServices] ICharacteristicKeyRepository repository)
         {
-            var result = await repository.FindByAllDescription(key);
+            var result = await repository.FindByAllDescription(description);
             return result;
         }
     }

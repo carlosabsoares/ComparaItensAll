@@ -6,7 +6,7 @@ export const findAll = async () => {
 };
 
 export const createItem = async (data) => {
-  await api.post('/v1/comparaItens/characteristic/create', data);
+  await api.post('v1/comparaItens/characteristic/create', data);
 };
 
 export const deleteItem = async (id) => {

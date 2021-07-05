@@ -3,10 +3,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ComparaItens.Infra.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class cargaInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "tabCategory",
                 columns: table => new
@@ -14,38 +17,13 @@ namespace ComparaItens.Infra.Migrations
                     id = table.Column<int>(type: "int(11)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     description = table.Column<string>(type: "varchar(100)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tabCategory", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tabCharacteristic",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    description = table.Column<string>(type: "varchar(100)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tabCharacteristic", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tabCharacteristicKey",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    key = table.Column<string>(type: "varchar(60)", nullable: false),
-                    description = table.Column<string>(type: "varchar(100)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tabCharacteristicKey", x => x.id);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "tabManufacturer",
@@ -54,11 +32,13 @@ namespace ComparaItens.Infra.Migrations
                     id = table.Column<int>(type: "int(11)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     description = table.Column<string>(type: "varchar(150)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tabManufacturer", x => x.id);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "tabUser",
@@ -66,16 +46,98 @@ namespace ComparaItens.Infra.Migrations
                 {
                     id = table.Column<int>(type: "int(11)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    login = table.Column<string>(type: "varchar(50)", nullable: false),
-                    password = table.Column<string>(type: "varchar(50)", nullable: false),
-                    name = table.Column<string>(type: "varchar(100)", nullable: false),
-                    email = table.Column<string>(type: "varchar(100)", nullable: false),
+                    login = table.Column<string>(type: "varchar(50)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    password = table.Column<string>(type: "varchar(50)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    name = table.Column<string>(type: "varchar(100)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    email = table.Column<string>(type: "varchar(100)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     role = table.Column<string>(type: "varchar(50)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tabUser", x => x.id);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "tabCharacteristic",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int(11)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    description = table.Column<string>(type: "varchar(100)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    categoryId = table.Column<int>(type: "int(11)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tabCharacteristic", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_tabCharacteristic_tabCategory_categoryId",
+                        column: x => x.categoryId,
+                        principalTable: "tabCategory",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "tabProdut",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int(11)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    description = table.Column<string>(type: "varchar(150)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    manufacturerId = table.Column<int>(type: "int(11)", nullable: false),
+                    model = table.Column<string>(type: "varchar(150)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    categoryId = table.Column<int>(type: "int(11)", nullable: false),
+                    yearOfManufacture = table.Column<int>(type: "int(11)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tabProdut", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_tabProdut_tabCategory_categoryId",
+                        column: x => x.categoryId,
+                        principalTable: "tabCategory",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tabProdut_tabManufacturer_manufacturerId",
+                        column: x => x.manufacturerId,
+                        principalTable: "tabManufacturer",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "tabCharacteristicKey",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int(11)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    characteristicId = table.Column<int>(type: "int(11)", nullable: false),
+                    description = table.Column<string>(type: "varchar(100)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tabCharacteristicKey", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_tabCharacteristicKey_tabCharacteristic_characteristicId",
+                        column: x => x.characteristicId,
+                        principalTable: "tabCharacteristic",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "tabCharacteristicDescription",
@@ -102,43 +164,18 @@ namespace ComparaItens.Infra.Migrations
                         principalTable: "tabCharacteristicKey",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tabProdut",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    description = table.Column<string>(type: "varchar(150)", nullable: false),
-                    manufecturerId = table.Column<int>(type: "int(11)", nullable: false),
-                    model = table.Column<string>(type: "varchar(150)", nullable: true),
-                    categoryId = table.Column<int>(type: "int(11)", nullable: false),
-                    yearOfManufacture = table.Column<int>(type: "int(11)", nullable: false),
-                    image = table.Column<string>(type: "varchar(250)", nullable: true),
-                    folder = table.Column<string>(type: "varchar(250)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tabProdut", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_tabProdut_tabCategory_categoryId",
-                        column: x => x.categoryId,
-                        principalTable: "tabCategory",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_tabProdut_tabManufacturer_manufecturerId",
-                        column: x => x.manufecturerId,
-                        principalTable: "tabManufacturer",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tabCategory_id",
                 table: "tabCategory",
                 column: "id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tabCharacteristic_categoryId",
+                table: "tabCharacteristic",
+                column: "categoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tabCharacteristic_id",
@@ -166,6 +203,11 @@ namespace ComparaItens.Infra.Migrations
                 column: "productId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tabCharacteristicKey_characteristicId",
+                table: "tabCharacteristicKey",
+                column: "characteristicId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tabCharacteristicKey_id",
                 table: "tabCharacteristicKey",
                 column: "id");
@@ -186,9 +228,9 @@ namespace ComparaItens.Infra.Migrations
                 column: "id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tabProdut_manufecturerId",
+                name: "IX_tabProdut_manufacturerId",
                 table: "tabProdut",
-                column: "manufecturerId");
+                column: "manufacturerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tabUser_id",
@@ -208,16 +250,16 @@ namespace ComparaItens.Infra.Migrations
                 name: "tabUser");
 
             migrationBuilder.DropTable(
-                name: "tabCharacteristic");
-
-            migrationBuilder.DropTable(
                 name: "tabCharacteristicKey");
 
             migrationBuilder.DropTable(
-                name: "tabCategory");
+                name: "tabManufacturer");
 
             migrationBuilder.DropTable(
-                name: "tabManufacturer");
+                name: "tabCharacteristic");
+
+            migrationBuilder.DropTable(
+                name: "tabCategory");
         }
     }
 }
