@@ -32,14 +32,15 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<CharacteristicKey>> FindByAllDescription(string description)
         {
-            var query = _context.CharacteristicKeys.Include(x=> x.Characteristics).ThenInclude(y=>y.Category).AsNoTracking();
+
+            var query = _context.CharacteristicKeys.Include(x => x.Characteristics).ThenInclude(y => y.Category).AsNoTracking();
 
             return await query.Where(x=> x.Description.Contains(description)).ToListAsync();
          }
 
             public async Task<CharacteristicKey> FindById(int id)
         {
-            var query = _context.CharacteristicKeys.Include(x=> x.Characteristics).ThenInclude(y=> y.Category).AsNoTracking();
+            var query = _context.CharacteristicKeys.Include(x => x.Characteristics).ThenInclude(y => y.Category).AsNoTracking();
 
             return await query.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
