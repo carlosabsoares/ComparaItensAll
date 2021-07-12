@@ -15,17 +15,13 @@ namespace ComparaItens.Domain.Handlers
         IHandler<ProductDeleteCommand>,
         IHandler<ProductUpdateCommand>
     {
-        private readonly ICudRepository _cudRepository;
+
         private readonly IProductRepository _productRepository;
 
-        private readonly IHostingEnvironment _env;
 
-
-        public ProductHandler(ICudRepository cudRepository, IProductRepository productRepository, IHostingEnvironment env)
+        public ProductHandler(IProductRepository productRepository)
         {
-            _cudRepository = cudRepository;
             _productRepository = productRepository;
-            _env = env;
         }
 
         public async Task<ICommandResult> Handle(ProductInsertCommand command)

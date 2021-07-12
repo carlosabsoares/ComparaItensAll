@@ -16,15 +16,6 @@ namespace ComparaItens.Api.Controllers
     [Route("v1/comparaItens")]
     public class ProductController : ControllerBase
     {
-        [System.Obsolete]
-        private readonly IHostingEnvironment _env;
-
-
-        [System.Obsolete]
-        public ProductController(IHostingEnvironment env)
-        {
-            _env = env;
-        }
 
         /// <summary>Adiciona produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
