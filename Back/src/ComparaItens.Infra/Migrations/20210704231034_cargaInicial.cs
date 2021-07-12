@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ComparaItens.Infra.Migrations
 {
-    public partial class cargaInicial : Migration
+    public partial class CargaInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -185,7 +185,7 @@ namespace ComparaItens.Infra.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_tabCharacteristicDescription_characteristicId",
                 table: "tabCharacteristicDescription",
-                column: "characteristicId");
+                column: "CharacteristicId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tabCharacteristicDescription_characteristicKeyId",
@@ -205,7 +205,7 @@ namespace ComparaItens.Infra.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_tabCharacteristicKey_characteristicId",
                 table: "tabCharacteristicKey",
-                column: "characteristicId");
+                column: "CharacteristicId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tabCharacteristicKey_id",

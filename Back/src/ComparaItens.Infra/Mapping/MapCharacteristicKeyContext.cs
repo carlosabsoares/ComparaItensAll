@@ -16,7 +16,7 @@ namespace ComparaItens.Infra.Mapping
             modelBuilder.Entity<CharacteristicKey>().Property(f => f.Id).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<CharacteristicKey>().Property(x => x.CharacteristicId).HasColumnType("int(11)");
-            modelBuilder.Entity<CharacteristicKey>().Property(x => x.CharacteristicId).HasColumnName("characteristicId");
+            modelBuilder.Entity<CharacteristicKey>().Property(x => x.CharacteristicId).HasColumnName("CharacteristicId");
             modelBuilder.Entity<CharacteristicKey>().HasIndex(x => x.CharacteristicId);
 
             modelBuilder.Entity<CharacteristicKey>().Property(x => x.Description).HasColumnType("varchar(100)");

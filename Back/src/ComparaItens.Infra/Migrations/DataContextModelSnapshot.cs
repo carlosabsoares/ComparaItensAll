@@ -69,7 +69,7 @@ namespace ComparaItens.Infra.Migrations
 
                     b.Property<int>("CharacteristicId")
                         .HasColumnType("int(11)")
-                        .HasColumnName("characteristicId");
+                        .HasColumnName("CharacteristicId");
 
                     b.Property<int>("CharacteristicKeyId")
                         .HasColumnType("int(11)")
@@ -101,7 +101,7 @@ namespace ComparaItens.Infra.Migrations
 
                     b.Property<int>("CharacteristicId")
                         .HasColumnType("int(11)")
-                        .HasColumnName("characteristicId");
+                        .HasColumnName("CharacteristicId");
 
                     b.Property<string>("Description")
                         .IsRequired()

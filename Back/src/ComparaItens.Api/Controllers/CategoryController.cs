@@ -35,7 +35,7 @@ namespace ComparaItens.Api.Controllers
             [FromQuery] int id,
             [FromServices] IHandler<CategoryDeleteCommand> handler)
         {
-            CategoryDeleteCommand command = new CategoryDeleteCommand(id);
+            var command = new CategoryDeleteCommand(id);
 
             return (GenericCommandResult)await handler.Handle(command);
         }

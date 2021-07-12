@@ -30,23 +30,6 @@ namespace ComparaItens.Infra.Repositories
             return await query.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        //public string MaskedEmail(string source)
-        //{
-        //    if (string.IsNullOrEmpty(source))
-        //        return source;
-
-        //    int posEmailPre = source.IndexOf("@");
-
-        //    string firstPosition = source.Substring(0, 1);
-        //    string lastPosition = source.Substring((posEmailPre - 1), 1);
-
-        //    string centerPosition = new string('*', (posEmailPre - 2));
-
-        //    string emailComplemente = source.Substring(posEmailPre, (source.Length - posEmailPre));
-
-        //    var maskedString = string.Concat(firstPosition, centerPosition, lastPosition, emailComplemente);
-        //    return maskedString;
-        //}
 
         public async Task<User> VerifyUser(string login, string password)
         {

@@ -34,7 +34,7 @@ namespace ComparaItens.Api.Controllers
             [FromQuery] int id,
             [FromServices] IHandler<CharacteristicDescriptionDeleteCommand> handler)
         {
-            CharacteristicDescriptionDeleteCommand command = new CharacteristicDescriptionDeleteCommand(id);
+            var command = new CharacteristicDescriptionDeleteCommand(id);
 
             return (GenericCommandResult)await handler.Handle(command);
         }

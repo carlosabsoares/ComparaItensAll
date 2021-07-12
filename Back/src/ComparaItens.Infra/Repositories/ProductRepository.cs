@@ -11,7 +11,7 @@ namespace ComparaItens.Infra.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly DataContext _context;
-        private CharacteristicDescriptionRepository productItem;
+        private readonly CharacteristicDescriptionRepository productItem;
 
         public ProductRepository(DataContext context)
         {
@@ -23,12 +23,14 @@ namespace ComparaItens.Infra.Repositories
         {
             try
             {
-                Product product = new Product();
-                product.CategoryId = entity.CategoryId;
-                product.Description = entity.Description;
-                product.ManufacturerId = entity.ManufacturerId;
-                product.YearOfManufacture = entity.YearOfManufacture;
-                product.Model = entity.Model;
+                var product = new Product
+                {
+                    CategoryId = entity.CategoryId,
+                    Description = entity.Description,
+                    ManufacturerId = entity.ManufacturerId,
+                    YearOfManufacture = entity.YearOfManufacture,
+                    Model = entity.Model
+                };
 
                 _context.Add(product);
                 _context.SaveChanges();
@@ -37,17 +39,18 @@ namespace ComparaItens.Infra.Repositories
                 {
                     foreach (var item in entity.CharacteristicDescriptions)
                     {
-                        CharacteristicDescription characteristicDescription = new CharacteristicDescription();
-
-                        characteristicDescription.ProductId = product.Id;
-                        characteristicDescription.CharacteristicId = item.CharacteristicId;
-                        characteristicDescription.CharacteristicKeyId = item.CharacteristicKeyId;
+                        var characteristicDescription = new CharacteristicDescription
+                        {
+                            ProductId = product.Id,
+                            CharacteristicId = item.CharacteristicId,
+                            CharacteristicKeyId = item.CharacteristicKeyId
+                        };
 
                         _context.Add(characteristicDescription);
                     }
                 }
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return true;
             }
@@ -81,16 +84,6 @@ namespace ComparaItens.Infra.Repositories
                 return false;
             }
         }
-
-        //public async Task<string> FindImage(string imageName)
-        //{
-        //    return (await _context.Products.Where( x=> x.Image == imageName).FirstOrDefaultAsync()).Image;
-        //}
-
-        //public async Task<string> FindFolder(string imageFolder)
-        //{
-        //    return (await _context.Products.Where(x => x.Folder == imageFolder).FirstOrDefaultAsync()).Image;
-        //}
 
         public async Task<IList<Product>> FindAll()
         {
@@ -149,14 +142,6 @@ namespace ComparaItens.Infra.Repositories
                 query = query.Where(x =>
                     x.CharacteristicDescriptions.Any(i => i.Characteristics.Id == characteristicId)).ToList();
 
-            //if (!string.IsNullOrEmpty(key))
-            //    query = query.Where(x =>
-            //        x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Key.ToLower().Contains(key.ToLower()))).ToList();
-
-            //if (!string.IsNullOrEmpty(keyDescription))
-            //    query = query.Where(x =>
-            //        x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Key.ToLower().Contains(keyDescription.ToLower()))).ToList();
-
             if (!string.IsNullOrEmpty(description))
                 query = query.Where(x =>
                     x.CharacteristicDescriptions.Any(i => i.CharacteristicKeys.Description.ToLower().Contains(description.ToLower()))).ToList();
@@ -168,16 +153,17 @@ namespace ComparaItens.Infra.Repositories
         {
             try
             {
-                Product product = new Product();
-                product.Id = entity.Id;
-                product.CategoryId = entity.CategoryId;
-                product.Description = entity.Description;
-                product.ManufacturerId = entity.ManufacturerId;
-                product.YearOfManufacture = entity.YearOfManufacture;
-                product.Model = entity.Model;
+                var product = new Product
+                {
+                    Id = entity.Id,
+                    CategoryId = entity.CategoryId,
+                    Description = entity.Description,
+                    ManufacturerId = entity.ManufacturerId,
+                    YearOfManufacture = entity.YearOfManufacture,
+                    Model = entity.Model
+                };
 
-                List<CharacteristicDescription> characteristicDescriptions = new List<CharacteristicDescription>();
-                characteristicDescriptions = entity.CharacteristicDescriptions.ToList();
+                var characteristicDescriptions = entity.CharacteristicDescriptions.ToList();
 
                 _context.Update(product);
                 _context.SaveChanges();
@@ -194,17 +180,18 @@ namespace ComparaItens.Infra.Repositories
                 {
                     foreach (var item in entity.CharacteristicDescriptions)
                     {
-                        CharacteristicDescription characteristicDescription = new CharacteristicDescription();
-
-                        characteristicDescription.ProductId = product.Id;
-                        characteristicDescription.CharacteristicId = item.CharacteristicId;
-                        characteristicDescription.CharacteristicKeyId = item.CharacteristicKeyId;
+                        var characteristicDescription = new CharacteristicDescription
+                        {
+                            ProductId = product.Id,
+                            CharacteristicId = item.CharacteristicId,
+                            CharacteristicKeyId = item.CharacteristicKeyId
+                        };
 
                         _context.Add(characteristicDescription);
                     }
                 }
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return true;
             }

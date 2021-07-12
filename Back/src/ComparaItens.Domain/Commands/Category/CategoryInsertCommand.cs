@@ -7,14 +7,6 @@ namespace ComparaItens.Domain.Commands
     {
         public string Description { get; set; }
 
-        public CategoryInsertCommand()
-        {
-        }
-
-        public CategoryInsertCommand(int id, string desciption)
-        {
-            Description = desciption;
-        }
 
         public void Validate()
         {

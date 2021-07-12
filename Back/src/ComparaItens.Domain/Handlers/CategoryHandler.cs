@@ -33,8 +33,10 @@ namespace ComparaItens.Domain.Handlers
                             HttpStatusCode.BadRequest,
                             command.Notifications);
 
-            Category _entity = new Category();
-            _entity.Description = command.Description;
+            var _entity = new Category
+            {
+                Description = command.Description
+            };
 
             var _result = await _cudRepository.Add(_entity);
 
@@ -60,8 +62,10 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
-            Category _entity = new Category();
-            _entity.Id = command.Id;
+            var _entity = new Category
+            {
+                Id = command.Id
+            };
 
             var _result = await _cudRepository.Delete(_entity);
 
@@ -87,9 +91,11 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
-            Category _entity = new Category();
-            _entity.Id = command.Id;
-            _entity.Description = command.Description;
+            var _entity = new Category
+            {
+                Id = command.Id,
+                Description = command.Description
+            };
 
             var _result = await _cudRepository.Update(_entity);
 

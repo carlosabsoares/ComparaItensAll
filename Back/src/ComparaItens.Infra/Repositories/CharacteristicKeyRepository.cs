@@ -23,13 +23,6 @@ namespace ComparaItens.Infra.Repositories
             return await query.ToListAsync();
         }
 
-        //public async Task<IList<string>> FindAllKey()
-        //{
-        //    var query = _context.CharacteristicKeys.Include(x => x.Characteristics).AsNoTracking();
-
-        //    return  null;
-        //}
-
         public async Task<IList<CharacteristicKey>> FindByAllDescription(string description)
         {
 

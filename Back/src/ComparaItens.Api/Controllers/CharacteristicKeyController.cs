@@ -35,7 +35,7 @@ namespace ComparaItens.Api.Controllers
             [FromQuery] int id,
             [FromServices] IHandler<CharacteristicKeyDeleteCommand> handler)
         {
-            CharacteristicKeyDeleteCommand command = new CharacteristicKeyDeleteCommand(id);
+            var command = new CharacteristicKeyDeleteCommand(id);
 
             return (GenericCommandResult)await handler.Handle(command);
         }
@@ -78,18 +78,6 @@ namespace ComparaItens.Api.Controllers
 
             return result;
         }
-
-        ///// <summary>Retorna categorias de produtos</summary>
-        ///// <returns>Retorna categorias de produtos</returns>
-        //[HttpGet("characteristicKey/findAllKey")]
-        //[AllowAnonymous]
-        //[ProducesResponseType(typeof(IList<string>), 200)]
-        //public async Task<IList<string>> FindAllKey([FromServices] ICharacteristicKeyRepository repository)
-        //{
-        //    var result = await repository.FindAllKey();
-
-        //    return result;
-        //}
 
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>

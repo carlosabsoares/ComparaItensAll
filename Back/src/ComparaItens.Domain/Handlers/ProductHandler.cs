@@ -18,20 +18,14 @@ namespace ComparaItens.Domain.Handlers
         private readonly ICudRepository _cudRepository;
         private readonly IProductRepository _productRepository;
 
-        private IHostingEnvironment _env;
-        private readonly string _dir;
+        private readonly IHostingEnvironment _env;
 
-        private readonly string path = "Resources";
-
-        //private readonly string pathImage = "Images";
-        //private readonly string pathDocument = "Folders";
 
         public ProductHandler(ICudRepository cudRepository, IProductRepository productRepository, IHostingEnvironment env)
         {
             _cudRepository = cudRepository;
             _productRepository = productRepository;
             _env = env;
-            _dir = _env.ContentRootPath;
         }
 
         public async Task<ICommandResult> Handle(ProductInsertCommand command)
@@ -42,13 +36,15 @@ namespace ComparaItens.Domain.Handlers
                 return new GenericCommandResult(false, HttpStatusCode.BadRequest, command.Notifications);
 
 
-            Product _entity = new Product();
-            _entity.Description = command.Description;
-            _entity.ManufacturerId = command.ManufacturerId;
-            _entity.Model = command.Model;
-            _entity.CategoryId = command.CategoryId;
-            _entity.YearOfManufacture = command.YearOfManufacture;
-            _entity.CharacteristicDescriptions = command.CharacteristicDescriptions;
+            var _entity = new Product
+            {
+                Description = command.Description,
+                ManufacturerId = command.ManufacturerId,
+                Model = command.Model,
+                CategoryId = command.CategoryId,
+                YearOfManufacture = command.YearOfManufacture,
+                CharacteristicDescriptions = command.CharacteristicDescriptions
+            };
 
             var _result = await _productRepository.Add(_entity);
 
@@ -74,8 +70,10 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
-            Product product = new Product();
-            product.Id = command.Id;
+            var product = new Product
+            {
+                Id = command.Id
+            };
 
             var _result = await _productRepository.Delete(product);
 
@@ -101,14 +99,16 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
-            Product product = new Product();
-            product.Id = command.Id;
-            product.CategoryId = command.CategoryId;
-            product.Description = command.Description;
-            product.ManufacturerId = command.ManufacturerId;
-            product.YearOfManufacture = command.YearOfManufacture;
-            product.Model = command.Model;
-            product.CharacteristicDescriptions = command.CharacteristicDescriptions;
+            var product = new Product
+            {
+                Id = command.Id,
+                CategoryId = command.CategoryId,
+                Description = command.Description,
+                ManufacturerId = command.ManufacturerId,
+                YearOfManufacture = command.YearOfManufacture,
+                Model = command.Model,
+                CharacteristicDescriptions = command.CharacteristicDescriptions
+            };
 
             var _result = await _productRepository.Update(product);
 

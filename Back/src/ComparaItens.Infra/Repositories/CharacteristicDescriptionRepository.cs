@@ -21,9 +21,8 @@ namespace ComparaItens.Infra.Repositories
         {
             try
             {
-                //_context.CharacteristicDescriptions.Remove()
 
-                var result = _context.CharacteristicDescriptions
+                 _context.CharacteristicDescriptions
                     .FromSqlRaw(@"delete from tabcharacteristicdescription where productid = {}", productId)
                     .AsNoTracking();
 

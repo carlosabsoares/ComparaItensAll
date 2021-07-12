@@ -15,7 +15,7 @@ namespace ComparaItens.Domain.Commands
                 new Contract()
                     .Requires()
                     .IsGreaterThan(Id, 0, "Id", "O id é obrigatório")
-                    .IsGreaterThan(characteristicId,0, "characteristicId", "characteristicId não pode ser nulo")
+                    .IsGreaterThan(characteristicId,0, "CharacteristicId", "CharacteristicId não pode ser nulo")
                     .IsNotNullOrEmpty(Description, "Description", "Description não pode ser nulo")
             );
         }

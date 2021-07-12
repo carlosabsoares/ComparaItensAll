@@ -16,18 +16,14 @@ namespace ComparaItens.Api.Controllers
     [Route("v1/comparaItens")]
     public class ProductController : ControllerBase
     {
-        private IHostingEnvironment _env;
-        private readonly string _dir;
+        [System.Obsolete]
+        private readonly IHostingEnvironment _env;
 
-        private readonly string path = "Resources";
 
-        private readonly string pathImage = "Images";
-        private readonly string pathDocument = "Folders";
-
+        [System.Obsolete]
         public ProductController(IHostingEnvironment env)
         {
             _env = env;
-            _dir = _env.ContentRootPath;
         }
 
         /// <summary>Adiciona produtos</summary>
@@ -51,7 +47,7 @@ namespace ComparaItens.Api.Controllers
             [FromQuery] int id,
             [FromServices] IHandler<ProductDeleteCommand> handler)
         {
-            ProductDeleteCommand command = new ProductDeleteCommand(id);
+            var command = new ProductDeleteCommand(id);
 
             return (GenericCommandResult)await handler.Handle(command);
         }
@@ -91,26 +87,6 @@ namespace ComparaItens.Api.Controllers
             var result = await repository.FindById(id);
 
             return result;
-        }
-
-        private string GetPathImage(string nameImage)
-        {
-            var _result = Path.Combine(@"https://localhost:5001", path, pathImage, nameImage);
-
-            _result = _result.Replace("\\", @"\");
-            _result = _result.Replace("//", @"/");
-
-            return _result;
-        }
-
-        private string GetPathFolder(string nameFolder)
-        {
-            var _result = Path.Combine(@"https://localhost:5001", path, pathDocument, nameFolder);
-
-            _result = _result.Replace("\\", @"\");
-            _result = _result.Replace("//", @"/");
-
-            return _result;
         }
 
         /// <summary>Retorna lista de todos os produtos</summary>

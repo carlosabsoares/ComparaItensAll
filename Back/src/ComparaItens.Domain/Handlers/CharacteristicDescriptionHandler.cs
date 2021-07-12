@@ -32,9 +32,11 @@ namespace ComparaItens.Domain.Handlers
                             HttpStatusCode.BadRequest,
                             command.Notifications);
 
-            CharacteristicDescription _entity = new CharacteristicDescription();
-            _entity.CharacteristicId = command.CharacteristicId;
-            _entity.CharacteristicKeyId = command.CharacteristicKeyId;
+            var _entity = new CharacteristicDescription
+            {
+                CharacteristicId = command.CharacteristicId,
+                CharacteristicKeyId = command.CharacteristicKeyId
+            };
 
             var _result = await _cudRepository.Add(_entity);
 
@@ -60,8 +62,10 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
-            CharacteristicDescription _entity = new CharacteristicDescription();
-            _entity.Id = command.Id;
+            var _entity = new CharacteristicDescription
+            {
+                Id = command.Id
+            };
 
             var _result = await _cudRepository.Delete(_entity);
 
@@ -87,10 +91,12 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
-            CharacteristicDescription _entity = new CharacteristicDescription();
-            _entity.Id = command.Id;
-            _entity.CharacteristicId = command.CharacteristicId;
-            _entity.CharacteristicKeyId = command.CharacteristicKeyId;
+            var _entity = new CharacteristicDescription
+            {
+                Id = command.Id,
+                CharacteristicId = command.CharacteristicId,
+                CharacteristicKeyId = command.CharacteristicKeyId
+            };
 
             var _result = await _cudRepository.Delete(_entity);
 
