@@ -69,14 +69,14 @@ namespace ComparaItens.Api.Controllers
 
         /// <summary>Retorna categorias de produtos</summary>
         /// <returns>Retorna categorias de produtos</returns>
-        [HttpGet("characteristic/findById")]
+        [HttpGet("characteristic/findByCategoryId")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(IList<Characteristic>), 200)]
-        public async Task<Characteristic> FindByIdCharacteristic(
+        public async Task<IList<Characteristic>> FindByIdCharacteristic(
             [FromQuery] int id,
             [FromServices] ICharacteristicRepository repository)
         {
-            var result = await repository.FindById(id);
+            var result = await repository.FindByCategoryId(id);
 
             return result;
         }

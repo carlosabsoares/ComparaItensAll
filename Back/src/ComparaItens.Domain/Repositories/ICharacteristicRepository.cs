@@ -8,6 +8,8 @@ namespace ComparaItens.Domain.Repositories
     {
         Task<Characteristic> FindById(int id);
 
+        Task<IList<Characteristic>> FindByCategoryId(int characteristicId);
+
         Task<IList<Characteristic>> FindAll();
 
         Task<Characteristic> FindByDescription(string description);
