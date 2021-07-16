@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>07bbb204-b2b6-4450-8c25-dfdef706ae42</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="1.1.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="JWT" Version="8.2.2" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />

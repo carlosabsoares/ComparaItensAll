@@ -40,7 +40,7 @@ namespace ComparaItens.Infra.Repositories
                 .Include(x => x.Category)
                 .AsNoTracking();
 
-            return await query.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await query.Where(x => x.CategoryId == id).FirstOrDefaultAsync();
         }
     }
 }

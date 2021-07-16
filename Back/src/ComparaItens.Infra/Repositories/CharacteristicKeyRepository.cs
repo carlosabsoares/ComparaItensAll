@@ -35,7 +35,7 @@ namespace ComparaItens.Infra.Repositories
         {
             var query = _context.CharacteristicKeys.Include(x => x.Characteristics).ThenInclude(y => y.Category).AsNoTracking();
 
-            return await query.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await query.Where(x => x.Characteristics.CategoryId == id).FirstOrDefaultAsync();
         }
     }
 }
