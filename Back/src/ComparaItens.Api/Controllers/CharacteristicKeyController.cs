@@ -91,5 +91,19 @@ namespace ComparaItens.Api.Controllers
             var result = await repository.FindByAllDescription(description);
             return result;
         }
+
+        /// <summary>Retorna categorias de produtos</summary>
+        /// <returns>Retorna categorias de produtos</returns>
+        [HttpGet("characteristicKey/findByCharacteristcKey")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(IList<CharacteristicKey>), 200)]
+        public async Task<IList<CharacteristicKey>> FindByCharacteristicId(
+            [FromQuery] int characteristicId,
+            [FromServices] ICharacteristicKeyRepository repository)
+        {
+            var result = await repository.FindByCharacteristicId(characteristicId);
+            return result;
+        }
     }
+
 }

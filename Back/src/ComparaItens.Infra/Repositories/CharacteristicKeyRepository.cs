@@ -18,7 +18,7 @@ namespace ComparaItens.Infra.Repositories
 
         public async Task<IList<CharacteristicKey>> FindAll()
         {
-            var query = _context.CharacteristicKeys.Include(x=> x.Characteristics).ThenInclude(y=>y.Category).AsNoTracking();
+            var query = _context.CharacteristicKeys.Include(x => x.Characteristics).ThenInclude(y => y.Category).AsNoTracking();
 
             return await query.ToListAsync();
         }
@@ -28,10 +28,17 @@ namespace ComparaItens.Infra.Repositories
 
             var query = _context.CharacteristicKeys.Include(x => x.Characteristics).ThenInclude(y => y.Category).AsNoTracking();
 
-            return await query.Where(x=> x.Description.Contains(description)).ToListAsync();
-         }
+            return await query.Where(x => x.Description.Contains(description)).ToListAsync();
+        }
 
-            public async Task<CharacteristicKey> FindById(int id)
+        public async Task<IList<CharacteristicKey>> FindByCharacteristicId(int characteristicId)
+        {
+            var query = _context.CharacteristicKeys.Include(x => x.Characteristics).ThenInclude(y => y.Category).AsNoTracking();
+
+            return await query.Where(x => x.Characteristics.Id == characteristicId).ToListAsync();
+        }
+
+        public async Task<CharacteristicKey> FindById(int id)
         {
             var query = _context.CharacteristicKeys.Include(x => x.Characteristics).ThenInclude(y => y.Category).AsNoTracking();
 
