@@ -47,7 +47,7 @@ export default function CaracteristicasItens() {
       console.log(err);
     }
   };
-
+  console.log(list)
   return (
     <div>
       <NavBar header="Características Itens">

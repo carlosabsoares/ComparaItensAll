@@ -29,14 +29,13 @@ const useStyles = makeStyles({
 
 export default function CaracteristicasTable({ list = [], exclude }) {
   const classes = useStyles();
-
+  
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small">
         <TableHead>
           <TableRow>
             <TableCell>Característica</TableCell>
-            <TableCell align="right">Item</TableCell>
             <TableCell align="right">Descrição</TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
@@ -47,7 +46,6 @@ export default function CaracteristicasTable({ list = [], exclude }) {
               <TableCell component="th" scope="row">
                 {item.characteristic.description}
               </TableCell>
-              <TableCell align="right">{item.key}</TableCell>
               <TableCell align="right">{item.description.description}</TableCell>
               <TableCell align="right">
                 <DeleteIcon onClick={() => exclude(item.id)} />

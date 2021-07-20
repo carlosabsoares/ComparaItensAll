@@ -33,9 +33,9 @@ export const updateItem = async (data) => {
   }
 };
 
-export const findByKey = async (key) => {
+export const findByKey = async (characteristicId) => {
   try {
-    const response = await api.get(`/v1/comparaItens/characteristicKey/findByKey?key=${key}`);
+    const response = await api.get(`/v1/comparaItens/characteristicKey/findByCharacteristcKey?characteristicId=${characteristicId}`);
     return response.data;
   } catch (err) {
     console.log(err);

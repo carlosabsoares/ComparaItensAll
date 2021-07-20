@@ -66,7 +66,7 @@ export default function ItemsTable({ hasKey, list, update, exclude, create, Moda
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>
-                {hasKey && <TableCell align="right">{item.key}</TableCell>}
+                {hasKey && <TableCell align="right">{item.characteristics.description}</TableCell>}
                 {isChar && <TableCell align="right">{item.category.description}</TableCell>}
                 <TableCell align="right">{item.description}</TableCell>
                 <TableCell align="right">

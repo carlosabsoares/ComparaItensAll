@@ -1,6 +1,11 @@
-import React, { useState, forwardRef } from 'react';
-import { AppBar, Toolbar, Typography, TextField, Button } from '@material-ui/core';
+import React, { useState, forwardRef, useEffect } from 'react';
+import { AppBar, Toolbar, Typography, Button, Grid, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Form, Field } from 'react-final-form';
+import { Select, TextField } from 'final-form-material-ui';
+
+import { findAll as findAllCharacteristics } from '../../../utils/caracteristicas';
+
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -41,8 +46,24 @@ const useStyles = makeStyles((theme) => ({
 
 const ModalCarIt = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) => {
   const classes = useStyles();
-  const [description, setDescription] = useState(item?.description || '');
-  const [key, setKey] = useState(item?.key || '');
+  const [characteristics, setCharacteristcs] = useState([]);
+
+  const onSubmit = (data) => {
+    const sendData = {
+      ...data,
+    };
+    handleSubmit(sendData);
+    handleClose();
+  };
+
+  useEffect(() => {
+    const asyncEffect = async () => {
+      const List = await findAllCharacteristics();
+      setCharacteristcs(List);
+    };
+
+    asyncEffect();
+  }, [findAllCharacteristics]);
 
   return (
     <div className={classes.modalBox}>
@@ -54,36 +75,53 @@ const ModalCarIt = forwardRef(({ header, handleSubmit, item, handleClose }, _ref
         </Toolbar>
       </AppBar>
       <div className={classes.modalBody}>
-        <TextField
-          label="Item"
-          name="key"
-          defaultValue={key}
-          onChange={(e) => setKey(e.target.value)}
-          variant="outlined"
-          size="small"
+        <Form
+          onSubmit={onSubmit}
+          initialValue={item}
+          render={({ handleSubmit }) => (
+            <form onSubmit={handleSubmit} noValidate>
+              <Grid container alignItems="flex-start" spacing={2}>
+                <Grid item xs={12}>
+                  <Field
+                    fullWidth
+                    name="characteristicId"
+                    component={Select}
+                    label="Característica"
+                    defaultValue={item?.characteristicId || ''}
+                    formControlProps={{ fullWidth: true }}
+                  >
+                    {characteristics?.map((characteristic) => (
+                      <MenuItem key={characteristic.id} value={characteristic.id}>
+                        {characteristic.description}
+                      </MenuItem>
+                    ))}
+                  </Field>
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    fullWidth
+                    label="Descrição"
+                    name="description"
+                    variant="outlined"
+                    size="small"
+                    type="text"
+                    defaultValue={item?.description}
+                    component={TextField}
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                variant="contained"
+                size="small"
+                color="primary"
+                className={classes.button}
+              >
+                Enviar
+              </Button>
+            </form>
+          )}
         />
-        <TextField
-          className={classes.marginTop}
-          label="Descrição"
-          name="description"
-          defaultValue={description}
-          onChange={(e) => setDescription(e.target.value)}
-          variant="outlined"
-          size="small"
-        />
-        <Button
-          type="button"
-          variant="contained"
-          size="small"
-          color="primary"
-          className={classes.button}
-          onClick={async () => {
-            await handleSubmit({ description, key });
-            handleClose();
-          }}
-        >
-          Enviar
-        </Button>
       </div>
     </div>
   );

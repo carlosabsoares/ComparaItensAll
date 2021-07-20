@@ -64,7 +64,7 @@ const ModalCat = forwardRef(({ item }, _ref) => {
         <Typography variant="h6">Caracteristicas:</Typography>
         {item.characteristicDescriptions.map((char) => (
           <div>
-            <Typography variant="body2">{`${char.characteristics.description}: ${char.characteristicKeys.key} - ${char.characteristicKeys.description}`}</Typography>
+            <Typography variant="body2">{`${char.characteristics.description} - ${char.characteristicKeys.description}`}</Typography>
           </div>
         ))}
       </div>

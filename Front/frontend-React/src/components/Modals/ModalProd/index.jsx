@@ -19,7 +19,7 @@ import { AddBox as AddBoxIcon } from '@material-ui/icons';
 import { findAllKeys, findByKey } from '../../../utils/produtos';
 import { findAll as findAllCategories } from '../../../utils/categorias';
 import { findAll as findAllManufacturer } from '../../../utils/fabricantes';
-import { findAll as findAllcharacteristics } from '../../../utils/caracteristicas';
+import { findAll as findAllcharacteristics, findById as findCharacteristicById } from '../../../utils/caracteristicas';
 
 import CharacteristicTable from '../../Tables/CharacteristicTable';
 
@@ -77,20 +77,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const newId = () => crypto.randomBytes(16).toString('hex');
-const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose }, _ref) => {
+const ModalProdutos = forwardRef(({ header, handleSubmit, item = { characteristicDescriptions: [] }, handleClose }, _ref) => {
   const classes = useStyles();
   const [categories, setCategories] = useState([]);
   const [manufacturers, setManufacturers] = useState([]);
   const [characteristics, setCharacteristics] = useState([]);
-  const [characteristicKeys, setCharacteristicKeys] = useState([]);
   const [characteristicDescriptions, setCharacteristicDescriptions] = useState([]);
   const [characteristicsArray, setCharacteristicsArray] = useState([]);
   const [newCharacteristic, setNewCharacteristic] = useState({
     id: newId(),
     characteristic: { id: null, description: '' },
-    key: '',
     description: { id: null, description: '' },
   });
+
+  useEffect(() => {
+    setCharacteristicsArray(item.characteristicDescriptions.map(it => ({
+      characteristic: { id: it.characteristics?.id, description: it.characteristics?.description },
+      description: { id: it.characteristicKeys?.id, description: it.characteristicKeys?.description }
+    })))
+  }, [item]);
 
   useEffect(() => {
     const asyncEffect = async () => {
@@ -98,10 +103,6 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
       setCategories(categoriesList);
       const manufacturersList = await findAllManufacturer();
       setManufacturers(manufacturersList);
-      const characteristicsList = await findAllcharacteristics();
-      setCharacteristics(characteristicsList);
-      const characteristicKeysList = await findAllKeys();
-      setCharacteristicKeys(characteristicKeysList);
     };
     asyncEffect();
   }, []);
@@ -125,6 +126,11 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
     setCharacteristicDescriptions(response);
   };
 
+  const fetchCharacteristic = async (value) => {
+    const response = await findCharacteristicById(value);
+    setCharacteristics(response);
+  }; 
+
   const handleExcludeDescription = (id) => {
     const newArray = characteristicsArray.filter((item) => item.id !== id);
     setCharacteristicsArray(newArray);
@@ -133,14 +139,12 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
   const handleCreateDescription = (form) => {
     if (
       newCharacteristic.characteristic.id !== null &&
-      newCharacteristic.key !== '' &&
       newCharacteristic.description.id !== null
     ) {
       setCharacteristicsArray([...characteristicsArray, newCharacteristic]);
       setNewCharacteristic({
         id: newId(),
         characteristic: { id: null, description: '' },
-        key: '',
         description: { id: null, description: '' },
       });
     }
@@ -151,7 +155,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
       <AppBar position="relative" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            {`${header} Fabricante`}
+            {`${header} Produto`}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -163,22 +167,17 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
           <form onSubmit={handleSubmit} noValidate>
             <Paper style={{ padding: 16 }}>
               <Grid container alignItems="flex-start" spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                   <Field
                     fullWidth
-                    name="categoryId"
-                    component={Select}
-                    label="Categorias"
-                    formControlProps={{ fullWidth: true }}
-                  >
-                    {categories?.map((category) => (
-                      <MenuItem key={category.id} value={category.id}>
-                        {category.description}
-                      </MenuItem>
-                    ))}
-                  </Field>
+                    required
+                    name="description"
+                    component={TextField}
+                    type="text"
+                    label="Descrição"
+                  />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                   <Field
                     fullWidth
                     name="manufacturerId"
@@ -193,19 +192,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     ))}
                   </Field>
                 </Grid>
-              </Grid>
-              <Grid container alignItems="flex-start" spacing={2}>
-                <Grid item xs={12}>
-                  <Field
-                    fullWidth
-                    required
-                    name="description"
-                    component={TextField}
-                    type="text"
-                    label="Descrição"
-                  />
-                </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                   <Field
                     name="model"
                     fullWidth
@@ -215,7 +202,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     label="Modelo"
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                   <Field
                     name="yearOfManufacture"
                     fullWidth
@@ -225,24 +212,26 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     label="Ano de Fabricação"
                   />
                 </Grid>
-                {/* <Grid item xs={6}>
-                  <Field name="image">
-                    {(props) => (
-                      <div>
-                        <ImageUploader {...props.input} buttonName="Imagem" />
-                      </div>
-                    )}
+
+                <Grid item xs={4}>
+                  <Field
+                    fullWidth
+                    name="categoryId"
+                    component={Select}
+                    label="Categorias"
+                    formControlProps={{ fullWidth: true }}
+                  >
+                    {categories?.map((category) => (
+                      <MenuItem
+                        key={category.id}
+                        value={category.id}
+                        onClick={() => fetchCharacteristic(category.id)}
+                      >
+                        {category.description}
+                      </MenuItem>
+                    ))}
                   </Field>
                 </Grid>
-                <Grid item xs={6}>
-                  <Field name="folder">
-                    {(props) => (
-                      <div>
-                        <ImageUploader pdf {...props.input} buttonName="Folder" />
-                      </div>
-                    )}
-                  </Field>
-                </Grid> */}
                 <Grid item xs={4}>
                   <Field
                     fullWidth
@@ -250,13 +239,14 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     component={Select}
                     label="Característica"
                     formControlProps={{ fullWidth: true }}
+                    disabled={characteristics.length === 0}
                   >
                     {characteristics?.map((characteristic) => (
                       <MenuItem
                         key={characteristic.id}
                         value={characteristic.id}
                         onClick={() =>
-                          setNewCharacteristic({ ...newCharacteristic, characteristic })
+                            fetchCharacteristicDescription(characteristic.id)
                         }
                       >
                         {characteristic.description}
@@ -264,47 +254,31 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = {}, handleClose
                     ))}
                   </Field>
                 </Grid>
+
                 <Grid item xs={3}>
-                  <Field
-                    fullWidth
-                    name="characteristicKeyId"
-                    component={Select}
-                    label="Item"
-                    formControlProps={{ fullWidth: true }}
-                  >
-                    {characteristicKeys?.map((characteristicKey) => (
-                      <MenuItem
-                        key={characteristicKey}
-                        value={characteristicKey}
-                        onClick={() => fetchCharacteristicDescription(characteristicKey)}
-                      >
-                        {characteristicKey}
-                      </MenuItem>
-                    ))}
-                  </Field>
-                </Grid>
-                <Grid item xs={4}>
                   <Field
                     fullWidth
                     name="characteristicKeyId2"
                     component={Select}
                     label="Descrição"
                     formControlProps={{ fullWidth: true }}
+                    disabled={characteristicDescriptions.length === 0}
                   >
                     {characteristicDescriptions?.map((characteristicKey) => (
                       <MenuItem
                         key={characteristicKey.id}
                         value={characteristicKey.id}
                         onClick={() =>
-                          setNewCharacteristic({
-                            ...newCharacteristic,
-                            key: characteristicKey.key,
+                            setNewCharacteristic({
+                            characteristic: {
+                              id: characteristicKey.characteristics.id,
+                              description: characteristicKey.characteristics.description,
+                            },
                             description: {
                               id: characteristicKey.id,
                               description: characteristicKey.description,
                             },
-                          })
-                        }
+                          })}
                       >
                         {characteristicKey.description}
                       </MenuItem>

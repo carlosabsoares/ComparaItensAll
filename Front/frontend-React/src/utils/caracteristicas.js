@@ -16,3 +16,8 @@ export const deleteItem = async (id) => {
 export const updateItem = async (data) => {
   await api.put('v1/comparaItens/characteristic/update', data);
 };
+
+export const findById = async (id) => {
+  const response = await api.get(`/v1/comparaItens/characteristic/findByCategoryId?id=${id}`);
+  return response.data;
+}

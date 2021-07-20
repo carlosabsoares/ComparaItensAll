@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '../store';
 
 const api = axios.create({
-    //baseURL: 'https://buscaitens.azurewebsites.net',
+    //baseURL: 'https://buscaitens.azurewebsites.net',s
   baseURL: 'https://localhost:5001',
 });
 
