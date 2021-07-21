@@ -15,14 +15,14 @@ import Route from './RouteWrapper';
 const Routes = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/login" component={Login} />
-      <Route path="/fabricantes" needsAuth component={Fabricantes} />
-      <Route path="/categorias" needsAuth component={Categorias} />
-      <Route path="/caracteristicas" needsAuth component={Caracteristicas} />
-      <Route path="/caracteristicasitens" needsAuth component={CaracteristicasItens} />
-      <Route path="/produtos" needsAuth component={Produtos} />
-      <Route path="/usuarios" needsAuth component={Usuarios} />
+      <Route exact path="/" component={Login} />
+      <Route path="/Home" component={Home} needsAuth />
+      <Route path="/fabricantes" component={Fabricantes} needsAuth />
+      <Route path="/categorias" component={Categorias} needsAuth />
+      <Route path="/caracteristicas" component={Caracteristicas} needsAuth />
+      <Route path="/caracteristicasitens" component={CaracteristicasItens} needsAuth />
+      <Route path="/produtos" component={Produtos} needsAuth />
+      <Route path="/usuarios" component={Usuarios} needsAuth />
     </Switch>
   </BrowserRouter>
 );

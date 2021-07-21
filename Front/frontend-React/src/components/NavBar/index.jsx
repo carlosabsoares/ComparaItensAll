@@ -107,7 +107,7 @@ function NavBar(props) {
           key="Home"
           onClick={() =>
             setRedirect({
-              path: '/',
+              path: '/home',
               redirect: true,
             })
           }
@@ -266,7 +266,7 @@ function NavBar(props) {
                 className={classes.button}
                 onClick={() =>
                   setRedirect({
-                    path: '/login',
+                    path: '/',
                     redirect: true,
                   })
                 }

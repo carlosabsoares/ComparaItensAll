@@ -7,7 +7,7 @@ const RouteWrapper = ({ component: Component, needsAuth = false, ...rest }) => {
   const signed = useSelector((state) => state.loginReducer.signedIn);
 
   if (!signed && needsAuth) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
   }
 
   return (
