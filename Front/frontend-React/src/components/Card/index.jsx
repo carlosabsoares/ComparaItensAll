@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 export default function ProductCard({ item, onClick }) {
   const classes = useStyles();
 
-  const { image, category, model, manufecturer } = item;
+  const { description, model, manufecturer } = item;
 
   return (
     <Card className={classes.root} onClick={onClick}>
@@ -26,10 +26,10 @@ export default function ProductCard({ item, onClick }) {
         {/* <CardMedia className={classes.media} image={image} title="Imagem do Produto" /> */}
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {model}
+            {description}
           </Typography>
           <Typography gutterBottom variant="h6" component="h2">
-            {category.description}
+            {model}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {manufecturer.description}

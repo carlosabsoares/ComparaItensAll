@@ -10,7 +10,7 @@ export const createItem = async (data) => {
 };
 
 export const deleteItem = async (id) => {
-  await api.delete(`/v1/comparaItens/characteristicKey/delete?id=${id}`);
+  const a = await api.delete(`/v1/comparaItens/characteristicKey/delete?id=${id}`);
 };
 
 export const updateItem = async (data) => {
