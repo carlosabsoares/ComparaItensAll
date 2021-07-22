@@ -28,7 +28,7 @@ namespace ComparaItens.Api.Controllers
         /// <summary>Deleta categoria de produtos</summary>
         /// <returns>Retorna boolean indicando sucesso ou falha na operação</returns>
         [HttpDelete("characteristicKey/delete")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<GenericCommandResult> DeleteCharacteristic(
             //[FromBody] CategoryDeleteCommand command,

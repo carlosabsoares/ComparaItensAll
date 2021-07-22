@@ -57,7 +57,7 @@ namespace ComparaItens.Domain.Handlers
                             HttpStatusCode.BadRequest,
                             command.Notifications);
 
-            var _verify = await _characteristicKeyRepository.FindById(command.Id);
+            var _verify = await _characteristicKeyRepository.FindByIdTabela(command.Id);
 
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
@@ -88,7 +88,7 @@ namespace ComparaItens.Domain.Handlers
                             HttpStatusCode.BadRequest,
                             command.Notifications);
 
-            var _verify = await _characteristicKeyRepository.FindById(command.Id);
+            var _verify = await _characteristicKeyRepository.FindByIdTabela(command.Id);
 
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");

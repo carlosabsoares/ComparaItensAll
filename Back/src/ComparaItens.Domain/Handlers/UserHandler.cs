@@ -60,7 +60,8 @@ namespace ComparaItens.Domain.Handlers
             if (_verify == null)
                 return new GenericCommandResult(false, HttpStatusCode.NotFound, "Não localizado na base");
 
-            Manufacturer _entity = new Manufacturer(command.Id);
+            User _entity = new User();
+            _entity.Id = command.Id;
 
             var _result = await _cudRepository.Delete(_entity);
 
