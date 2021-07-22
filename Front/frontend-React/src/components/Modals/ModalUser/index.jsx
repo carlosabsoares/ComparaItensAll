@@ -1,5 +1,5 @@
 import React, { useState, forwardRef } from 'react';
-import { AppBar, Toolbar, Typography, TextField, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, TextField, Button, Checkbox, FormControlLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,6 +45,7 @@ const ModalUser = forwardRef(({ header, handleSubmit, item, handleClose, isCreat
   const [password, setPassword] = useState(item?.password || '');
   const [name, setName] = useState(item?.name || '');
   const [email, setEmail] = useState(item?.email || '');
+  const [role, setRole] = useState('User');
 
   return (
     <div className={classes.modalBox}>
@@ -92,6 +93,11 @@ const ModalUser = forwardRef(({ header, handleSubmit, item, handleClose, isCreat
           variant="outlined"
           size="small"
         />
+        <FormControlLabel
+          labelPlacement="start"
+          control={<Checkbox checked={role === "Administrator"} onChange={(e) => setRole(e.target.checked ? "Administrator" : "User" )} />}
+          label="Administrador"
+        />
         <Button
           type="button"
           variant="contained"
@@ -99,7 +105,7 @@ const ModalUser = forwardRef(({ header, handleSubmit, item, handleClose, isCreat
           color="primary"
           className={classes.button}
           onClick={async () => {
-            await handleSubmit(name, login, email, password);
+            await handleSubmit(name, login, email, password, role);
             handleClose();
           }}
         >

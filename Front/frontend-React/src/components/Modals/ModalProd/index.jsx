@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const newId = () => crypto.randomBytes(16).toString('hex');
-const ModalProdutos = forwardRef(({ header, handleSubmit, item = { characteristicDescriptions: [] }, handleClose }, _ref) => {
+const ModalProdutos = forwardRef(({ header, handleSubmit, item , handleClose }, _ref) => {
   const classes = useStyles();
   const [categories, setCategories] = useState([]);
   const [manufacturers, setManufacturers] = useState([]);
@@ -91,10 +91,12 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = { characteristi
   });
 
   useEffect(() => {
-    setCharacteristicsArray(item.characteristicDescriptions.map(it => ({
-      characteristic: { id: it.characteristics?.id, description: it.characteristics?.description },
-      description: { id: it.characteristicKeys?.id, description: it.characteristicKeys?.description }
-    })))
+    if (item?.characteristicDescriptions) {
+      setCharacteristicsArray(item?.characteristicDescriptions.map(it => ({
+        characteristic: { id: it.characteristics?.id, description: it.characteristics?.description },
+        description: { id: it.characteristicKeys?.id, description: it.characteristicKeys?.description }
+      })))
+    }
   }, [item]);
 
   useEffect(() => {
@@ -218,7 +220,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item = { characteristi
                     fullWidth
                     name="categoryId"
                     component={Select}
-                    label="Categorias"
+                    label="Categoria"
                     formControlProps={{ fullWidth: true }}
                   >
                     {categories?.map((category) => (

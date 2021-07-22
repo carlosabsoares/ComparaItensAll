@@ -59,7 +59,7 @@ export default function SignIn() {
     [dispatch],
   );
 
-  if (signedIn) return <Redirect to="/" />
+  if (signedIn) return <Redirect to="/home" />
 
   return (
     <Container component="main" maxWidth="sm">

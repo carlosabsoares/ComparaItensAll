@@ -58,6 +58,7 @@ export default function UserTable({ list, update, exclude, create, ModalBody }) 
               <TableCell align="right">Nome</TableCell>
               <TableCell align="right">Email</TableCell>
               <TableCell align="right">Login</TableCell>
+              <TableCell align="right">Perfil</TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
@@ -70,6 +71,7 @@ export default function UserTable({ list, update, exclude, create, ModalBody }) 
                 <TableCell align="right">{item.name}</TableCell>
                 <TableCell align="right">{item.email}</TableCell>
                 <TableCell align="right">{item.login}</TableCell>
+                <TableCell align="right">{item.role}</TableCell>
                 <TableCell align="right">
                   <EditIcon onClick={() => handleEditOpen(item)} />
                   <DeleteIcon onClick={() => exclude(item.id)} />
@@ -96,7 +98,7 @@ export default function UserTable({ list, update, exclude, create, ModalBody }) 
       >
         <ModalBody
           header="Criar"
-          handleSubmit={(name, login, email, password) => create({ name, login, email, password })}
+          handleSubmit={(name, login, email, password, role) => create({ name, login, email, password, role })}
           handleClose={handleCreateClose}
           isCreate
         />

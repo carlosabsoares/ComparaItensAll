@@ -13,7 +13,7 @@ import ModalItem from '../../components/Modals/ModalItem';
 import { findAllKeys, findByKey, findByParameter, findById } from '../../utils/produtos';
 import { findAll as findAllCategories } from '../../utils/categorias';
 import { findAll as findAllManufacturer } from '../../utils/fabricantes';
-import { findAll as findAllcharacteristics } from '../../utils/caracteristicas';
+import { findAll as findAllcharacteristics, findById as findCharacteristicById } from '../../utils/caracteristicas';
 
 const useStyles = makeStyles((theme) => ({
   gray: {
@@ -40,13 +40,18 @@ const Home = () => {
     setCategories(categoriesList);
     const manufacturersList = await findAllManufacturer();
     setManufacturers(manufacturersList);
-    const characteristicsList = await findAllcharacteristics();
-    setCharacteristics(characteristicsList);
-    const characteristicKeysList = await findAllKeys();
-    setCharacteristicKeys(characteristicKeysList);
+    // const characteristicsList = await findAllcharacteristics();
+    // setCharacteristics(characteristicsList);
+    // const characteristicKeysList = await findAllKeys();
+    // setCharacteristicKeys(characteristicKeysList);
     const itemsList = await findByParameter();
     setItem(itemsList);
   }, []);
+
+  const fetchCharacteristic = async (value) => {
+    const response = await findCharacteristicById(value);
+    setCharacteristics(response);
+  }; 
 
   const onSubmit = async (data) => {
     const response = await findByParameter(data);
@@ -76,25 +81,8 @@ const Home = () => {
         render={({ handleSubmit, form, submitting, pristine }) => (
           <form onSubmit={handleSubmit} noValidate>
             <Grid container alignItems="flex-start" spacing={2}>
-              <Grid item xs={6}>
-                <Field
-                  fullWidth
-                  name="categoryId"
-                  component={Select}
-                  label="Categoria"
-                  formControlProps={{ fullWidth: true }}
-                >
-                  <MenuItem value="" className={classes.gray}>
-                    Categoria
-                  </MenuItem>
-                  {categories?.map((category) => (
-                    <MenuItem key={category.id} value={category.id}>
-                      {category.description}
-                    </MenuItem>
-                  ))}
-                </Field>
-              </Grid>
-              <Grid item xs={6}>
+
+              <Grid item xs={3}>
                 <Field
                   fullWidth
                   name="manufacturerId"
@@ -112,69 +100,84 @@ const Home = () => {
                   ))}
                 </Field>
               </Grid>
-            </Grid>
-            <Grid container alignItems="flex-start" spacing={2}>
-              <Grid item xs={4}>
-                <Field
-                  fullWidth
-                  name="characteristicId"
-                  component={Select}
-                  label="Característica"
-                  formControlProps={{ fullWidth: true }}
-                >
-                  <MenuItem value="" className={classes.gray}>
-                    Característica
-                  </MenuItem>
-                  {characteristics?.map((characteristic) => (
-                    <MenuItem key={characteristic.id} value={characteristic.id}>
-                      {characteristic.description}
-                    </MenuItem>
-                  ))}
-                </Field>
-              </Grid>
-              <Grid item xs={4}>
-                <Field
-                  fullWidth
-                  name="key"
-                  component={Select}
-                  label="Item"
-                  formControlProps={{ fullWidth: true }}
-                >
-                  <MenuItem value="" className={classes.gray}>
-                    Item
-                  </MenuItem>
-
-                  {characteristicKeys?.map((characteristicKey) => (
+            
+              <Grid item xs={3}>
+                  <Field
+                    fullWidth
+                    name="categoryId"
+                    component={Select}
+                    label="Categorias"
+                    formControlProps={{ fullWidth: true }}
+                  >
                     <MenuItem
-                      key={characteristicKey}
-                      value={characteristicKey}
-                      onClick={() => fetchCharacteristicDescription(characteristicKey)}
-                    >
-                      {characteristicKey}
+                        value={''}
+                        onClick={() =>
+                          setCharacteristics([])
+                        }
+                      >
+                         
                     </MenuItem>
-                  ))}
-                </Field>
-              </Grid>
-              <Grid item xs={4}>
-                <Field
-                  fullWidth
-                  name="keyDescription"
-                  component={Select}
-                  label="Descrição"
-                  formControlProps={{ fullWidth: true }}
-                >
-                  <MenuItem value="" className={classes.gray}>
-                    Descrição
-                  </MenuItem>
-
-                  {characteristicDescriptions?.map((characteristicKey) => (
-                    <MenuItem key={characteristicKey.id} value={characteristicKey.id}>
-                      {characteristicKey.description}
+                    {categories?.map((category) => (
+                      <MenuItem
+                        key={category.id}
+                        value={category.id}
+                        onClick={() => fetchCharacteristic(category.id)}
+                      >
+                        {category.description}
+                      </MenuItem>
+                    ))}
+                  </Field>
+                </Grid>
+                <Grid item xs={3}>
+                  <Field
+                    fullWidth
+                    name="characteristicId"
+                    component={Select}
+                    label="Característica"
+                    formControlProps={{ fullWidth: true }}
+                    disabled={characteristics.length === 0}
+                  >
+                    <MenuItem
+                        value={''}
+                        onClick={() =>
+                          setCharacteristicDescriptions([])
+                        }
+                      >
+                         
                     </MenuItem>
-                  ))}
-                </Field>
-              </Grid>
+                    {characteristics?.map((characteristic) => (
+                      <MenuItem
+                        key={characteristic.id}
+                        value={characteristic.id}
+                        onClick={() =>
+                            fetchCharacteristicDescription(characteristic.id)
+                        }
+                      >
+                        {characteristic.description}
+                      </MenuItem>
+                    ))}
+                  </Field>
+                </Grid>
 
+                <Grid item xs={3}>
+                  <Field
+                    fullWidth
+                    name="characteristicKeyId2"
+                    component={Select}
+                    label="Descrição"
+                    formControlProps={{ fullWidth: true }}
+                    disabled={characteristicDescriptions.length === 0}
+                  >
+                    {characteristicDescriptions?.map((characteristicKey) => (
+                      <MenuItem
+                        key={characteristicKey.id}
+                        value={characteristicKey.id}
+                      >
+                        {characteristicKey.description}
+                      </MenuItem>
+                    ))}
+                  </Field>
+                </Grid>
               <Grid item>
                 <Button
                   type="button"
@@ -197,7 +200,7 @@ const Home = () => {
       <Grid container alignItems="flex-start" spacing={2}>
         {item?.map((item) => (
           <Grid item xs={3} key={item.id}>
-            <Card item={item} onClick={() => handleModalOpen(item.id)}/>
+            <Card item={item} onClick={() => handleModalOpen(item.id)} />
           </Grid>
         ))}
       </Grid>
