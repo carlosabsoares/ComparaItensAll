@@ -74,7 +74,7 @@ const Home = () => {
   };
 
   return (
-    <NavBar header="Home">
+    <NavBar header="Pesquisar">
       <CssBaseline />
       <Form
         onSubmit={onSubmit}
