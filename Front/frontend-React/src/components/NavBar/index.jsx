@@ -103,6 +103,7 @@ function NavBar(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar}>
+      {signedIn && (
         <List>
           <ListItem>
             <ListItemIcon>
@@ -111,6 +112,7 @@ function NavBar(props) {
             <ListItemText primary={user.login} />
           </ListItem>
         </List>
+      )}
       </div>
       <Divider />
       <List>
