@@ -20,7 +20,8 @@ import {
 import {
   AddShoppingCart as ProdutoIcon,
   CardGiftcard as CategoriaIcon,
-  Home as HomeIcon,
+  Search as SearchIcon,
+  Person as PersonIcon,
   Menu as MenuIcon,
   Face as UserIcon,
   StorageOutlined as CategoriaItemIcon,
@@ -87,6 +88,8 @@ function NavBar(props) {
     redirect: false,
   });
   const signedIn = useSelector((state) => state.loginReducer.signedIn);
+  const role = useSelector((state) => state.loginReducer.role)
+  const user = useSelector((state) => state.loginReducer.user)
   const dispatch = useDispatch();
 
   const handleDrawerToggle = () => {
@@ -99,7 +102,16 @@ function NavBar(props) {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
+      <div className={classes.toolbar}>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary={user.login} />
+          </ListItem>
+        </List>
+      </div>
       <Divider />
       <List>
         <ListItem
@@ -113,13 +125,13 @@ function NavBar(props) {
           }
         >
           <ListItemIcon>
-            <HomeIcon />
+            <SearchIcon />
           </ListItemIcon>
-          <ListItemText primary="Home" />
+          <ListItemText primary="Pesquisar" />
         </ListItem>
       </List>
       <Divider />
-      {signedIn && (
+      {signedIn && role === 'Administrator' && (
         <List>
           <ListItem
             button
@@ -198,8 +210,8 @@ function NavBar(props) {
           </ListItem>
         </List>
       )}
-      {signedIn &&<Divider />}
-      {signedIn && (
+      {signedIn && role === 'Administrator' && <Divider />}
+      {signedIn && role === 'Administrator' && (
         <List>
           <ListItem
             button

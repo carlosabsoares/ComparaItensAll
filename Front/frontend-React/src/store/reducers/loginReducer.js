@@ -3,6 +3,11 @@ import { SIGN_IN_REQUEST, LOGOUT_REQUEST } from '../actions/actionTypes';
 const initialState = {
   token: null,
   signedIn: false,
+  role: false,
+  user: {
+    login: '',
+    name: '',
+  },
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -10,8 +15,10 @@ const loginReducer = (state = initialState, action) => {
     case SIGN_IN_REQUEST:
       return {
         ...state,
-        token: action.payload,
+        token: action.token,
         signedIn: true,
+        role: action.role,
+        user: action.user,
       };
     case LOGOUT_REQUEST:
       return {

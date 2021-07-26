@@ -50,7 +50,7 @@ export default function SignIn() {
       try {
         const response = await handleLogin({ login, password });
         if (response.token) {
-          dispatch(signInRequest(response.token));
+          dispatch(signInRequest(response));
         }
       } catch (err) {
         console.log(err);
