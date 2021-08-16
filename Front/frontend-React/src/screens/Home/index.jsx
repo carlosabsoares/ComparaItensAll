@@ -117,7 +117,7 @@ const Home = () => {
                       >
                          
                     </MenuItem>
-                    {categories?.map((category) => (
+                    {categories?.sort((a,b) => a.description.localeCompare(b.description)).map((category) => (
                       <MenuItem
                         key={category.id}
                         value={category.id}
@@ -145,7 +145,7 @@ const Home = () => {
                       >
                          
                     </MenuItem>
-                    {characteristics?.map((characteristic) => (
+                    {characteristics?.sort((a,b) => a.description.localeCompare(b.description)).map((characteristic) => (
                       <MenuItem
                         key={characteristic.id}
                         value={characteristic.id}
@@ -168,7 +168,7 @@ const Home = () => {
                     formControlProps={{ fullWidth: true }}
                     disabled={characteristicDescriptions.length === 0}
                   >
-                    {characteristicDescriptions?.map((characteristicKey) => (
+                    {characteristicDescriptions?.sort((a,b) => a.description.localeCompare(b.description)).map((characteristicKey) => (
                       <MenuItem
                         key={characteristicKey.id}
                         value={characteristicKey.id}

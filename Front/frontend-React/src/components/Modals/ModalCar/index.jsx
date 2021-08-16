@@ -88,7 +88,7 @@ const ModalCar = forwardRef(({ header, handleSubmit, item, handleClose }, _ref) 
                     defaultValue={item?.categoryId || ''}
                     formControlProps={{ fullWidth: true }}
                   >
-                    {categories?.map((category) => (
+                    {categories?.sort((a,b) => a.description.localeCompare(b.description)).map((category) => (
                       <MenuItem key={category.id} value={category.id}>
                         {category.description}
                       </MenuItem>

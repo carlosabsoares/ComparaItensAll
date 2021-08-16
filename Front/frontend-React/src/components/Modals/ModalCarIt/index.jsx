@@ -70,7 +70,7 @@ const ModalCarIt = forwardRef(({ header, handleSubmit, item, handleClose }, _ref
       <AppBar position="relative" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            {`${header} Característica`}
+            {`${header} Característica Itens`}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -90,7 +90,7 @@ const ModalCarIt = forwardRef(({ header, handleSubmit, item, handleClose }, _ref
                     defaultValue={item?.characteristicId || ''}
                     formControlProps={{ fullWidth: true }}
                   >
-                    {characteristics?.map((characteristic) => (
+                    {characteristics?.sort((a,b) => a.description.localeCompare(b.description)).map((characteristic) => (
                       <MenuItem key={characteristic.id} value={characteristic.id}>
                         {characteristic.description}
                       </MenuItem>

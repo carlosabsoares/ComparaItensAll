@@ -187,7 +187,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item , handleClose }, 
                     label="Fabricante"
                     formControlProps={{ fullWidth: true }}
                   >
-                    {manufacturers?.map((manufacturer) => (
+                    {manufacturers?.sort((a,b) => a.description.localeCompare(b.description)).map((manufacturer) => (
                       <MenuItem key={manufacturer.id} value={manufacturer.id}>
                         {manufacturer.description}
                       </MenuItem>
@@ -223,7 +223,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item , handleClose }, 
                     label="Categoria"
                     formControlProps={{ fullWidth: true }}
                   >
-                    {categories?.map((category) => (
+                    {categories?.sort((a,b) => a.description.localeCompare(b.description)).map((category) => (
                       <MenuItem
                         key={category.id}
                         value={category.id}
@@ -243,7 +243,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item , handleClose }, 
                     formControlProps={{ fullWidth: true }}
                     disabled={characteristics.length === 0}
                   >
-                    {characteristics?.map((characteristic) => (
+                    {characteristics?.sort((a,b) => a.description.localeCompare(b.description)).map((characteristic) => (
                       <MenuItem
                         key={characteristic.id}
                         value={characteristic.id}
@@ -266,7 +266,7 @@ const ModalProdutos = forwardRef(({ header, handleSubmit, item , handleClose }, 
                     formControlProps={{ fullWidth: true }}
                     disabled={characteristicDescriptions.length === 0}
                   >
-                    {characteristicDescriptions?.map((characteristicKey) => (
+                    {characteristicDescriptions?.sort((a,b) => a.description.localeCompare(b.description)).map((characteristicKey) => (
                       <MenuItem
                         key={characteristicKey.id}
                         value={characteristicKey.id}
